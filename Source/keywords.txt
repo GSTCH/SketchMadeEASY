@@ -1,0 +1,14 @@
+# KEYWORD1: Keywords of classes and data types:
+ControlManager KEYWORD1
+DigitalIn KEYWORD1
+FixValue KEYWORD1
+Log KEYWORD1
+LogicCondition KEYWORD1
+Relation1to1 KEYWORD1
+
+# KEYWORD2: Keywords of public member functions of the classes: KEYWORD2
+Add KEYWORD2
+Loop KEYWORD2
+Setup KEYWORD2
+
+#LITERAL1: #defines that are relevant

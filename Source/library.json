@@ -1,0 +1,18 @@
+{
+	"name": "Sketch made Easy for Arduino",
+	"frameworks": "Arduino",
+	"keywords": "Arduino, Easy, Log",
+	"description": "Sketch made Easy for Arduino is a high-level abstraction of an Arduino. Instead of programming in bits and bytes, the control logic is configured by combining the classes.",
+	"authors": [
+		{
+			"name": "Hans Rothenbuehler",
+			"email": "hans.rothenbuehler@hispeed.ch",
+			"url": "",
+			"maintainer": true
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/GSTCH/Easy"
+	}
+}
