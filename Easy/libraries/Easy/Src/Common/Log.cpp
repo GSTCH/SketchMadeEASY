@@ -2,7 +2,7 @@
 //* Class Log - Implementation
 //*
 //*****************************************************************
-//* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
+//* Sketch made Easy for Arduino -  Arduino quick and easy
 //
 //* (C) written in 2023 by Hans Rothenbühler. All right reserved.
 //*

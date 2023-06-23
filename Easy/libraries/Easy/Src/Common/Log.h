@@ -20,7 +20,7 @@
 //*     #endif
 //*
 //*****************************************************************
-//* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
+//* Sketch made Easy for Arduino -  Arduino quick and easy
 //
 //* (C) written in 2023 by Hans Rothenbühler. All right reserved.
 //*
@@ -32,8 +32,8 @@
 //* the Free Software Foundation; either version 2 of the License, or
 //* (at your option) any later version.
 //*****************************************************************
-#ifndef Log_h
-#define Log_h
+#ifndef EasyLog_h
+#define EasyLog_h
 
 #include <stdio.h>
 

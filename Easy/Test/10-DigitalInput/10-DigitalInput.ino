@@ -1,7 +1,10 @@
 //*****************************************************************
-//* Test class for Log. This is a useful class for other sketch not
-//* using "Sketch made Easy for Arduino".
+//* Test for DigitalInput
 //* 
+//* Activate Log into ".\Common\BuildDefintion.h" 
+//*  --> uncomment "#define LOG" and "#define LOG_LOOP".
+//*
+//* Hint: Does not set debounce (works with default) 
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -19,26 +22,30 @@
 #include <Easy.h>
 #include <Arduino.h>
 
-int i = 0;
-#define LOG_BAURATE 9600
-void setup() {
-  // put your setup code here, to run once:
+#define DIGITALINPUT_PIN 7
 
-  // At first time you can choose the baud rate (Default/no parameter is 57600).
-  // Set the baud rate into the serial monitor of Arduino IDE
-  GetLog(LOG_BAURATE)->printf("Text without paramter");
-  GetLog()->printf("Test with parameter Int=%d, String=%s", i++, "Setup");
+void setup() {
+	
+//((*** Initialize: Configure your sketch here....
+#ifdef LOG_SETUP
+  GetLog()->printf("Setup DigitalInput Test");
+#endif
+
+  DigitalInput* digitalInput = new DigitalInput(DIGITALINPUT_PIN);
+// ***))
+
+  // Initialize control  
+  ControlManagerFactory::GetControlManager()->Setup();
 }
 
 void loop() {
-  delay(100);
-  // put your main code here, to run repeatedly:
-  GetLog()->printf("Test with parameter Int=%d, String=%s", i++, "Loop");
+  //*** Run: No additional code is required 
+  
+#ifdef LOG_LOOP_DEBUG
+  GetLog()->println("Loop");
+#endif
 
-  if (i == 100) {
-    GetLog()->enable(false);
-  }
-  if (i == 200) {
-    GetLog()->enable(true, LOG_BAURATE);
-  }
+ ControlManagerFactory::GetControlManager()->Loop();
+
+ delay(5);
 }

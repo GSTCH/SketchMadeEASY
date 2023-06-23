@@ -15,4 +15,38 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#include "Tool\Log.h"
+// Check this file e.g. to activate Logging, ...
+#include "Common\BuildDefinition.h"
+
+// Interals, direct included
+/*
+#include "Common\Types.h"
+#include "Kernel\ElementType.h"
+#include "Kernel\IdGenerator.h"
+#include "Kernel\Element.h"
+#include "Kernel\ControlManagerBase.h"
+#include "Kernel\ControlManager.h"
+#include "Kernel\ControlManagerFactory.h"
+#include "Kernel\Input.h"
+#include "Kernel\Action.h"
+#include "Kernel\Condition.h"
+#include "Kernel\Relation.h"
+#include "Kernel\RemoteInput.h"
+#include "Kernel\RemoteControl.h"
+#include "Common\ActionCollectionItem.h"
+*/
+
+#include "Common\Log.h"
+
+#include "Input\DigitalInput.h"
+#include "Input\Switch2Position.h"
+#include "Input\FixValue.h"
+#include "Input\VariableInput.h"
+
+#include "Action\DigitalOutput.h"
+#include "Action\ActionCollection.h"
+#include "Action\VariableOutput.h"
+
+#include "Relation\Relation1to1.h"
+
+#include "Condition\CompareCondition.h"

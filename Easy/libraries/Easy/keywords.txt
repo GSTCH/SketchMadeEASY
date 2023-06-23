@@ -1,5 +1,15 @@
 # KEYWORD1: Keywords of classes and data types:
 Log KEYWORD1
+DigitalInput KEYWORD1
+Switch2Position KEYWORD1
+FixValue KEYWORD1
+VariableOutput KEYWORD1
+DigitalOutput KEYWORD1
+ActionCollection KEYWORD1
+VariableOutput KEYWORD1
+Relation1to1 KEYWORD1
+CompareCondition KEYWORD1
+
 
 # KEYWORD2: Keywords of public member functions of the classes: KEYWORD2
 println KEYWORD2
