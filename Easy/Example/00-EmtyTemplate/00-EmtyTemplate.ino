@@ -1,12 +1,10 @@
 //*****************************************************************
-//* Example 04-BlinkingLed
+//* Example 00-EmptyTemplate
 //*
-//* Toggling LED (the most common hello world example with Arduino)
+//* Template with all code, you've only to configure the logic 
 //*
-//* Hardware:
-//* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
 //*****************************************************************
-//* Sketch made Easy for Arduino -  Arduino quick and easy
+//* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
 //* (C) written in 2023 by Hans Rothenbühler. All right reserved.
 //*
@@ -21,30 +19,13 @@
 
 #include <Easy.h>
 
-#define LOG
-#define LOG_LOOP
-
 //*****************************************************************
-#define TIMER_INTERVAL_MSEC 1500
-#define ONBOARD_LED_PIN 13
-#define LED_PIN 6
-
 void setup() {
   //((*** Initialize: Configure your sketch here....
-
-  // Input changes value periodically and toggles between High and Low.
-  Timer* timer = new Timer(TIMER_INTERVAL_MSEC, true);
-
-  // Create action. A DigitalOutput knows the value On and Off.
-  DigitalOutput* led = new DigitalOutput(LED_PIN);
-
-  // Define relation when timer value changes to High
-  CompareCondition* conditionLedOn = new CompareCondition(timer, OpEQ, Timer::High);
-  Relation1to1* relationLedOn = new Relation1to1(conditionLedOn, led, FixValue::On());
-
-  // Define relation when timer value changes to Low
-  CompareCondition* conditionLedOff = new CompareCondition(timer, OpEQ, Timer::Low);
-  Relation1to1* relationLedOff = new Relation1to1(conditionLedOff, led, FixValue::Off());
+  //  * TODO:
+  //  * - Define inputs
+  //  * - Define outputs
+  //  * - Define Logic (create conditions and relations) 
   // ***))
 
   // Initialize control
@@ -54,11 +35,6 @@ void setup() {
 //*****************************************************************
 void loop() {
   //*** Run: No additional code is required
-
-#ifdef LOG_LOOP_DEBUG
-  GetLog()->println("Loop");
-#endif
-
   ControlManagerFactory::GetControlManager()->Loop();
 
   // Depending on Arduino it needs a short delay. Do not add any other delays!

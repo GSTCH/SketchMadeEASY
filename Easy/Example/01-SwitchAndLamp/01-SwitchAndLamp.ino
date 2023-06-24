@@ -21,7 +21,7 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#include "Easy.h"
+#include <Easy.h>
 #define LOG 
 #define LOG_LOOP
 
