@@ -46,7 +46,7 @@ class Switch2Position : public Input
  #ifdef CREATE_ID_MANUALLY  
     Switch2Position (int aId, int aPosition1Pin, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTime);
 #endif	
-    Switch2Position (int aPosition1Pin, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTime = EASY_DEFAULT_DEBOUNCE_TIME_MILLI_SEC);
+    Switch2Position (int aPosition1Pin, ESwitchResistoreMode aSwitchResistoreMode = smPullDownInternal, int aDebounceTime = EASY_DEFAULT_DEBOUNCE_TIME_MILLI_SEC);
 	
     void Setup();
     void Loop();

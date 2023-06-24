@@ -1,14 +1,15 @@
 //*****************************************************************
-//* Example 01-SwitchAndLamp
+//* Example 03-DimmingLedWithSwitch
 //*
-//* Example of a combination of a DigitalInput and DigitalOutput.
-//* Shows a simple relation of an input to output.
+//* Example of a combination of a digital in, variable out combined
+//* with variable input for the action
 //*
-//*  Hardware:
+//* Hardware:
 //* - Switch with two Position (On/Off) on Pin 14(Pulldown internal, no Resistor needed)
 //* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
+//* - Potentiometer 10kOhm at Pin A0
 //*****************************************************************
-//* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
+//* Sketch made Easy for Arduino -  Arduino quick and easy
 //
 //* (C) written in 2023 by Hans Rothenbühler. All right reserved.
 //*
@@ -22,6 +23,7 @@
 //*****************************************************************
 
 #include "Easy.h"
+
 #define LOG 
 #define LOG_LOOP
 
@@ -29,24 +31,28 @@
 #define SWITCH_PIN 14
 #define LED_PIN 6
 #define ONBOARD_LED_PIN 13
+#define POTI_PIN A0
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
-  GetLog()->printf("Example 1 - Switch and lamp");
-#endif
 
   // Create input. A switch with two positions knows the value On and Off.
   Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
 
-  // Create action. A DigitalOutput knows the value On and Off.
-  DigitalOutput* led = new DigitalOutput(LED_PIN);
+  // Create action. 
+  // A variable output has a range of 0...255.
+  VariableOutput* led = new VariableOutput(LED_PIN);
 
-  // Define relation when switch is on
+  // Create input (as input for the action). 
+  // A variable input has a range of 0...1023. 
+  // It's autmatic mapped to the value range of the action.
+  VariableInput* poti = new VariableInput(POTI_PIN);
+
+  // Define relation when button is on
   CompareCondition* conditionSwitchOn = new CompareCondition(switchOnOff, OpEQ, Switch2Position::On);
-  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, FixValue::On());
+  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, poti);
 
-  // Define relation when switch is off
+  // Define relation when button is off
   CompareCondition* conditionSwitchOff = new CompareCondition(switchOnOff, OpEQ, Switch2Position::Off);
   Relation1to1* switchOffRelation = new Relation1to1(conditionSwitchOff, led, FixValue::Off());
   // ***))

@@ -31,11 +31,25 @@
  * LOG_SETUP      : Common information during startup
  * LOG_SETUP_DEBUG: Extended informations during startup, used to find bugs
  */  
+#ifndef LOG
 #define LOG 
+#endif
+
+#ifndef LOG_LOOP
 #define LOG_LOOP
+#endif
+
+//#ifndef LOG_LOOP_DEBUG
 //#define LOG_LOOP_DEBUG
+//#endif
+
+//#ifndef LOG_SETUP
 //#define LOG_SETUP
+//#endif
+
+//#ifndef LOG_SETUP_DEBUG
 //#define LOG_SETUP_DEBUG
+//#endif
 
 /*
  * Usually only one remote control is used. To save memory, only one 

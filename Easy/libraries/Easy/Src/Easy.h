@@ -42,6 +42,7 @@
 #include "Input\Switch2Position.h"
 #include "Input\FixValue.h"
 #include "Input\VariableInput.h"
+#include "Input\Timer.h"
 
 #include "Action\DigitalOutput.h"
 #include "Action\ActionCollection.h"

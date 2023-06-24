@@ -1,10 +1,11 @@
 //*****************************************************************
-//* Example02-DimmingLed
+//* Example 02-DimmingLed
 //*
-//* Use case for a dgital input and output.
+//* Use case for a variable input and variable output.
+//* Shows how to make the input value of an action variable. 
 //*
 //* Hardware:
-//* - LED with 220 Ohm on PWM-Pin 3
+//* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
 //* - Potentiometer 10kOhm at Pin A0
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
@@ -22,11 +23,14 @@
 
 #include <Easy.h>
 
+#define LOG 
+#define LOG_LOOP
+
+//*****************************************************************
 #define POTI_PIN A0
 #define LED_PIN 6
 #define ONBOARD_LED_PIN 13
 
-//***************************************************************************************************************
 void setup()
 {
     //((*** Initialize: Configure your sketch here....
@@ -34,7 +38,7 @@ void setup()
   GetLog()->printf("Example 2 - Dimming lamp");
 #endif
   
-  // Create output
+  // Create action
   VariableOutput* led = new VariableOutput(LED_PIN);
 
   // Create input (as input for the action)
@@ -48,7 +52,7 @@ void setup()
   ControlManagerFactory::GetControlManager()->Setup();
 }
 
-//***************************************************************************************************************
+//*****************************************************************
 void loop()
 {
   //*** Run: No additional code is required

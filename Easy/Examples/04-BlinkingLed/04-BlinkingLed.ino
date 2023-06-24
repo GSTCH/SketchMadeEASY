@@ -1,14 +1,12 @@
 //*****************************************************************
-//* Example 01-SwitchAndLamp
+//* Example 04-BlinkingLed
 //*
-//* Example of a combination of a DigitalInput and DigitalOutput.
-//* Shows a simple relation of an input to output.
+//* Toggling LED (the most common hello world example with Arduino)
 //*
-//*  Hardware:
-//* - Switch with two Position (On/Off) on Pin 14(Pulldown internal, no Resistor needed)
+//* Hardware:
 //* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
 //*****************************************************************
-//* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
+//* Sketch made Easy for Arduino -  Arduino quick and easy
 //
 //* (C) written in 2023 by Hans Rothenbühler. All right reserved.
 //*
@@ -22,33 +20,31 @@
 //*****************************************************************
 
 #include "Easy.h"
-#define LOG 
+
+#define LOG
 #define LOG_LOOP
 
 //*****************************************************************
-#define SWITCH_PIN 14
-#define LED_PIN 6
+#define TIMER_INTERVAL_MSEC 1500
 #define ONBOARD_LED_PIN 13
+#define LED_PIN 6
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
-  GetLog()->printf("Example 1 - Switch and lamp");
-#endif
 
-  // Create input. A switch with two positions knows the value On and Off.
-  Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
+  // Input changes value periodically and toggles between High and Low.
+  Timer* timer = new Timer(TIMER_INTERVAL_MSEC, true);
 
   // Create action. A DigitalOutput knows the value On and Off.
   DigitalOutput* led = new DigitalOutput(LED_PIN);
 
-  // Define relation when switch is on
-  CompareCondition* conditionSwitchOn = new CompareCondition(switchOnOff, OpEQ, Switch2Position::On);
-  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, FixValue::On());
+  // Define relation when timer value changes to High
+  CompareCondition* conditionLedOn = new CompareCondition(timer, OpEQ, Timer::High);
+  Relation1to1* relationLedOn = new Relation1to1(conditionLedOn, led, FixValue::On());
 
-  // Define relation when switch is off
-  CompareCondition* conditionSwitchOff = new CompareCondition(switchOnOff, OpEQ, Switch2Position::Off);
-  Relation1to1* switchOffRelation = new Relation1to1(conditionSwitchOff, led, FixValue::Off());
+  // Define relation when timer value changes to Low
+  CompareCondition* conditionLedOff = new CompareCondition(timer, OpEQ, Timer::Low);
+  Relation1to1* relationLedOff = new Relation1to1(conditionLedOff, led, FixValue::Off());
   // ***))
 
   // Initialize control
