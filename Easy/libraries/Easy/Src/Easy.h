@@ -38,16 +38,23 @@
 
 #include "Common\Log.h"
 
+// Phyisical inputs
 #include "Input\DigitalInput.h"
 #include "Input\Switch2Position.h"
-#include "Input\FixValue.h"
+#include "Input\Switch3Position.h"
 #include "Input\VariableInput.h"
+// Logic inputs
+#include "Input\FixValue.h"
 #include "Input\Timer.h"
 
+// Phyisical Actions
 #include "Action\DigitalOutput.h"
 #include "Action\ActionCollection.h"
 #include "Action\VariableOutput.h"
+// Logic Actions
 
+// Relations
 #include "Relation\Relation1to1.h"
 
+// Conditions
 #include "Condition\CompareCondition.h"

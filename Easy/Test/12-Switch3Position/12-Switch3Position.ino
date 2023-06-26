@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Test for Switch2Position (e.g. On/Off)
+//* Test for Switch3Position
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".
@@ -24,23 +24,25 @@
 #define LOG 
 #define LOG_LOOP
 
-
 //*****************************************************************
-// Parameter MainSwitch
-#define SWITCH_POS1 39
-#define SWITCHMODE smPullUpExternal
+// Parameter of Switch1
+//#define SWITCH_POS1 36
+//#define SWITCH_POS2 37
+//#define SWITCHMODE smPullUpExternal
 
 // Parameter of Switch2
-//#define SWITCH_POS1 40
-//#define SWITCHMODE smPullDownInternal
+#define SWITCH_POS1 40
+#define SWITCH_POS2 42
+#define SWITCHMODE smPullDownInternal
 
-void setup() {
+void setup()
+{
 //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
-  GetLog()->printf("Setup Switch2Position Test");
+#ifdef LOG
+  GetLog()->printf("Switch3Position Test");
 #endif
 
-  Switch2Position* switch2Pos = new Switch2Position(SWITCH_POS1, SWITCHMODE);
+  Switch3Position* switch3Pos = new Switch3Position(SWITCH_POS1, SWITCH_POS2, SWITCHMODE);
 // ***))
 
   // Initialize control
@@ -59,3 +61,4 @@ void loop() {
 
   delay(5);
 }
+

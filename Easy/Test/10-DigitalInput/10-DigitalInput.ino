@@ -21,7 +21,10 @@
 
 #include <Easy.h>
 #include <Arduino.h>
+#define LOG 
+#define LOG_LOOP
 
+//*****************************************************************
 #define DIGITALINPUT_PIN 7
 
 void setup() {
@@ -38,6 +41,7 @@ void setup() {
   ControlManagerFactory::GetControlManager()->Setup();
 }
 
+//*****************************************************************
 void loop() {
   //*** Run: No additional code is required 
   

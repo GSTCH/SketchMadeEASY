@@ -20,6 +20,8 @@
 #include <Arduino.h>
 
 int i = 0;
+
+//*****************************************************************
 #define LOG_BAURATE 9600
 void setup() {
   // put your setup code here, to run once:
@@ -30,6 +32,7 @@ void setup() {
   GetLog()->printf("Test with parameter Int=%d, String=%s", i++, "Setup");
 }
 
+//*****************************************************************
 void loop() {
   delay(100);
   // put your main code here, to run repeatedly:
