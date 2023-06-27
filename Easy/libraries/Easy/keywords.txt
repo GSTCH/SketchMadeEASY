@@ -11,6 +11,7 @@ JoystickAxis KEYWORD1
 FixValue KEYWORD1
 Timer KEYWORD1
 Inverter KEYWORD1
+IteratorValue KEYWORD1
 VariableOutput KEYWORD1
 DigitalOutput KEYWORD1
 ActuatorCollection KEYWORD1

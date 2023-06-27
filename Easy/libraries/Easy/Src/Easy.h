@@ -52,6 +52,7 @@
 #include "Input\FixValue.h"
 #include "Input\Inverter.h"
 #include "Input\Timer.h"
+#include "Input\IteratorValue.h"
 
 // Phyisical actuator
 #include "Actuator\DigitalOutput.h"
