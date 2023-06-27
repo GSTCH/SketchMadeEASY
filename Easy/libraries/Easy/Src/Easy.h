@@ -50,6 +50,7 @@
 #include "Input\JoystickAxis.h"
 // Logic inputs
 #include "Input\FixValue.h"
+#include "Input\Inverter.h"
 #include "Input\Timer.h"
 
 // Phyisical actuator
