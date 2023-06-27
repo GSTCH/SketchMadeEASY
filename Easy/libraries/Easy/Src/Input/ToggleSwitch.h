@@ -44,11 +44,18 @@ class ToggleSwitch : public Input
     unsigned long _ignoreChangeMillis; 
 
   public:
+    //*************************************
  #ifdef CREATE_ID_MANUALLY  
     ToggleSwitch (int aId, int aPosition1Pin, int aPosition2Pin, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTimeMSec);
 #endif	
+
+    //*************************************
     ToggleSwitch (int aPosition1Pin, int aPosition2Pin, ESwitchResistoreMode aSwitchResistoreMode = smPullDownInternal, int aDebounceTimeMSec = EASY_DEFAULT_DEBOUNCE_TIME_MILLI_SEC);
+	
+	//*************************************
     void Setup();
+	
+	//*************************************
     void Loop();
 
    static const int Pos2 = 1;
