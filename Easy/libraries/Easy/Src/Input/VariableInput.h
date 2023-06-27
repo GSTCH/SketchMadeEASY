@@ -3,7 +3,6 @@
 //*
 //* Represent an analog input pin
 //*
-//* 
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
