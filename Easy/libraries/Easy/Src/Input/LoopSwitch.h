@@ -18,11 +18,13 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#ifndef LoopButton_h
-#define LoopButton_h
+#ifndef EASY_LOOPSWITCH_H
+#define EASY_LOOPSWITCH_H
 
-#include <Easy.h>
-#include <Arduino.h>
+#include "..\Common\BuildDefinition.h" // has to be the first 
+#include "..\Common\Types.h"
+#include "..\Common\Log.h"
+#include "..\Kernel\Input.h"
 #define LOG 
 #define LOG_LOOP
 

@@ -45,6 +45,7 @@
 #include "Input\VariableInput.h"
 #include "Input\ToggleSwitch.h"
 #include "Input\LoopSwitch.h"
+#include "Input\MonoFlop.h"
 // Logic inputs
 #include "Input\FixValue.h"
 #include "Input\Timer.h"
