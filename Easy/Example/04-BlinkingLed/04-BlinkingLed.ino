@@ -35,7 +35,7 @@ void setup() {
   // Input changes value periodically and toggles between High and Low.
   Timer* timer = new Timer(TIMER_INTERVAL_MSEC, true);
 
-  // Create action. A DigitalOutput knows the value On and Off.
+  // Create actuator. A DigitalOutput knows the value On and Off.
   DigitalOutput* led = new DigitalOutput(LED_PIN);
 
   // Define relation when timer value changes to High

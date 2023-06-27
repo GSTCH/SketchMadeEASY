@@ -59,14 +59,14 @@ public:
   //*************************************
  #ifdef CREATE_ID_MANUALLY    
   Timer(int aId, unsigned long aIntervalMSec, bool aStartHigh, int aTimes)
-    : Input(aId, CreateElementId(EbtInput, EkiHelper, HELPER_TIMER_INDEX), 0, !0) {
+    : Input(aId, CreateElementId(EbtInput, EkiHelper, INHELPER_TIMER_INDEX), 0, !0) {
     init(aIntervalMSec, aStartHigh, aTimes);
   }
 #endif
 
   //*************************************
   Timer(unsigned long aIntervalMSec, bool aStartHigh, int aTimes = -1)
-    : Input(CreateElementId(EbtInput, EkiHelper, HELPER_TIMER_INDEX), 0, !0) {
+    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_TIMER_INDEX), 0, !0) {
     init(aIntervalMSec, aStartHigh, aTimes);
   }
 

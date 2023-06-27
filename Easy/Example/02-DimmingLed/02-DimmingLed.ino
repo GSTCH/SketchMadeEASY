@@ -2,7 +2,7 @@
 //* Example 02-DimmingLed
 //*
 //* Use case for a variable input and variable output.
-//* Shows how to make the input value of an action variable. 
+//* Shows how to make an actuator depending of the value an input.
 //*
 //* Hardware:
 //* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
@@ -38,10 +38,10 @@ void setup()
   GetLog()->printf("Example 2 - Dimming lamp");
 #endif
   
-  // Create action
+  // Create actuator
   VariableOutput* led = new VariableOutput(LED_PIN);
 
-  // Create input (as input for the action)
+  // Create input (as input for the actuator)
   VariableInput* poti = new VariableInput(POTI_PIN);
 
   // Define relation (condition NULL means "always true")

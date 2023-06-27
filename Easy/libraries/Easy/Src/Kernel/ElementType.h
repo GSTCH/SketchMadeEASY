@@ -41,12 +41,12 @@
 #define VIRTUAL_VALUE_INDEX 2
 
 // Indexes for EkiHelper
-#define HELPER_FIXVALUE_INDEX 1
-#define HELPER_INVERTER_INDEX 2
-#define HELPER_TIMER_INDEX 3
-#define HELPER_CALCULATE_INDEX 4
-#define HELPER_ITERATORVALUE_INDEX 5
-#define HELPER_INPUTSELECTEDVALUE_INDEX 6
+#define INHELPER_FIXVALUE_INDEX 1
+#define INHELPER_INVERTER_INDEX 2
+#define INHELPER_TIMER_INDEX 3
+#define INHELPER_CALCULATE_INDEX 4
+#define INHELPER_ITERATORVALUE_INDEX 5
+#define INHELPER_INPUTSELECTEDVALUE_INDEX 6
 
 // Indexes of EkiLogic
 #define LOGIC_CONDITIONINPUT_INDEX 1
@@ -54,11 +54,15 @@
 // Indexes of EkiSensor
 #define SENSTOR_ULTRASONICRANGEFINDER_INDEX 1
 
-// Indexes for EkaOutput
+// Indexes for EkoDigital
 #define DIGITAL_OUTPUT_INDEX 1
-#define ANALOG_OUTPUT_INDEX 2
+#define DIGITAL_JOYSTICK_CALIBRATE 2
 
-// Indexes for EkaMotor
+// Indexes for EkoAnalog
+#define ANALOG_OUTPUT_INDEX 1
+#define ANALOG_BUZZER_INDEX 2
+
+// Indexes for EkoMotor
 #define MOTOR_L298_INDEX 1
 #define MOTOR_L9110_INDEX 2
 #define MOTOR_I2C_INDEX 3
@@ -68,12 +72,12 @@
 #define MOTOR_SERVOI2C_INDEX 7
 #define MOTOR_STEPPERROTATE_INDEX 8
 
-// Indexes for EkaEncoderMotor
+// Indexes for EkoEncoderMotor
 #define ENCODERMOTOR_L298_INDEX 1
 #define ENCODERMOTOR_L9110_INDEX 2
 #define ENCODERMOTOR_I2C_INDEX 3
 
-// Indexes for EkaServo
+// Indexes for EkoServo
 #define SERVO_T1_INDEX 1
 #define SERVO_T2_INDEX 2
 #define SERVO_PWM_INDEX 3
@@ -81,14 +85,8 @@
 #define SERVO_STEPPERPOSITION_INDEX 5
 #define SERVO_STEPPERPOSITIONI2C_INDEX 6
 
-// Indexes of  EkaCalibrate
-#define CALIBRATE_JOYSTICK 1
-
-// Indexes of EkaSound
-#define BUZZER_INDEX 1
-
-// Indexes of EkaHelper
-#define  ACTIONCOLLECTION_INDEX 1
+// Indexes of EkoHelper
+#define OUTHELPER_ACTUATORCOLLECTION_INDEX 1
 
 // Indexes of EkcCondition
 #define CONDITION_COMPARE_INDEX 1
@@ -101,7 +99,7 @@
 
 enum EElementBaseType  {
   EbtInput = 0,
-  EbtAction = 1,
+  EbtActuator = 1,
   EbtRelation = 2,
   EbtCondition = 3,
 };
@@ -114,13 +112,12 @@ enum EElementKind {
   EkiLogic = 5,
   EkiSensor = 6,
   
-  EkaOutput = 1,
-  EkaMotor = 2,
-  EkaServo = 3,
-  EkaEncoderMotor = 4 ,
-  EkaCalibrate = 5,
-  EkaSound = 6,
-  EkaHelper=7,
+  EkaDigital = 1,
+  EkaAnalog = 2,
+  EkaMotor = 3,
+  EkaServo = 4,
+  EkaEncoderMotor = 5,
+  EkaHelper=6,
 
   EkrCompare = 1,
   EkrLogic = 2,

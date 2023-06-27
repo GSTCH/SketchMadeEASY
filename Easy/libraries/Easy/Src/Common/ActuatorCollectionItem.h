@@ -1,7 +1,7 @@
 //*****************************************************************
-//* Class ActionCollection - Header
+//* Class ActuatorCollection - Header
 //*
-//*  Helper class when a relation should act multiple actions.
+//*  Helper class when a relation should act multiple Actuators.
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
@@ -16,51 +16,51 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#ifndef EASY_ACTIONCOLLECTIONITEM_H
-#define EASY_ACTIONCOLLECTIONITEM_H
+#ifndef EASY_ACTUATORCOLLECTIONITEM_H
+#define EASY_ACTUATORCOLLECTIONITEM_H
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Common\Log.h"
-#include "..\Kernel\Action.h"
+#include "..\Kernel\Actuator.h"
 #include "..\Kernel\Input.h"
 
-class ActionCollectionItem
+class ActuatorCollectionItem
 {
-    Action* _action = NULL;
-    Input* _actionParameter = NULL;
+    Actuator* _Actuator = NULL;
+    Input* _ActuatorParameter = NULL;
 
   public:
     //*************************************
-    ActionCollectionItem(Action* aAction, Input* aActionParameter)
+    ActuatorCollectionItem(Actuator* aActuator, Input* aActuatorParameter)
     {
-      _action  = aAction;
-      _actionParameter = aActionParameter;
+      _Actuator  = aActuator;
+      _ActuatorParameter = aActuatorParameter;
     }
 
     //*************************************
     void Setup()
     {
-      _action->Setup();
+      _Actuator->Setup();
     }
 
     //*************************************
     void Loop()
     {
-      _action->Loop();
+      _Actuator->Loop();
     }
 
     //*************************************
     void Act()
     {
-      _action->Act(_actionParameter);
+      _Actuator->Act(_ActuatorParameter);
     }
 
     //*************************************
     bool ValueChanged()
     {
-      if (_actionParameter != NULL)
+      if (_ActuatorParameter != NULL)
       {
-        return _actionParameter->ValueChanged();
+        return _ActuatorParameter->ValueChanged();
       }
       return false;
     }

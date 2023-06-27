@@ -26,7 +26,7 @@ ControlManager::ControlManager()
   _conditions = new LinkedList<Condition*>();
   _logicInputs = new LinkedList<Input*>();
   _relations = new LinkedList<Relation*>();
-  _actions = new LinkedList<Action*>();
+  _actuators = new LinkedList<Actuator*>();
 
 #ifdef MULTI_REMOTECONTROL
   _remoteControls = new LinkedList<RemoteControl*>();
@@ -38,7 +38,7 @@ ControlManager::ControlManager()
 //*************************************
 void ControlManager::Setup() {
 #ifdef LOG_SETUP
-  GetLog()->printf("CM:S RI=%d, TI=%d, LI=%d, R=%d, A=%d", _realInputs->size(), _toolInputs->size(), _logicInputs->size(), _relations->size(), _actions->size());
+  GetLog()->printf("CM:S RI=%d, TI=%d, LI=%d, R=%d, A=%d", _realInputs->size(), _toolInputs->size(), _logicInputs->size(), _relations->size(), _actuators->size());
 #endif
 
 #ifdef LOG_SETUP_DEBUG
@@ -84,9 +84,9 @@ void ControlManager::Setup() {
 #ifdef LOG_SETUP_DEBUG
   GetLog()->println("CM:S A");
 #endif
-  for (int i = 0; i < _actions->size(); i++) {
-    Action* action = _actions->get(i);
-    action->Setup();
+  for (int i = 0; i < _actuators->size(); i++) {
+    Actuator* actuator = _actuators->get(i);
+    actuator->Setup();
   }
 
   // The  remote control logic can wait until the connection has been made.
@@ -159,9 +159,9 @@ void ControlManager::Loop() {
     relation->Loop();
   }
 
-  for (int i = 0; i < _actions->size(); ++i) {
-    Action* action = _actions->get(i);
-    action->Loop();
+  for (int i = 0; i < _actuators->size(); ++i) {
+    Actuator* actuator = _actuators->get(i);
+    actuator->Loop();
   }
 }
 
@@ -204,11 +204,11 @@ void ControlManager::Add(Relation* aRelation) {
 }
 
 //*************************************
-void ControlManager::Add(Action* aAction) {
+void ControlManager::Add(Actuator* aActuator) {
 #ifdef LOG_SETUP_DEBUG
-  GetLog()->printf("CM:+ A %d", aAction->GetId());
+  GetLog()->printf("CM:+ A %d", aActuator->GetId());
 #endif
-  _actions->add(aAction);
+  _actuators->add(aActuator);
 }
 
 //*************************************
@@ -273,8 +273,8 @@ Element* ControlManager::Get(int aId) {
     }
   }
 
-  for (int i = 0; i < _actions->size(); ++i) {
-    Action* elementAtPos = _actions->get(i);
+  for (int i = 0; i < _actuators->size(); ++i) {
+    Actuator* elementAtPos = _actuators->get(i);
     if (elementAtPos->GetId() == aId) {
       return elementAtPos;
     }

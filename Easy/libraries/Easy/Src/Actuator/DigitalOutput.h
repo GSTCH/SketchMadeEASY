@@ -20,10 +20,10 @@
 #define EASY_DIGITALOUTPUT_H
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
-#include "..\Kernel\Action.h"
+#include "..\Kernel\Actuator.h"
 #include "..\Kernel\Input.h"
 
-class DigitalOutput : public Action
+class DigitalOutput : public Actuator
 {
   private:
     //*************************************
@@ -43,14 +43,14 @@ class DigitalOutput : public Action
   public:
     //*************************************
 #ifdef CREATE_ID_MANUALLY 	
-    DigitalOutput (int aId, int aPin) : Action(aId, CreateElementId(EbtAction, EkaOutput, DIGITAL_OUTPUT_INDEX))
+    DigitalOutput (int aId, int aPin) : Actuator(aId, CreateElementId(EbtActuator, EkaDigital, DIGITAL_OUTPUT_INDEX))
     {
       Init(aPin);
     }
 #endif
 
     //*************************************
-    DigitalOutput(int aPin) : Action(CreateElementId(EbtAction, EkaOutput, DIGITAL_OUTPUT_INDEX))
+    DigitalOutput(int aPin) : Actuator(CreateElementId(EbtActuator, EkaDigital, DIGITAL_OUTPUT_INDEX))
     {
       Init(aPin);
     }

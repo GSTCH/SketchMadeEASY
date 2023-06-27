@@ -28,12 +28,12 @@
 #include "Kernel\ControlManager.h"
 #include "Kernel\ControlManagerFactory.h"
 #include "Kernel\Input.h"
-#include "Kernel\Action.h"
+#include "Kernel\Actuator.h"
 #include "Kernel\Condition.h"
 #include "Kernel\Relation.h"
 #include "Kernel\RemoteInput.h"
 #include "Kernel\RemoteControl.h"
-#include "Common\ActionCollectionItem.h"
+#include "Common\ActuatorCollectionItem.h"
 */
 
 #include "Common\Log.h"
@@ -47,11 +47,11 @@
 #include "Input\FixValue.h"
 #include "Input\Timer.h"
 
-// Phyisical Actions
-#include "Action\DigitalOutput.h"
-#include "Action\ActionCollection.h"
-#include "Action\VariableOutput.h"
-// Logic Actions
+// Phyisical actuator
+#include "Actuator\DigitalOutput.h"
+#include "Actuator\VariableOutput.h"
+// Logic actuator
+#include "Actuator\ActuatorCollection.h"
 
 // Relations
 #include "Relation\Relation1to1.h"

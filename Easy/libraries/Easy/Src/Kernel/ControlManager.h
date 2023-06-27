@@ -30,7 +30,7 @@
 #include "Relation.h"
 #include "Condition.h"
 #include "Input.h"
-#include "Action.h"
+#include "Actuator.h"
 #include "ControlManagerBase.h"
 
 class ControlManager : public ControlManagerBase {
@@ -40,7 +40,7 @@ protected:
   LinkedList<Condition*>* _conditions;
   LinkedList<Input*>* _logicInputs;
   LinkedList<Relation*>* _relations;
-  LinkedList<Action*>* _actions;
+  LinkedList<Actuator*>* _actuators;
 #ifdef MULTI_REMOTECONTROL
   LinkedList<RemoteControl*>* _remoteControls;
 #else
@@ -54,7 +54,7 @@ public:
   void Loop();
   void Add(Relation* aRelation);
   void Add(Input* aInput);
-  void Add(Action* aAction);
+  void Add(Actuator* aActuator);
   void Add(Condition* aCondition);
   void Set(RemoteControl* aRemoteControl);
 };

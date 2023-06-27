@@ -2,7 +2,7 @@
 //* Example 01-SwitchAndLamp
 //*
 //* Example of a combination of a DigitalInput and DigitalOutput.
-//* Shows a simple relation of an input to output.
+//* Shows a simple relation of an input to an actuator.
 //*
 //*  Hardware:
 //* - Switch with two Position (On/Off) on Pin 14(Pulldown internal, no Resistor needed)
@@ -39,7 +39,7 @@ void setup() {
   // Create input. A switch with two positions knows the value On and Off.
   Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
 
-  // Create action. A DigitalOutput knows the value On and Off.
+  // Create actuator. A DigitalOutput knows the value On and Off.
   DigitalOutput* led = new DigitalOutput(LED_PIN);
 
   // Define relation when switch is on

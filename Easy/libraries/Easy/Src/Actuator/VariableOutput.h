@@ -21,7 +21,7 @@
 #define EASY_VARIABLEOUTPUT_H
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
-#include "..\Kernel\Action.h"
+#include "..\Kernel\Actuator.h"
 #include "..\Kernel\Input.h"
 
 #define ON 1
@@ -30,7 +30,7 @@
 #define DIGITALOUTPUT_MINVALUE 0
 #define DIGITALOUTPUT_MAXVALUE 255
 
-class VariableOutput : public Action
+class VariableOutput : public Actuator
 {
   private:
     //*************************************
@@ -50,14 +50,14 @@ class VariableOutput : public Action
   public:
     //*************************************
 #ifdef CREATE_ID_MANUALLY 	
-    VariableOutput (int aId, int aPwmPin) : Action(aId, CreateElementId(EbtAction, EkaOutput, ANALOG_OUTPUT_INDEX))
+    VariableOutput (int aId, int aPwmPin) : Actuator(aId, CreateElementId(EbtActuator, EkaAnalog, ANALOG_OUTPUT_INDEX))
     {
       Init(aPwmPin);
     }
 #endif
 
     //*************************************
-    VariableOutput (int aPwmPin) : Action(CreateElementId(EbtAction, EkaOutput, ANALOG_OUTPUT_INDEX))
+    VariableOutput (int aPwmPin) : Actuator(CreateElementId(EbtActuator, EkaAnalog, ANALOG_OUTPUT_INDEX))
     {
       Init(aPwmPin);
     }

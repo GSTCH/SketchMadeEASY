@@ -23,7 +23,7 @@
 
 // Prefent circular references/includes and define only the class as a type
 class Input;
-class Action;
+class Actuator;
 class Relation;
 class Condition;
 class RemoteControl;
@@ -36,7 +36,7 @@ class ControlManagerBase
     virtual void Loop() {}
     virtual void Add(Relation* aRelation) {}
     virtual void Add(Input* aInput) {}
-    virtual void Add(Action* aAction) {}
+    virtual void Add(Actuator* aActuator) {}
     virtual void Add(Condition *aCondition) {}
     virtual void Set(RemoteControl* aRemoteControl ) {}
 };

@@ -1,8 +1,8 @@
 //*****************************************************************
 //* Class Relation1to1 - Header
 //*
-//* Relation between input and action. Execute action, when condition is true.
-//* A NULL Condition is allways true.
+//* Relation between input and actuator. Calls act of actuator, when 
+//* condition is true. A NULL Condition is allways true.
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
@@ -23,44 +23,44 @@
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Common\Log.h"
 #include "..\Kernel\Relation.h"
-#include "..\Kernel\Action.h"
+#include "..\Kernel\Actuator.h"
 #include "..\Kernel\Condition.h"
 #include "..\Kernel\Input.h"
-#include "..\Common\ActionCollectionItem.h"
+#include "..\Common\ActuatorCollectionItem.h"
 
 class Relation1to1 : public Relation
 {
   private:
-    void init(Condition* aCondition, Action* aAction, Input* aActionParameter)
+    void init(Condition* aCondition, Actuator* aActuator, Input* aActionParameter)
     {
 #ifdef LOG_SETUP
-      GetLog()->printf("R1(%d):C AcId=%d", _id, aAction->GetId());
+      GetLog()->printf("R1(%d):C AcId=%d", _id, aActuator->GetId());
 #endif
       _itemCount = 1;
-      _actionItems = new ActionCollectionItem*[_itemCount];
-      _actionItems[0] = new ActionCollectionItem(aAction, aActionParameter);
+      _actionItems = new ActuatorCollectionItem*[_itemCount];
+      _actionItems[0] = new ActuatorCollectionItem(aActuator, aActionParameter);
     }
   protected:
-    ActionCollectionItem** _actionItems = NULL;
+    ActuatorCollectionItem** _actionItems = NULL;
     int _itemCount = 0;
 
   public:
     //*************************************
 #ifdef CREATE_ID_MANUALLY	
-    Relation1to1(int aId, Condition* aCondition, Action* aAction, Input* aActionParameter)  : Relation(aId, CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
+    Relation1to1(int aId, Condition* aCondition, Actuator* aActuator, Input* aActionParameter)  : Relation(aId, CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
     {
-      init(aCondition, aAction, aActionParameter);
+      init(aCondition, aActuator, aActionParameter);
     }
 #endif
 
     //*************************************
-    Relation1to1(Condition* aCondition, Action* aAction, Input* aActionParameter)  : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
+    Relation1to1(Condition* aCondition, Actuator* aActuator, Input* aActionParameter)  : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
     {
-      init(aCondition, aAction, aActionParameter);
+      init(aCondition, aActuator, aActionParameter);
     }
 
     //*************************************
-    Relation1to1(Condition* aCondition, ActionCollectionItem** aActionItems, int aItemCount)  : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
+    Relation1to1(Condition* aCondition, ActuatorCollectionItem** aActionItems, int aItemCount)  : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
     {
       _itemCount = aItemCount;
       _actionItems = aActionItems;

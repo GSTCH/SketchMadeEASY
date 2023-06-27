@@ -42,23 +42,23 @@ private:
 public:
 #ifdef CREATE_ID_MANUALLY	
   FixValue(int aId, int aConstant)
-    : Input(aId, CreateElementId(EbtInput, EkiHelper, HELPER_FIXVALUE_INDEX), aConstant, aConstant) {
+    : Input(aId, CreateElementId(EbtInput, EkiHelper, INHELPER_FIXVALUE_INDEX), aConstant, aConstant) {
     init(aConstant);
   }
   
   FixValue(int aId, int aConstant, int aMinValue, int aMaxValue)
-    : Input(aId, CreateElementId(EbtInput, EkiHelper, HELPER_FIXVALUE_INDEX), aMinValue, aMaxValue) {
+    : Input(aId, CreateElementId(EbtInput, EkiHelper, INHELPER_FIXVALUE_INDEX), aMinValue, aMaxValue) {
     init(aConstant);
   }
 #endif
 
   FixValue(int aConstant)
-    : Input(CreateElementId(EbtInput, EkiHelper, HELPER_FIXVALUE_INDEX), aConstant, aConstant) {
+    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_FIXVALUE_INDEX), aConstant, aConstant) {
     init(aConstant);
   }
   
   FixValue(int aConstant, int aMinValue, int aMaxValue)
-    : Input(CreateElementId(EbtInput, EkiHelper, HELPER_FIXVALUE_INDEX), aMinValue, aMaxValue) {
+    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_FIXVALUE_INDEX), aMinValue, aMaxValue) {
     init(aConstant);
   }
 

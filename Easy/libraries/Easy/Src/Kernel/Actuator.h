@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Class Action - Header
+//* Class Actuator - Header
 //*
 //* Internal base class
 //*****************************************************************
@@ -16,8 +16,8 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#ifndef EASY_ACTION_H
-#define EASY_ACTION_H
+#ifndef EASY_ACTUATOR_H
+#define EASY_ACTUATOR_H
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Common\Log.h"
@@ -27,21 +27,21 @@
 
 class Input;
 
-class Action : public Element
+class Actuator : public Element
 {
   protected:
 
   public:
     //*************************************
 #ifdef CREATE_ID_MANUALLY
-    Action(int aId, struct SElementType aElementType) : Element(aId, aElementType)
+    Actuator(int aId, struct SElementType aElementType) : Element(aId, aElementType)
     {
       ControlManagerFactory::GetControlManager()->Add(this);
     }
 #endif
 
     //*************************************
-    Action(struct SElementType aElementType) : Element(aElementType)
+    Actuator(struct SElementType aElementType) : Element(aElementType)
     {
       ControlManagerFactory::GetControlManager()->Add(this);
     }

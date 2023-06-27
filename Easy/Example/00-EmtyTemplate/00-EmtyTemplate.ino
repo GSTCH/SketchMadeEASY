@@ -24,7 +24,7 @@ void setup() {
   //((*** Initialize: Configure your sketch here....
   //  * TODO:
   //  * - Define inputs
-  //  * - Define outputs
+  //  * - Define actuators
   //  * - Define Logic (create conditions and relations) 
   // ***))
 

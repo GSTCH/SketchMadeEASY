@@ -1,8 +1,9 @@
 //*****************************************************************
 //* Example 03-DimmingLedWithSwitch
 //*
-//* Example of a combination of a digital in, variable out combined
-//* with variable input for the action
+//* Example of a combination of a switch with two positions  
+//* and a variable output. The lamp lights depending of switch
+//* on/off and the amount of the analog value.
 //*
 //* Hardware:
 //* - Switch with two Position (On/Off) on Pin 14(Pulldown internal, no Resistor needed)
@@ -39,13 +40,13 @@ void setup() {
   // Create input. A switch with two positions knows the value On and Off.
   Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
 
-  // Create action. 
+  // Create actuator. 
   // A variable output has a range of 0...255.
   VariableOutput* led = new VariableOutput(LED_PIN);
 
-  // Create input (as input for the action). 
+  // Create input (as input for the actuator). 
   // A variable input has a range of 0...1023. 
-  // It's autmatic mapped to the value range of the action.
+  // It's autmatic mapped to the value range of the variable output.
   VariableInput* poti = new VariableInput(POTI_PIN);
 
   // Define relation when button is on
