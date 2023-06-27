@@ -52,7 +52,7 @@ void Switch2Position::Init(int aPosition1Pin, ESwitchResistoreMode aSwitchResist
     switchValue[Pos0] = HIGH;
   } else {
     // PullDown
-    switchValue[Pos1] = LOW;
+    switchValue[Pos1] = HIGH;
   }
 
   _lastValue = IMPOSIBLE_VALUE_TO_INIT_SWITCH2POSITION;

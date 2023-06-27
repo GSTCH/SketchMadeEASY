@@ -9,6 +9,7 @@ ActuatorCollection KEYWORD1
 VariableOutput KEYWORD1
 Relation1to1 KEYWORD1
 CompareCondition KEYWORD1
+ToggleSwitch KEYWORD1
 
 
 # KEYWORD2: Keywords of public member functions of the classes: KEYWORD2

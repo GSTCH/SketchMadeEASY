@@ -43,6 +43,7 @@
 #include "Input\Switch2Position.h"
 #include "Input\Switch3Position.h"
 #include "Input\VariableInput.h"
+#include "Input\ToggleSwitch.h"
 // Logic inputs
 #include "Input\FixValue.h"
 #include "Input\Timer.h"

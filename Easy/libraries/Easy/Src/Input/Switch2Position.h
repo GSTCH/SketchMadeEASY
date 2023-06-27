@@ -39,8 +39,8 @@ class Switch2Position : public Input
     void Init(int aPosition1Pin, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTime);
   protected:
     int _position1Pin;  // ReadyOnly
-    ESwitchResistoreMode _switchResistoreMode;  // ReadyOnly
 	int _debounceTime; // ReadyOnly
+    ESwitchResistoreMode _switchResistoreMode;  // ReadyOnly
     byte switchValue[2] {LOW, LOW}; // ReadyOnly
 
     unsigned long _ignoreChangeMillis;
