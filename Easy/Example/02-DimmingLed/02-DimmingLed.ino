@@ -21,8 +21,6 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#define LOG 
-#define LOG_LOOP
 #include <Easy.h>
 
 //*****************************************************************
@@ -55,11 +53,6 @@ void setup()
 void loop()
 {
   //*** Run: No additional code is required
-
-#ifdef LOG_LOOP_DEBUG
-  GetLog()->println("Loop");
-#endif
-
   ControlManagerFactory::GetControlManager()->Loop();
 
   // Depending on Arduino it needs a short delay. Do not add any other delays!

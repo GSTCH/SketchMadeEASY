@@ -21,8 +21,6 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#define LOG 
-#define LOG_LOOP
 #include <Easy.h>
 
 //*****************************************************************
@@ -32,10 +30,6 @@
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
-  GetLog()->printf("Example 1 - Switch and lamp");
-#endif
-
   // Create input. A switch with two positions knows the value On and Off.
   Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
 
@@ -58,11 +52,6 @@ void setup() {
 //*****************************************************************
 void loop() {
   //*** Run: No additional code is required
-
-#ifdef LOG_LOOP_DEBUG
-  GetLog()->println("Loop");
-#endif
-
   ControlManagerFactory::GetControlManager()->Loop();
 
   // Depending on Arduino it needs a short delay. Do not add any other delays!
