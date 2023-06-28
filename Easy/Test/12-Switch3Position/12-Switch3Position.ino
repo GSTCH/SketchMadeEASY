@@ -19,10 +19,9 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#include <Easy.h>
-#include <Arduino.h>
 #define LOG 
 #define LOG_LOOP
+#include <Easy.h>
 
 //*****************************************************************
 // Parameter of Switch1

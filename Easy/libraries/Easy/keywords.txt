@@ -14,6 +14,14 @@ Inverter KEYWORD1
 IteratorValue KEYWORD1
 VariableOutput KEYWORD1
 DigitalOutput KEYWORD1
+MotorI2C KEYWORD1
+MotorL298 KEYWORD1
+MotorServo360I2C KEYWORD1
+MotorServo360Pwm KEYWORD1
+MotorServo360T1 KEYWORD1
+MotorServo360T2 KEYWORD1
+MotorStepperRotate KEYWORD1
+MotorStepperRotateI2C KEYWORD1
 ActuatorCollection KEYWORD1
 Relation1to1 KEYWORD1
 CompareCondition KEYWORD1
@@ -25,3 +33,6 @@ enable KEYWORD2
 enabled KEYWORD2
 
 #LITERAL1: #defines that are relevant
+LOG LITERAL1
+LOG_LOOP LITERAL1
+LOG_SETUP LITERAL1

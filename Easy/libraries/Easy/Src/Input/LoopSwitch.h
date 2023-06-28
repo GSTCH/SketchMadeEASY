@@ -25,8 +25,7 @@
 #include "..\Common\Types.h"
 #include "..\Common\Log.h"
 #include "..\Kernel\Input.h"
-#define LOG 
-#define LOG_LOOP
+
 
 //*****************************************************************
 

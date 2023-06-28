@@ -31,9 +31,6 @@
 #include "..\Common\Types.h"
 #include "..\Common\Log.h"
 #include "..\Kernel\Input.h"
-#define LOG 
-#define LOG_LOOP
-
 
 enum MonoflopState { mfStateLow=0, mfStateLowTimerRun=1,mfStateLowTimerEnd=2, mfStateHigh=3, mfStateHighTimerRun=4, mfStateHighTimerEnd=5 };  
 

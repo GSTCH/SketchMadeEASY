@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Test for a mono flops
+// Test for a 360 servo controilles by a Adafruit servo shield (I2C)
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".
@@ -21,24 +21,24 @@
 #define LOG_LOOP
 #include <Easy.h>
 
-//*****************************************************************
-// Parameter switch
-#define MONOFLOP_PIN 7
-#define MONOFLOP_HIGH_DELAY_MS 2000
-#define MONOFLOP_HIGH_LOW_MS 500
-#define MONOFLOP_STARTIMPULSE false
+//***************************************************************************************************************
+// Parameter Motor
+#define SERVO_NUMBER 15
+#define MOTOR_SPEED_STEPWIDTH 10
+#define STEPWIDTH_MSEC 1000
 
 void setup()
 {
-  //((*** Initialize: Configure your sketch here....
+    //((*** Initialize: Configure your sketch here....
 #ifdef LOG
-  GetLog()->printf("MonoFlop Test");
+  GetLog()->printf("Adafruit Servo Shield, Servo360 Test");
 #endif
 
-  // Create input monoflop.
-  // MonoFlop has a defined duration of the signal. The duration of high and low can be configured when create.
-  // Values: 0=Low, 1=LowTimerRuns, 2=LowTimerEnd, 3=High, 4=High timer runs, 5=High timer end.
- MonoFlop* monoflop = new MonoFlop(MONOFLOP_PIN, MONOFLOP_HIGH_DELAY_MS, MONOFLOP_HIGH_LOW_MS, MONOFLOP_STARTIMPULSE);
+  // Create actuator motor (motor 1 with board default address)
+  MotorServo360I2C* motor = new MotorServo360I2C(SERVO_NUMBER);
+
+  IteratorValue* iteratorValue = new IteratorValue(-motor->getMaxSpeed(), motor->getMaxSpeed(), MOTOR_SPEED_STEPWIDTH, STEPWIDTH_MSEC, cmMin2Max2Min);
+  Relation1to1* relationServoOff = new Relation1to1(NULL, motor, iteratorValue);
 // ***))
 
   // Initialize control

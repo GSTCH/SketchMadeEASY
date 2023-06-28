@@ -70,7 +70,7 @@ void JoystickAxis::Loop()
   _lastValue = _currentValue;
 
   int readValue = analogRead(_analogPin);
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
   GetLog()->printf("JA(%d):L Vl=%d", _id, readValue);
 #endif
 
@@ -86,14 +86,14 @@ void JoystickAxis::Loop()
       _currentPos = readValue;
       if (_switchDirection)
       {
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
         GetLog()->printf("JA(%d):L Mp1=%d [%d, %d][%d, %d]", _id, _currentPos - _centerPos, 0, _maxPos - _centerPos, 0, MAX_AXIS_VALUE);
 #endif
         _currentValue = -map(_currentPos - _centerPos, 0, _maxPos - _centerPos, 0, MAX_AXIS_VALUE );
       }
       else
       {
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
         GetLog()->printf("JA(%d):L Mp2=%d [%d, %d][%d, %d]", _id, _currentPos - _centerPos, 0, _maxPos - _centerPos, 0, MAX_AXIS_VALUE);
 #endif
         _currentValue = map(_currentPos - _centerPos, 0, _maxPos - _centerPos, 0, MAX_AXIS_VALUE );
@@ -104,14 +104,14 @@ void JoystickAxis::Loop()
       _currentPos = readValue;
       if (_switchDirection)
       {
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
         GetLog()->printf("JA(%d):L Mp3=%d [%d, %d][%d, %d]", _id, _centerPos - _currentPos, 0, _centerPos, 0, MAX_AXIS_VALUE);
 #endif
         _currentValue = map(_centerPos - _currentPos, 0, _centerPos, 0, MAX_AXIS_VALUE );
       }
       else
       {
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
         GetLog()->printf("JA(%d):L Mp4=%d [%d, %d][%d, %d]", _centerPos - _currentPos, 0, _centerPos, 0, MAX_AXIS_VALUE);
 #endif
         _currentValue = -map(_centerPos - _currentPos, 0, _centerPos, 0, MAX_AXIS_VALUE );
@@ -138,13 +138,13 @@ void JoystickAxis::Loop()
       }
     }
 
-#ifdef LOG
+#ifdef LOG_LOOP
     GetLog()->printf("JA(%d):L Vl=%d consider (CPs=%d, LPs=%d)", _id, _currentValue, _currentPos, _lastPos);
 #endif
   }
   else
   {
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("JA(%d):L LVl=%d, Vl=%d ignored", _id, _lastValue, readValue);
 #endif
   }
@@ -171,7 +171,7 @@ void JoystickAxis::calibrateCentre()
 {
   _centerPos = Calibrate();
 
-#ifdef LOG
+#ifdef LOG_SETUP
   GetLog()->printf("JA(%d):Ca Ctr=%d", _id, _centerPos);
 #endif
 
@@ -182,7 +182,7 @@ void JoystickAxis::calibrateMax()
 {
   _maxPos = Calibrate();
 
-#ifdef LOG
+#ifdef LOG_SETUP
   GetLog()->printf("JA(%d):Ca Max=%d", _id, _maxPos);
 #endif
 }
@@ -192,7 +192,7 @@ void JoystickAxis::calibrateMin()
 {
   _minPos = Calibrate();
 
-#ifdef LOG
+#ifdef LOG_SETUP
   GetLog()->printf("JA(%d):Ca Min=%d", _id, _minPos);
 #endif
 }

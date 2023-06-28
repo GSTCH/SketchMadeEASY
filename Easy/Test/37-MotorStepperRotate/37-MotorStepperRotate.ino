@@ -1,5 +1,6 @@
 //*****************************************************************
-//* Test for a mono flops
+// Test for a stepper motor with controlled revolution speed.  
+//* It uses any H-brige shield like L9110, ULN2003, ... (and many other)
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".
@@ -21,24 +22,33 @@
 #define LOG_LOOP
 #include <Easy.h>
 
-//*****************************************************************
-// Parameter switch
-#define MONOFLOP_PIN 7
-#define MONOFLOP_HIGH_DELAY_MS 2000
-#define MONOFLOP_HIGH_LOW_MS 500
-#define MONOFLOP_STARTIMPULSE false
+//***************************************************************************************************************
+// Parameter Motor
+#define STEPPER_PIN1 8
+#define STEPPER_PIN2 9
+#define STEPPER_PIN3 10
+#define STEPPER_PIN4 11
+
+// Stepper motor:  28BYJ-48
+#define STEPS_PER_ROTATION 32
+#define GEAR_RATIO 64
+#define STEPPER_RESOLUTION STEPS_PER_ROTATION * GEAR_RATIO
+
+#define MOTOR_SPEED_STEPWIDTH 10
+#define STEPWIDTH_MSEC 1000
 
 void setup()
 {
-  //((*** Initialize: Configure your sketch here....
+    //((*** Initialize: Configure your sketch here....
 #ifdef LOG
-  GetLog()->printf("MonoFlop Test");
+  GetLog()->printf("Stepper rotate motor test");
 #endif
 
-  // Create input monoflop.
-  // MonoFlop has a defined duration of the signal. The duration of high and low can be configured when create.
-  // Values: 0=Low, 1=LowTimerRuns, 2=LowTimerEnd, 3=High, 4=High timer runs, 5=High timer end.
- MonoFlop* monoflop = new MonoFlop(MONOFLOP_PIN, MONOFLOP_HIGH_DELAY_MS, MONOFLOP_HIGH_LOW_MS, MONOFLOP_STARTIMPULSE);
+  // Create actuator stepper motor 
+  MotorStepperRotate* motor = new MotorStepperRotate(STEPPER_PIN1, STEPPER_PIN2, STEPPER_PIN3, STEPPER_PIN4, STEPPER_RESOLUTION);
+
+  IteratorValue* iteratorValue = new IteratorValue(-motor->getMaxSpeed(), motor->getMaxSpeed(), MOTOR_SPEED_STEPWIDTH, STEPWIDTH_MSEC, cmMin2Max2Min);
+  Relation1to1* relationServoOff = new Relation1to1(NULL, motor, iteratorValue);
 // ***))
 
   // Initialize control

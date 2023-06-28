@@ -33,6 +33,20 @@
 #include "Kernel\Relation.h"
 #include "Kernel\RemoteInput.h"
 #include "Kernel\RemoteControl.h"
+#include "Kernel\AdafruitI2cShield.h"
+#include "Kernel\AdafruitShield.h"
+#include "Kernel\I2cBus.h"
+#include "Kernel\MotorBase.h"
+#include "Kernel\MotorShieldBase.h"
+#include "Kernel\MotorShieldAdafruitV2.h"
+#include "Kernel\MotorShieldL298.h"
+#include "Kernel\MotorShieldL9110.h"
+#include "Kernel\MotorShieldServo360I2C.h"
+#include "Kernel\MotorShieldServo360Pwm.h"
+#include "Kernel\MotorShieldServo360T1.h"
+#include "Kernel\MotorShieldServo360T2.h"
+#include "Kernel\MotorShieldStepperRotate.h"
+#include "Kernel\MotorShieldStepperRotateI2C.h"
 #include "Common\ActuatorCollectionItem.h"
 */
 
@@ -57,6 +71,15 @@
 // Phyisical actuator
 #include "Actuator\DigitalOutput.h"
 #include "Actuator\VariableOutput.h"
+#include "Actuator\MotorI2C.h"
+#include "Actuator\MotorL298.h"
+#include "Actuator\MotorL9110.h"
+#include "Actuator\MotorServo360I2C.h"
+#include "Actuator\MotorServo360Pwm.h"
+#include "Actuator\MotorServo360T1.h"
+#include "Actuator\MotorServo360T2.h"
+#include "Actuator\MotorStepperRotate.h"
+#include "Actuator\MotorStepperRotateI2C.h"
 // Logic actuator
 #include "Actuator\ActuatorCollection.h"
 

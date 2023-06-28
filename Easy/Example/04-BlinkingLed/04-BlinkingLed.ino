@@ -19,10 +19,9 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#include <Easy.h>
-
-#define LOG
+#define LOG 
 #define LOG_LOOP
+#include <Easy.h>
 
 //*****************************************************************
 #define TIMER_INTERVAL_MSEC 1500

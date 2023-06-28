@@ -125,7 +125,7 @@ void ToggleSwitch::Loop()
     _currentValue = ToggleSwitch::Pos1;
     if (_lastValue != _currentValue)
     {
-#ifdef LOG
+#ifdef LOG_LOOP
       GetLog()->printf("TS(%d):L LVl=999 NVl=%d", _id, ToggleSwitch::Pos1 );
 #endif
       _ignoreChangeMillis = currentTime + _debounceTimeMSec;
