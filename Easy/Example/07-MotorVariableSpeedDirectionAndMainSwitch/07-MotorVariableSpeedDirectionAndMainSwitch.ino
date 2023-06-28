@@ -1,13 +1,14 @@
 //*****************************************************************
-//* Example 06-Motor variable speed, switch Left/Off/Right
+//* Example 07-Motor variable speed, direction and main switch
 //*
-//* Motor variable speed, controlled by switch (L-0-R).
+//* Motor variable speed, controlled by switch (L-0-R). Additional main switch.
 //*
 //* Hardware:
 //* - Shield to control motor
-//* - DC motor 
-//* - Switch with position (1-0-1)
-//* - Potentiometer 10kOhm 
+//* - DC motor
+//* - Switch with position 1-0-1
+//* - Potentiometer 10kOhm
+//* - Switch with position 1-0
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -36,36 +37,47 @@
 #define MOTOR_PINB2 4
 // Parameter  I2C Motor
 #define MOTOR_NUMBER 1
+// Parameter MainSwitch
+#define MAIN_SWITCH_PIN 39
 // Parameter of Switch
 #define MOTOR_SWITCH_FORWARDPIN 36
 #define MOTOR_SWITCH_BACKWARDPIN 37
 // Parameter variable Input
 #define VARIABLE_INPUT_PIN A0
 
-void setup()
-{
+void setup() {
   //((*** Initialize: Configure your sketch here....
 
-  // Different motor shields are supported, some are comment. Change comment and chose your motor shield.
+  // Create output: Different motor shields are supported, some are comment. Change comment and chose your motor shield.
   //MotorL298* motor = new MotorL298(MOTOR_DIRECTIONPIN, MOTOR_SPEEDPIN);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
   MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
   //MotorI2C* motor = new MotorI2C(MOTOR_NUMBER);
 
+  // Create input direction switch
   Switch3Position* motorSwitch = new Switch3Position(MOTOR_SWITCH_FORWARDPIN, MOTOR_SWITCH_BACKWARDPIN);
 
-  VariableInput* motorSpeed = new VariableInput(VARIABLE_INPUT_PIN);
-  Inverter* inverter = new Inverter(motorSpeed);
+  // Create input main switch
+  Switch2Position* mainSwitch = new Switch2Position(MAIN_SWITCH_PIN);
 
-  CompareCondition* motorForwardCondition = new CompareCondition(motorSwitch, OpEQ, Switch3Position::Pos1);
+  // Create  variable input, defines speed
+  VariableInput* motorSpeed = new VariableInput(VARIABLE_INPUT_PIN);
+
+  // Define relation when motor turns forward
+  LogicCondition* motorForwardCondition = new LogicCondition(mainSwitch, OpEQ, Switch2Position::On, LgAND, motorSwitch, OpEQ, Switch3Position::Pos1);
   Relation1to1* relationMotorForward = new Relation1to1(motorForwardCondition, motor, motorSpeed);
 
-  CompareCondition* motorBackwardCondition = new CompareCondition(motorSwitch, OpEQ, Switch3Position::Pos2);
+  // To turn backward an inverter changes the sign of the variable input value
+  Inverter* inverter = new Inverter(motorSpeed);
+
+  // Define relation when motor turns backward
+  LogicCondition* motorBackwardCondition = new LogicCondition(mainSwitch, OpEQ, Switch2Position::On, LgAND, motorSwitch, OpEQ, Switch3Position::Pos2);
   Relation1to1* relationMotorBackward = new Relation1to1(motorBackwardCondition, motor, inverter);
 
-  CompareCondition* motorStopCondition = new CompareCondition(motorSwitch, OpEQ, Switch3Position::PosMid);
+  // Define relation when motor stops
+  LogicCondition* motorStopCondition = new LogicCondition(mainSwitch, OpEQ, Switch2Position::Off, LgOR, motorSwitch, OpEQ, Switch3Position::PosMid);
   Relation1to1* relationMotorStop = new Relation1to1(motorStopCondition, motor, FixValue::Off());
- // ***))
+  // ***))
 
   // Initialize control
   ControlManagerFactory::GetControlManager()->Setup();

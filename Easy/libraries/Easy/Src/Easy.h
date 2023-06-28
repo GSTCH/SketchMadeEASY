@@ -88,3 +88,4 @@
 
 // Conditions
 #include "Condition\CompareCondition.h"
+#include "Condition\LogicCondition.h"
