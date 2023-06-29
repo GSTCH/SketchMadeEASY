@@ -29,12 +29,15 @@
 void setup() {
   //((*** Initialize: Configure your sketch here....
 
+  //** Create input:
   // Input changes value periodically and toggles between High and Low.
   Timer* timer = new Timer(TIMER_INTERVAL_MSEC, true);
 
-  // Create actuator. A DigitalOutput knows the value On and Off.
+  //** Create actuator. 
+  // A DigitalOutput knows the value On and Off.
   DigitalOutput* led = new DigitalOutput(LED_PIN);
 
+  //** Define logic with conditions and relations
   // Define relation when timer value changes to High
   CompareCondition* conditionLedOn = new CompareCondition(timer, OpEQ, Timer::High);
   Relation1to1* relationLedOn = new Relation1to1(conditionLedOn, led, FixValue::On());

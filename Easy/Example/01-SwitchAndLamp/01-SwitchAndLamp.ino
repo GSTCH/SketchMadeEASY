@@ -30,12 +30,15 @@
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
-  // Create input. A switch with two positions knows the value On and Off.
+  //** Create input:
+  // A switch with two positions knows the value On and Off.
   Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
 
-  // Create actuator. A DigitalOutput knows the value On and Off.
+  //** Create actuator:
+  // A DigitalOutput knows the value On and Off.
   DigitalOutput* led = new DigitalOutput(LED_PIN);
 
+  //** Define logic with conditions and relations
   // Define relation when switch is on
   CompareCondition* conditionSwitchOn = new CompareCondition(switchOnOff, OpEQ, Switch2Position::On);
   Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, FixValue::On());

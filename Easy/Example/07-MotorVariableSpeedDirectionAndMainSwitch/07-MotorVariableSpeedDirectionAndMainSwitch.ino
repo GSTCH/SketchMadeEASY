@@ -48,27 +48,29 @@
 void setup() {
   //((*** Initialize: Configure your sketch here....
 
-  // Create output: Different motor shields are supported, some are comment. Change comment and chose your motor shield.
+  //** Create actuator:
+  // Different motor shields are supported, some are comment. Change comment and chose your motor shield.
   //MotorL298* motor = new MotorL298(MOTOR_DIRECTIONPIN, MOTOR_SPEEDPIN);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
   MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
   //MotorI2C* motor = new MotorI2C(MOTOR_NUMBER);
 
+  //** Create input:
   // Create input direction switch
   Switch3Position* motorSwitch = new Switch3Position(MOTOR_SWITCH_FORWARDPIN, MOTOR_SWITCH_BACKWARDPIN);
 
   // Create input main switch
   Switch2Position* mainSwitch = new Switch2Position(MAIN_SWITCH_PIN);
 
-  // Create  variable input, defines speed
+  // Create variable input, defines speed
   VariableInput* motorSpeed = new VariableInput(VARIABLE_INPUT_PIN);
+  // To turn backward an inverter changes the sign of the variable input value
+  Inverter* inverter = new Inverter(motorSpeed);
 
+  //** Define logic with conditions and relations
   // Define relation when motor turns forward
   LogicCondition* motorForwardCondition = new LogicCondition(mainSwitch, OpEQ, Switch2Position::On, LgAND, motorSwitch, OpEQ, Switch3Position::Pos1);
   Relation1to1* relationMotorForward = new Relation1to1(motorForwardCondition, motor, motorSpeed);
-
-  // To turn backward an inverter changes the sign of the variable input value
-  Inverter* inverter = new Inverter(motorSpeed);
 
   // Define relation when motor turns backward
   LogicCondition* motorBackwardCondition = new LogicCondition(mainSwitch, OpEQ, Switch2Position::On, LgAND, motorSwitch, OpEQ, Switch3Position::Pos2);

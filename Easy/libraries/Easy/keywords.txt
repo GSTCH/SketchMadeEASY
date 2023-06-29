@@ -12,6 +12,7 @@ FixValue KEYWORD1
 Timer KEYWORD1
 Inverter KEYWORD1
 IteratorValue KEYWORD1
+ConditionInput KEYWORD1
 VariableOutput KEYWORD1
 DigitalOutput KEYWORD1
 MotorI2C KEYWORD1
@@ -23,6 +24,7 @@ MotorServo360T2 KEYWORD1
 MotorStepperRotate KEYWORD1
 MotorStepperRotateI2C KEYWORD1
 ActuatorCollection KEYWORD1
+ActuatorCollectionItem KEYWORD1
 Relation1to1 KEYWORD1
 CompareCondition KEYWORD1
 LogicCondition KEYWORD1

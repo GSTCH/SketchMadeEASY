@@ -34,18 +34,20 @@
 void setup() {
   //((*** Initialize: Configure your sketch here....
 
-  // Create input. A switch with two positions knows the value On and Off.
-  Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
-
-  // Create actuator. 
-  // A variable output has a range of 0...255.
+  //** Create actuator:
+  // A variable output has a range of 0...255. It uses a PWM pin.
   VariableOutput* led = new VariableOutput(LED_PIN);
 
-  // Create input (as input for the actuator). 
-  // A variable input has a range of 0...1023. 
-  // It's autmatic mapped to the value range of the variable output.
+  //** Create input:
+  // Switch as input for condition. A switch with two positions 
+  // knows the value On and Off.
+  Switch2Position* switchOnOff = new Switch2Position(SWITCH_PIN);
+
+  // Input for the actuator is a variable input has a range 
+  // of 0...1023. This is an analog pin. the range is autmatic mapped.
   VariableInput* poti = new VariableInput(POTI_PIN);
 
+  //** Define logic with conditions and relations
   // Define relation when button is on
   CompareCondition* conditionSwitchOn = new CompareCondition(switchOnOff, OpEQ, Switch2Position::On);
   Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, poti);

@@ -43,20 +43,30 @@
 void setup()
 {
    //((*** Initialize: Configure your sketch here....
+   
+  //** Create actuator:
   // Different motor shields are supported, some are comment. Change comment and chose your motor shield.
   //MotorL298* motor = new MotorL298(MOTOR_DIRECTIONPIN, MOTOR_SPEEDPIN);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
   MotorI2C* motor = new MotorI2C(MOTOR_NUMBER);
 
+  //** Create input:
+  // Create variable input, defines speed
   VariableInput* motorSpeed = new VariableInput(VARIABLE_INPUT_PIN);
+  // To turn backward an inverter changes the sign of the variable input value
   Inverter* inverter = new Inverter(motorSpeed);
 
+  // Switch knows the value Pos1 and Pos2. The value changes depending on two signal.
+  // This makes it possible to define motor direction (when value change).
   ToggleSwitch* toggleSwitch = new ToggleSwitch(DIRECTION_PIN1, DIRECTION_PIN2);
 
+  //** Define logic with conditions and relations
+  // Define direction when signal 1 (limit switch 1 pressed)  
   CompareCondition* motorDirection1Condition = new CompareCondition(toggleSwitch, OpEQ, ToggleSwitch::Pos2);
   Relation1to1* relationMotorDirection1 = new Relation1to1(motorDirection1Condition, motor, motorSpeed);
 
+  // Define direction when signal 2 (limit switch 2 pressed)
   CompareCondition* motorDirection2Condition = new CompareCondition(toggleSwitch, OpEQ, ToggleSwitch::Pos1);
   Relation1to1* relationMotorDirection2 = new Relation1to1(motorDirection2Condition, motor, inverter);
 // ***))

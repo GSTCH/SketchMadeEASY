@@ -35,13 +35,17 @@ void setup()
   GetLog()->printf("Example 2 - Dimming lamp");
 #endif
   
-  // Create actuator
+  //** Create actuator:
+  // A variable output has a range from 0 to 255. It's needs PWM pin.
   VariableOutput* led = new VariableOutput(LED_PIN);
 
-  // Create input (as input for the actuator)
+  //** Create input 
+  // In this case we define the input for the actuator into the action.
+  // This is an analog pin with a value range of 0...1023.
   VariableInput* poti = new VariableInput(POTI_PIN);
 
-  // Define relation (condition NULL means "always true")
+  //** Define logic with conditions and relations
+  // Condition NULL means "always true"
   Relation1to1* relation = new Relation1to1(NULL, led, poti);
   // ***))
 
