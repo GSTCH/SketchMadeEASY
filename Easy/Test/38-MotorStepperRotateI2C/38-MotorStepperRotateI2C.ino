@@ -30,6 +30,7 @@
 #define STEPS_PER_ROTATION 32
 #define GEAR_RATIO 64
 #define STEPPER_RESOLUTION STEPS_PER_ROTATION * GEAR_RATIO
+#define MAX_CYCLES_PER_SECOND 1000
 
 #define MOTOR_SPEED_STEPWIDTH 10
 #define STEPWIDTH_MSEC 1000
@@ -42,7 +43,7 @@ void setup()
 #endif
 
   // Create actuator stepper motor 
-  MotorStepperRotateI2C* motor = new MotorStepperRotateI2C(STEPPER_NR, STEPPER_RESOLUTION, ssSingle);
+  MotorStepperRotateI2C* motor = new MotorStepperRotateI2C(STEPPER_NR, STEPPER_RESOLUTION, MAX_CYCLES_PER_SECOND, ssSingle);
 
   IteratorValue* iteratorValue = new IteratorValue(-motor->getMaxSpeed(), motor->getMaxSpeed(), MOTOR_SPEED_STEPWIDTH, STEPWIDTH_MSEC, cmMin2Max2Min);
   Relation1to1* relationServoOff = new Relation1to1(NULL, motor, iteratorValue);
