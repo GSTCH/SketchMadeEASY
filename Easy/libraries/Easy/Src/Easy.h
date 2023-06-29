@@ -48,6 +48,7 @@
 #include "Kernel\MotorShieldStepperRotate.h"
 #include "Kernel\MotorShieldStepperRotateI2C.h"
 #include "Common\ActuatorCollectionItem.h"
+#include "Kernel\Bluetooth.h"
 */
 
 #include "Common\Log.h"
@@ -90,3 +91,9 @@
 // Conditions
 #include "Condition\CompareCondition.h"
 #include "Condition\LogicCondition.h"
+
+//RemoteControl
+#include "RemoteControl\FlySky.h"
+#include "RemoteControl\AppInventor.h"
+#include "RemoteControl\RemoteValue.h"
+#include "RemoteControl\RemoteJoystickAxis.h"

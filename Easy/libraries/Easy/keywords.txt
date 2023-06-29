@@ -28,6 +28,10 @@ ActuatorCollectionItem KEYWORD1
 Relation1to1 KEYWORD1
 CompareCondition KEYWORD1
 LogicCondition KEYWORD1
+FlySky KEYWORD1
+AppInventor KEYWORD1
+RemoteValue KEYWORD1
+RemoteJoystickAxis KEYWORD1
 
 # KEYWORD2: Keywords of public member functions of the classes: KEYWORD2
 println KEYWORD2
