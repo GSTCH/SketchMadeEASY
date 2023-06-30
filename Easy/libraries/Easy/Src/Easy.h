@@ -71,6 +71,7 @@
 #include "Input\Timer.h"
 #include "Input\IteratorValue.h"
 #include "Input\ConditionInput.h"
+#include "Input\Calculate.h"
 
 // Phyisical actuator
 #include "Actuator\DigitalOutput.h"

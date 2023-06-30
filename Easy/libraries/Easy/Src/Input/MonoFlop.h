@@ -55,7 +55,7 @@ class MonoFlop : public Input
     int _lastPinValue;
 
   public:
-  #ifdef CREATE_ID_MANUALLY   
+#ifdef CREATE_ID_MANUALLY   
     MonoFlop(int aId, int aPin, int aHighDelay, int aLowDelay, bool aStart, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTimeMSec);
 #endif	
 
