@@ -55,7 +55,7 @@ void setup()
   //** Define logic with condition and relation
   // No condition (NULL) because the relation is always active. 
   // With GetControl the FlySky class creates the input control and returns its pointer. 
-  Relation1to1* relationFlySkyToMotor = new Relation1to1(NULL, motor, app->GetControl(aiJoystickY));
+  Relation1to1* relationFlySkyToMotor = new Relation1to1(NULL, motor, app->GetControl(rcJoystick1Y));
   // ***))
 
   // Initialize control

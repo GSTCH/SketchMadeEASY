@@ -20,6 +20,7 @@
 #define AppInventor_h
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
+#include "..\Common\Types.h"
 #include "..\Common\Log.h"
 #include "..\Kernel\RemoteControl.h"
 #include "..\Kernel\Bluetooth.h"
@@ -37,11 +38,6 @@
 #define APPINVENTOR_SLIDER2_MAX 120
 #define APPINVENTOR_COMMANDBUFFER_SIZE 100
 
-
-enum EAppInvertorControl { aiJoystickX = 0,
-                           aiJoystickY = 1,
-                           aiSlider1 = 2,
-                           aiSlider2 = 3 };
 
 class AppInventor : public RemoteControl {
 private:
@@ -209,29 +205,30 @@ public:
   }
 
   //*************************************
-  RemoteInput* GetControl(int aControl) {
+  RemoteInput* GetControl(ERcControl aControl) {
     switch (aControl) {
-      case aiJoystickX:
+      case rcJoystick1X:
         if (_channelRemoteInputs[0] == NULL) {
           _channelRemoteInputs[0] = new RemoteJoystickAxis(-200, 200, false);
         }
         return _channelRemoteInputs[0];
-      case aiJoystickY:
+      case rcJoystick1Y:
         if (_channelRemoteInputs[1] == NULL) {
           _channelRemoteInputs[1] = new RemoteJoystickAxis(-120, 120, false);
         }
         return _channelRemoteInputs[1];
-      case aiSlider1:
+      case rcJoystick2X:
         if (_channelRemoteInputs[2] == NULL) {
           _channelRemoteInputs[2] = new RemoteJoystickAxis(-120, 120, false);
         }
         return _channelRemoteInputs[2];
-      case aiSlider2:
+      case rcJoystick2Y:
         if (_channelRemoteInputs[3] == NULL) {
           _channelRemoteInputs[3] = new RemoteJoystickAxis(-120, 120, false);
         }
         return _channelRemoteInputs[3];
     }
+	return NULL;
   }
 
   //*************************************

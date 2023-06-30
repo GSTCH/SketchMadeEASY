@@ -73,4 +73,15 @@ enum ESwitchResistoreMode {
   smPullUpExternal = 2,
 };
 
+enum ERcControl { rcJoystick1X = 0, // JobstickAxis1X
+                  rcJoystick1Y = 1, // JobstickAxis1Y
+                  rcJoystick2X = 2, // JobstickAxis2X
+                  rcJoystick2Y = 3, // JobstickAxis2Y
+                  rcVRA = 4,        // Poti1
+                  rcVRB = 5,        // Poti2
+                  rcSwA = 6,        // Switch1, 2 Position
+                  rcSwB = 7,        // Switch2, 2 Position
+                  rcSwC = 8,        // Switch3, 3 Position
+                  rcSwD = 9 };      // Switch4, 2 Position
+					 
 #endif

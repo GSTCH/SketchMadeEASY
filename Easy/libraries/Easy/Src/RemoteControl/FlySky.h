@@ -32,16 +32,6 @@
 #define EASY_FLYSKY_MINVALUE 1000
 #define EASY_FLYSKY_MAXVALUE 2000
 
-enum EFlySkyControl { fcJoystick1X = 0,
-                      fcJoystick1Y = 1,
-                      fcJoystick2X = 2,
-                      fcJoystick2Y = 3,
-                      fcVRA = 4,    // Poti
-                      fcVRB = 5,    // Poti
-                      fcSwA = 6,    // Switch 2 Position
-                      fcSwB = 7,    // Switch 2 Position
-                      fcSwC = 8,    // Switch 3 Position
-                      fcSwD = 9 };  // Switch 2 Position
 
 class FlySky : public RemoteControl {
 private:
@@ -85,54 +75,54 @@ public:
   }
 
   //*************************************
-  RemoteInput* GetControl(int aControl) {
+  RemoteInput* GetControl(ERcControl aControl) {
     switch (aControl) {
-      case fcJoystick1X:
+      case rcJoystick1X:
         if (_channelRemoteInputs[0] == NULL) {
           _channelRemoteInputs[0] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[0];
-      case fcJoystick1Y:
+      case rcJoystick1Y:
         if (_channelRemoteInputs[1] == NULL) {
           _channelRemoteInputs[1] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[1];
-      case fcJoystick2X:
+      case rcJoystick2X:
         if (_channelRemoteInputs[2] == NULL) {
           _channelRemoteInputs[2] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[2];
-      case fcJoystick2Y:
+      case rcJoystick2Y:
         if (_channelRemoteInputs[3] == NULL) {
           _channelRemoteInputs[3] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[3];
-      case fcVRA:
+      case rcVRA:
         if (_channelRemoteInputs[4] == NULL) {
           _channelRemoteInputs[4] = new RemoteValue(0, 255);
         }
         return _channelRemoteInputs[4];
-      case fcVRB:
+      case rcVRB:
         if (_channelRemoteInputs[5] == NULL) {
           _channelRemoteInputs[5] = new RemoteValue(0, 255);
         }
         return _channelRemoteInputs[5];
-      case fcSwA:
+      case rcSwA:
         if (_channelRemoteInputs[6] == NULL) {
           _channelRemoteInputs[6] = new RemoteValue(0, 1);  // SWRA
         }
         return _channelRemoteInputs[6];
-      case fcSwB:
+      case rcSwB:
         if (_channelRemoteInputs[7] == NULL) {
           _channelRemoteInputs[7] = new RemoteValue(0, 1);  // SWRB
         }
         return _channelRemoteInputs[7];
-      case fcSwC:
+      case rcSwC:
         if (_channelRemoteInputs[8] == NULL) {
           _channelRemoteInputs[8] = new RemoteValue(0, 2);  // SWRC
         }
         return _channelRemoteInputs[8];
-      case fcSwD:
+      case rcSwD:
         if (_channelRemoteInputs[9] == NULL) {
           _channelRemoteInputs[9] = new RemoteValue(0, 1);  // SWRD
         }
