@@ -51,6 +51,14 @@
 //#define LOG_SETUP_DEBUG
 //#endif
 
+//#ifndef PLOT_ENCODERMOTOR
+//#define PLOT_ENCODERMOTOR
+//#endif
+
+//#ifndef PLOT_ROTARYENCODER
+//#define PLOT_ROTARYENCODER
+//#endif
+
 /*
  * Usually only one remote control is used. To save memory, only one 
  * RemoteControl is supported. However, the library can also use several 

@@ -23,6 +23,9 @@ MotorServo360T1 KEYWORD1
 MotorServo360T2 KEYWORD1
 MotorStepperRotate KEYWORD1
 MotorStepperRotateI2C KEYWORD1
+EncoderMotorI2C KEYWORD1
+EncoderMotorL298 KEYWORD1
+EncoderMotorL9110 KEYWORD1
 ActuatorCollection KEYWORD1
 ActuatorCollectionItem KEYWORD1
 Relation1to1 KEYWORD1

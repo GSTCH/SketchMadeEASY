@@ -1,5 +1,5 @@
 //*****************************************************************
-// Test for motor controilles by a  Adafruit motor shield V2 (I2C)
+// Test for motor controlled by a  Adafruit motor shield V2 (I2C)
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".

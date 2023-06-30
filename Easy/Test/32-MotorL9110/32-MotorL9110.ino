@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Test for motor controilles by L9110:
+//* Test for motor controlled by L9110:
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".

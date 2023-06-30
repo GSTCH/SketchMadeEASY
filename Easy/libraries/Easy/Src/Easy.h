@@ -47,6 +47,8 @@
 #include "Kernel\MotorShieldServo360T2.h"
 #include "Kernel\MotorShieldStepperRotate.h"
 #include "Kernel\MotorShieldStepperRotateI2C.h"
+#include "Kernel\EncoderMotorBase.h"
+#include "Kernel\RotaryEncoder.h"
 #include "Common\ActuatorCollectionItem.h"
 #include "Kernel\Bluetooth.h"
 */
@@ -82,6 +84,9 @@
 #include "Actuator\MotorServo360T2.h"
 #include "Actuator\MotorStepperRotate.h"
 #include "Actuator\MotorStepperRotateI2C.h"
+#include "Actuator\EncoderMotorI2C.h"
+#include "Actuator\EncoderMotorL298.h"
+#include "Actuator\EncoderMotorL9110.h"
 // Logic actuator
 #include "Actuator\ActuatorCollection.h"
 
