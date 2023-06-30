@@ -62,5 +62,10 @@ class RemoteValue : public RemoteInput
     {
       RemoteInput::Loop();
     }
+
+    //*************************************
+	static const int Pos2 = 2;
+    static const int Pos1 = 1;
+    static const int Pos0 = 0;
 };
 #endif
