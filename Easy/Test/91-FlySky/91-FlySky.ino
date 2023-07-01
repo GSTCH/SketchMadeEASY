@@ -32,16 +32,16 @@ void setup()
   FlySky* flySky = new FlySky(scHard1);
 
   // Control has been creted when get it --> get all controls
-  flySky->GetControl(fcJoystick1X);
-  flySky->GetControl(fcJoystick1Y);
-  flySky->GetControl(fcJoystick2X);
-  flySky->GetControl(fcJoystick2Y);
-  flySky->GetControl(fcVRA);
-  flySky->GetControl(fcVRB);
-  flySky->GetControl(fcSwA);
-  flySky->GetControl(fcSwB);
-  flySky->GetControl(fcSwC);
-  flySky->GetControl(fcSwD);
+  flySky->GetControl(rcJoystick1X);
+  flySky->GetControl(rcJoystick1Y);
+  flySky->GetControl(rcJoystick2X);
+  flySky->GetControl(rcJoystick2Y);
+  flySky->GetControl(rcVRA);
+  flySky->GetControl(rcVRB);
+  flySky->GetControl(rcSwA);
+  flySky->GetControl(rcSwB);
+  flySky->GetControl(rcSwC);
+  flySky->GetControl(rcSwD);
 // ***))
 
   // Initialize control
