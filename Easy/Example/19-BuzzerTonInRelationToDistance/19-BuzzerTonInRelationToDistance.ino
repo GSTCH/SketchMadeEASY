@@ -4,7 +4,7 @@
 //* Buzzer tone, frequence in relation to distance
 //*
 //* Hardware:
-//* - Buzzer
+//* - Buzzer with 100ohm Resistor to GRD
 //* - Ultrasonic Sensor HY-SRF05
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy

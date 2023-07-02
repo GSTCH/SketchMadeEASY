@@ -50,6 +50,7 @@ println KEYWORD2
 printf KEYWORD2
 enable KEYWORD2
 enabled KEYWORD2
+getControl KEYWORD2
 
 #LITERAL1: #defines that are relevant
 LOG LITERAL1

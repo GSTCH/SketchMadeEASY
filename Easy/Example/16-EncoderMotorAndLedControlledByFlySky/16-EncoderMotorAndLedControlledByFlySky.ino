@@ -49,7 +49,7 @@ void setup()
   FlySky* flySky = new FlySky(scHard1);
 
   //* Define logic with condition and relation
-  Relation1to1* relationMotor = new Relation1to1(NULL, encoderMotor, flySky->GetControl(rcJoystick1X));
+  Relation1to1* relationMotor = new Relation1to1(NULL, encoderMotor, flySky->getControl(rcJoystick1X));
 
 
   //** Define switch 
@@ -59,11 +59,11 @@ void setup()
 
   //* Define logic with condition and relation
   // Switch is on, brightness with a Poti on the RC
-  CompareCondition* conditionSwitchOn = new CompareCondition(flySky->GetControl(rcSwA), OpEQ, RemoteValue::Pos1);
-  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, flySky->GetControl(rcVRA));
+  CompareCondition* conditionSwitchOn = new CompareCondition(flySky->getControl(rcSwA), OpEQ, RemoteValue::Pos1);
+  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, flySky->getControl(rcVRA));
 
   // Switch is off
-  CompareCondition* conditionSwitchOff = new CompareCondition(flySky->GetControl(rcSwA), OpEQ, RemoteValue::Pos0);
+  CompareCondition* conditionSwitchOff = new CompareCondition(flySky->getControl(rcSwA), OpEQ, RemoteValue::Pos0);
   Relation1to1* switchOffRelation = new Relation1to1(conditionSwitchOff, led, FixValue::Off());
   // ***))
 

@@ -75,7 +75,7 @@ public:
   }
 
   //*************************************
-  RemoteInput* GetControl(ERcControl aControl) {
+  RemoteInput* getControl(ERcControl aControl) {
     switch (aControl) {
       case rcJoystick1X:
         if (_channelRemoteInputs[0] == NULL) {
