@@ -16,6 +16,7 @@ ConditionInput KEYWORD1
 Calculate KEYWORD1
 VariableOutput KEYWORD1
 DigitalOutput KEYWORD1
+Buzzer KEYWORD1
 MotorI2C KEYWORD1
 MotorL298 KEYWORD1
 MotorServo360I2C KEYWORD1

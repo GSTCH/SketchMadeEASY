@@ -84,6 +84,7 @@
 // Phyisical actuator
 #include "Actuator\DigitalOutput.h"
 #include "Actuator\VariableOutput.h"
+#include "Actuator\Buzzer.h"
 #include "Actuator\MotorI2C.h"
 #include "Actuator\MotorL298.h"
 #include "Actuator\MotorL9110.h"
