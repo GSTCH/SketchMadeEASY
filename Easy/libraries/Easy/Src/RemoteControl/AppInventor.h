@@ -166,7 +166,7 @@ private:
     _commandBuffer[cutLen - 1] = '\0';
     strncpy(_commandBuffer, &_commandBuffer[cutLen], APPINVENTOR_COMMANDBUFFER_SIZE-cutLen);
 
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("AI:PT cut %d, Cmd=%d %d %d", cutLen, _commandBuffer[0], _commandBuffer[1], _commandBuffer[2]);
 #endif
   }
@@ -252,7 +252,7 @@ public:
       _bluetooth->Loop();
     }
     if (_bluetooth->DataReceived()) {
-#ifdef LOG_DEBUG
+#ifdef LOG_LOOP_DEBUG
       GetLog()->printf("AI:L Recvd");
 #endif
       strcat(_commandBuffer, _bluetooth->Data());

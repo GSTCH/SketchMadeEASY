@@ -8,6 +8,7 @@ LoopSwitch KEYWORD1
 MonoFlop KEYWORD1
 VariableInput KEYWORD1
 JoystickAxis KEYWORD1
+UltrasonicRangefinder KEYWORD1
 FixValue KEYWORD1
 Timer KEYWORD1
 Inverter KEYWORD1

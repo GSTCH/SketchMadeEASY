@@ -73,6 +73,7 @@
 // Phyisical inputs analog
 #include "Input\VariableInput.h"
 #include "Input\JoystickAxis.h"
+#include "Input\UltrasonicRangefinder.h"
 // Logic inputs
 #include "Input\FixValue.h"
 #include "Input\Inverter.h"
