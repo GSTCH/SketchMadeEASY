@@ -1,13 +1,13 @@
 //*****************************************************************
-//* Model02 - Stokys S0102 - Mobile crane with App
+//* Model 02 - Stokys S0102 - Mobile crane with FlySky
 //*
 //* Stokys mobile crane 0102. 
-//* Winch via a 360 ° servo. Drive and steer by two motors that turn 
+//* Winch via a 360° servo. Drive and steer by two motors that turn 
 //* at different speeds like a caterpillar vehicle. The movement of 
 //* the vehicle depends on the X / Y position: straight ahead, local 
 //* steering right, ..
-//* The movement is controlled by a handy App (Arduino or iOS),
-//* The ArduinoEasyRemoteControl App is available at http://ai2.appinventor.mit.edu/#4747037693575168
+//* The movement is controlled by a FlySky FS-I6X sender and a 
+//* FS-iA6B receiver.
 //* Parts to build the model are available at www.stokys.ch
 //*
 //* Video of the model:
@@ -16,7 +16,8 @@
 //* Hardware:
 //* - L298 motor shield to control the two DC-Motor N20
 //* - Servo360
-//* - HC06 Bluetooth shield
+//* - FlySky FS-I6X sender
+//* - FlySky FS-iA6B receiver
 //* - Buzzer
 //*****************************************************************
 //* Sketch made Easy for Arduino - Arduino quick and easy
@@ -47,15 +48,12 @@
 #define MOTOR_RIGHT_SPEEDPIN 11
 // Parameter Servo360
 #define SERVO360_PIN 9
-// Parameter bluetooth shield (Arduino Uno with Log) 
-#define SOFTSERIAL_RXPIN 12
-#define SOFTSERIAL_TXPIN 13
 
 void setup()
 {
 
   //AppInventor* appInventor = new AppInventor(scHard);
-  AppInventor* remoteControl = new AppInventor(SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
+  FlySky* remoteControl = new FlySky(scHard);
 
   MotorL298* motorLeft = new MotorL298(MOTOR_LEFT_MOTOR_DIRECTIONPIN, MOTOR_LEFT_SPEEDPIN);
   MotorL298* motorRight = new MotorL298(MOTOR_RIGHT_MOTOR_DIRECTIONPIN, MOTOR_RIGHT_SPEEDPIN);
