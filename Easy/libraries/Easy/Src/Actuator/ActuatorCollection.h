@@ -82,6 +82,20 @@ public:
     _actuators->add(new ActuatorCollectionItem(aActuator3, aActuatorParameter3));
     _actuators->add(new ActuatorCollectionItem(aActuator4, aActuatorParameter4));
   }
+  
+   //*************************************
+  ActuatorCollection(Actuator* aActuator1, Input* aActuatorParameter1, Actuator* aActuator2, Input* aActuatorParameter2, Actuator* aActuator3, Input* aActuatorParameter3, Actuator* aActuator4, Input* aActuatorParameter4, Actuator* aActuator5, Input* aActuatorParameter5)
+    : Actuator(CreateElementId(EbtActuator, EkaHelper, OUTHELPER_ACTUATORCOLLECTION_INDEX)) {
+#ifdef LOG_SETUP
+    GetLog()->printf("AC(%d):C n=5", _id);
+#endif
+    _actuators = new LinkedList<ActuatorCollectionItem*>();
+    _actuators->add(new ActuatorCollectionItem(aActuator1, aActuatorParameter1));
+    _actuators->add(new ActuatorCollectionItem(aActuator2, aActuatorParameter2));
+    _actuators->add(new ActuatorCollectionItem(aActuator3, aActuatorParameter3));
+    _actuators->add(new ActuatorCollectionItem(aActuator4, aActuatorParameter4));
+	_actuators->add(new ActuatorCollectionItem(aActuator5, aActuatorParameter5));
+  } 
 
   //*************************************
   void Setup() {

@@ -81,6 +81,7 @@
 #include "Input\IteratorValue.h"
 #include "Input\ConditionInput.h"
 #include "Input\Calculate.h"
+#include "Input\InputSelectedValue.h"
 
 // Phyisical actuator
 #include "Actuator\DigitalOutput.h"
@@ -114,6 +115,7 @@
 // Conditions
 #include "Condition\CompareCondition.h"
 #include "Condition\LogicCondition.h"
+#include "Condition\ElseCondition.h"
 
 //RemoteControl
 #include "RemoteControl\FlySky.h"

@@ -15,6 +15,7 @@ Inverter KEYWORD1
 IteratorValue KEYWORD1
 ConditionInput KEYWORD1
 Calculate KEYWORD1
+InputSelectedValue KEYWORD1
 VariableOutput KEYWORD1
 DigitalOutput KEYWORD1
 Buzzer KEYWORD1
@@ -41,6 +42,7 @@ Relation1to1 KEYWORD1
 CrawlerSteering KEYWORD1
 CompareCondition KEYWORD1
 LogicCondition KEYWORD1
+ElseCondition KEYWORD1
 FlySky KEYWORD1
 AppInventor KEYWORD1
 RemoteValue KEYWORD1
