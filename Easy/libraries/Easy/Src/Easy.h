@@ -109,6 +109,7 @@
 
 // Relations
 #include "Relation\Relation1to1.h"
+#include "Relation\CrawlerSteering.h"
 
 // Conditions
 #include "Condition\CompareCondition.h"

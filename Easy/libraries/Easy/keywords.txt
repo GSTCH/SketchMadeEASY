@@ -38,6 +38,7 @@ ServoStepperPositionI2C
 ActuatorCollection KEYWORD1
 ActuatorCollectionItem KEYWORD1
 Relation1to1 KEYWORD1
+CrawlerSteering KEYWORD1
 CompareCondition KEYWORD1
 LogicCondition KEYWORD1
 FlySky KEYWORD1

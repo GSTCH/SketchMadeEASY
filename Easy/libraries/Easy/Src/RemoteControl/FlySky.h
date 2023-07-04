@@ -2,7 +2,7 @@
 //* Class FlySky - Header
 //*
 //* Logic of the FlySky FS-i6X-RemoteControl. 
-//* With only change settings, it's support up to 10 channels.
+//* With only change settings, it's support up to 14 channels.
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
