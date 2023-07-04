@@ -51,7 +51,7 @@
 
 void setup()
 {
-
+  //((*** Initialize: Configure your sketch here....
   //AppInventor* appInventor = new AppInventor(scHard);
   FlySky* remoteControl = new FlySky(scHard);
 
