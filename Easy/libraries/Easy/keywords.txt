@@ -15,7 +15,7 @@ Inverter KEYWORD1
 IteratorValue KEYWORD1
 ConditionInput KEYWORD1
 Calculate KEYWORD1
-InputSelectedValue KEYWORD1
+DependentInput KEYWORD1
 VariableOutput KEYWORD1
 DigitalOutput KEYWORD1
 Buzzer KEYWORD1

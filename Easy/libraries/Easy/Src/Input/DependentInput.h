@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Class InputSelectedValue - Header
+//* Class DependentInput - Header
 //*
 //* Tool class to assign different input to a relation. For this
 //* an input defines the index of the input to use. This is usualy
@@ -18,15 +18,15 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#ifndef EASY_INPUTSELECTEDVALUE_H
-#define EASY_INPUTSELECTEDVALUE_H
+#ifndef EASY_DEPENDENTINPUT_H
+#define EASY_DEPENDENTINPUT_H
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Common\Types.h"
 #include "..\Common\Log.h"
 #include "..\Kernel\Input.h"
 
-class InputSelectedValue : public Input {
+class DependentInput : public Input {
 private:
 
 protected:
@@ -45,8 +45,8 @@ protected:
 public:
   //*************************************
 #ifdef CREATE_ID_MANUALLY	 
-  InputSelectedValue(int aId, Input* aSelectionInput, Input** aInputValues, int aInputValuesCount)
-    : Input(aId, CreateElementId(EbtInput, EkiHelper, HELPER_INPUTSELECTEDVALUE_INDEX), 0, 0) {
+  DependentInput(int aId, Input* aSelectionInput, Input** aInputValues, int aInputValuesCount)
+    : Input(aId, CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = aInputValues;
     _inputValueCount = aInputValuesCount;
@@ -56,8 +56,8 @@ public:
 #endif
 
   //*************************************
-  InputSelectedValue(Input* aSelectionInput, Input** aInputValues, int aInputValuesCount)
-    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_INPUTSELECTEDVALUE_INDEX), 0, 0) {
+  DependentInput(Input* aSelectionInput, Input** aInputValues, int aInputValuesCount)
+    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = aInputValues;
     _inputValueCount = aInputValuesCount;
@@ -66,8 +66,8 @@ public:
   }
   
   //*************************************
-  InputSelectedValue(Input* aSelectionInput, Input* aInputValue1, Input* aInputValue2)
-    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_INPUTSELECTEDVALUE_INDEX), 0, 0) {
+  DependentInput(Input* aSelectionInput, Input* aInputValue1, Input* aInputValue2)
+    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = new Input*[2];
 	_inputValues[0] = aInputValue1;
@@ -78,8 +78,8 @@ public:
   }
 
   //*************************************
-  InputSelectedValue(Input* aSelectionInput, Input* aInputValue1, Input* aInputValue2, Input* aInputValue3)
-    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_INPUTSELECTEDVALUE_INDEX), 0, 0) {
+  DependentInput(Input* aSelectionInput, Input* aInputValue1, Input* aInputValue2, Input* aInputValue3)
+    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = new Input*[3];
 	_inputValues[0] = aInputValue1;

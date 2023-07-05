@@ -81,7 +81,7 @@
 #include "Input\IteratorValue.h"
 #include "Input\ConditionInput.h"
 #include "Input\Calculate.h"
-#include "Input\InputSelectedValue.h"
+#include "Input\DependentInput.h"
 
 // Phyisical actuator
 #include "Actuator\DigitalOutput.h"
