@@ -1,4 +1,4 @@
 /_Dev
-/Easy/libraries/*
-!/Easy/libraries/Easy/
-/Easy/_ZipLibrary/
+/Arduino/libraries/*
+!/Arduino/libraries/Easy/
+/Arduino/_ZipLibrary/
