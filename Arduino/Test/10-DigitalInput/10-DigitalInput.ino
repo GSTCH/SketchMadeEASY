@@ -29,7 +29,9 @@
 void setup() {
 	
 //((*** Initialize: Configure your sketch here....
+#ifdef LOG
   GetLog()->printf("Setup DigitalInput Test");
+#endif
 
   DigitalInput* digitalInput = new DigitalInput(DIGITALINPUT_PIN);
 // ***))

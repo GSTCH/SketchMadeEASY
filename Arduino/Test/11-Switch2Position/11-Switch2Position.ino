@@ -34,7 +34,7 @@
 
 void setup() {
 //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
+#ifdef LOG
   GetLog()->printf("Setup Switch2Position Test");
 #endif
 
