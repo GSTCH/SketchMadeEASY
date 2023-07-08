@@ -3,7 +3,9 @@
 //*
 //* A shift register control by a a signal (e.g. button): The value 
 //* iterate through a defined range (MIN...MAX). When pin is high
-//* the value increases by step width.
+//* the value increases by step width. When pin is low the value 
+//* is low as well.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //

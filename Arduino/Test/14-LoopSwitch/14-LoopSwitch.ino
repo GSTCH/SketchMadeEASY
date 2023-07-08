@@ -23,10 +23,11 @@
 
 //*****************************************************************
 // Parameter loop switch
-#define LOOPSWITCH_BUTTON_PIN 7
+#define LOOPSWITCH_BUTTON_PIN 39
 #define LOOPSWITCH_MIN 1
 #define LOOPSWITCH_MAX 5
 #define LOOPSWITCH_STEPWIDTH 1
+#define SWITCHMODE smPullUpExternal
 
 void setup()
 {
@@ -35,10 +36,9 @@ void setup()
   GetLog()->printf("LoopSwitch Test");
 #endif
 
-
   // Create input loop switch
   // Each press of the button changes the value within the defined range.
-  LoopSwitch* loopSwitch = new LoopSwitch(LOOPSWITCH_BUTTON_PIN, LOOPSWITCH_MIN, LOOPSWITCH_MAX, LOOPSWITCH_STEPWIDTH);
+  LoopSwitch* loopSwitch = new LoopSwitch(LOOPSWITCH_BUTTON_PIN, LOOPSWITCH_MIN, LOOPSWITCH_MAX, LOOPSWITCH_STEPWIDTH, SWITCHMODE);
   // ***))
 
   // Initialize control
