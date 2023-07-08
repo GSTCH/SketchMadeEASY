@@ -3,7 +3,7 @@
 //*
 //* Represent two joystichAxis. This is a variable (analog input) 
 //* with auto calibration during startup. Value=0 is the centre 
-//* position. When moveing joystick, value changes from MINPOS 
+//* position, value itself is +/-255. When moveing joystick, value changes from MINPOS 
 //* to MAXPOS.
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
