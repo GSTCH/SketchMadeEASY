@@ -23,10 +23,11 @@
 
 //*****************************************************************
 // Parameter switch
-#define MONOFLOP_PIN 7
+#define MONOFLOP_PIN 41
 #define MONOFLOP_HIGH_DELAY_MS 2000
 #define MONOFLOP_HIGH_LOW_MS 500
 #define MONOFLOP_STARTIMPULSE false
+#define SWITCHMODE smPullUpExternal
 
 void setup()
 {
@@ -38,7 +39,7 @@ void setup()
   // Create input monoflop.
   // MonoFlop has a defined duration of the signal. The duration of high and low can be configured when create.
   // Values: 0=Low, 1=LowTimerRuns, 2=LowTimerEnd, 3=High, 4=High timer runs, 5=High timer end.
- MonoFlop* monoflop = new MonoFlop(MONOFLOP_PIN, MONOFLOP_HIGH_DELAY_MS, MONOFLOP_HIGH_LOW_MS, MONOFLOP_STARTIMPULSE);
+ MonoFlop* monoflop = new MonoFlop(MONOFLOP_PIN, MONOFLOP_HIGH_DELAY_MS, MONOFLOP_HIGH_LOW_MS, MONOFLOP_STARTIMPULSE, SWITCHMODE);
 // ***))
 
   // Initialize control
