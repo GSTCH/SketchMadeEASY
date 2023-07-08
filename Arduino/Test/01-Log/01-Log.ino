@@ -1,7 +1,7 @@
 //*****************************************************************
 //* Test class for Log. This is a useful class for other sketch not
 //* using "Sketch made Easy for Arduino".
-//* 
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -16,32 +16,37 @@
 //* (at your option) any later version.
 //*****************************************************************
 
+// Modifiy the common baud rate define it before include <easy.h>
+#define EASY_LOG_BAUDRATE 31250
+
 #include <Easy.h>
 #include <Arduino.h>
 
 int i = 0;
 
 //*****************************************************************
-#define LOG_BAURATE 9600
+#define LOG_BAURATE 31250
+
 void setup() {
   // put your setup code here, to run once:
 
   // At first time you can choose the baud rate (Default/no parameter is 57600).
   // Set the baud rate into the serial monitor of Arduino IDE
-  GetLog(LOG_BAURATE)->printf("Text without paramter");
-  GetLog()->printf("Test with parameter Int=%d, String=%s", i++, "Setup");
+  GetLog(LOG_BAURATE)->println("Text without paramter");
+  GetLog()->printf("Test with parameter Int=%d, String=%s", ++i, "Setup");
 }
 
 //*****************************************************************
 void loop() {
   delay(100);
+
   // put your main code here, to run repeatedly:
-  GetLog()->printf("Test with parameter Int=%d, String=%s", i++, "Loop");
+  GetLog()->printf("Test with parameter Int=%d, String=%s", ++i, "Loop");
 
   if (i == 100) {
-    GetLog()->enable(false);
+    GetLog()->disable();
   }
   if (i == 200) {
-    GetLog()->enable(true, LOG_BAURATE);
+    GetLog()->enable(LOG_BAURATE);
   }
 }

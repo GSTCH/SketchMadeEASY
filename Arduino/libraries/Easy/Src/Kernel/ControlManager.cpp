@@ -113,6 +113,10 @@ void ControlManager::Setup() {
 #ifdef LOG_SETUP
 GetLog()->println("CM:S }");
 #endif
+
+#ifdef LOG
+GetLog()->flush();
+#endif
 }
 
 //*************************************

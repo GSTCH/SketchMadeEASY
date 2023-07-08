@@ -9,14 +9,19 @@
 //*   Write text with parameter:
 //*       GetLog()->printf("Speed changes [%d --> %d]", oldSpeed, newSpeed );
 //*
-//* The class can be affected to prevent a log. For example, the Bluetooth deactivate the log,
-//* if its communicated is via HardwareSerial.
+//* The class can be affected to prevent a log. For example, the Bluetooth 
+//* class of Easy deactivate the log, if its communicated is via HardwareSerial.
 //*
 //* Logs? The less the better because they need program memory. Log is for test only and has to be short.
 //* When all is okay, remove the Log. For this exists the define LOG. All log have to be enclosed
 //* with it:
-//*     #ifdef LOG
-//*       GetLog()->printf("speed changes");
+//*
+//*     #ifdef LOG_SETUP
+//*       GetLog()->printf("Log during initialize");
+//*     #endif
+//*
+//*     #ifdef LOG_LOOP
+//*       GetLog()->printf("Log during loop");
 //*     #endif
 //*
 //*****************************************************************
@@ -37,7 +42,14 @@
 
 #include <stdio.h>
 
+#ifndef EASY_LOG_BUFFER_LEN
 #define EASY_LOG_BUFFER_LEN 150
+#endif
+
+// Baudrates: 9600,19200,31250,38400,57600,74880,115200
+#ifndef EASY_LOG_BAUDRATE
+#define EASY_LOG_BAUDRATE 31250
+#endif
 
 //**********************
 //*  Class Log - Header definiert die Klasse
@@ -47,6 +59,7 @@ class Log {
 private:
   static bool _enabled;
   static char _buffer[EASY_LOG_BUFFER_LEN];
+  static int _baudrate;
 
   //*** PUBLIC
 public:
@@ -74,11 +87,18 @@ public:
   int printf(const char* format, ...);
 
   //************
+  //* Activate
+  //* Can be used, to prevent logging when HardwareSerial is in used by the sketch.
+  //* Baudrates: 9600,19200,31250,38400,57600,74880,115200
+  //************
+  void enable(int baurate = EASY_LOG_BAUDRATE);
+  
+  //************
   //* Activate/deactive Log
   //* Can be used, to prevent logging when HardwareSerial is in used by the sketch.
   //* Baudrates: 9600,19200,38400,57600,74880,115200
   //************
-  void enable(bool enabled, int baurate = 57600);
+  void disable();
 
   //************
   //* Query whether the log is activated
@@ -86,6 +106,11 @@ public:
   inline bool enabled() {
     return _enabled;
   }
+  
+  //************
+  //* Send all bytes buffer and wait on incomming
+  //************
+  void flush();  
 };
 
 //************
@@ -94,12 +119,12 @@ public:
 //* Use log only via this method.
 //* Implements a simple singleton pattern.
 //************
-static Log* GetLog(int baurate = 57600) {
+static Log* GetLog(int baurate = EASY_LOG_BAUDRATE) {
   static Log* log;
 
   if (log == NULL) {
     log = new Log();
-	log->enable(true, baurate);
+	log->enable(baurate);
   }
   return log;
 }

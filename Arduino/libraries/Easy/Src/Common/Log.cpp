@@ -22,7 +22,8 @@
 #include "Log.h"
 
 // Initialisierung des Static muss per CPP erfolgen.
-bool Log::_enabled = true;
+bool Log::_enabled = false;
+int Log::_baudrate = 0;
 char Log::_buffer[EASY_LOG_BUFFER_LEN];
 
 //*************************************
@@ -44,18 +45,34 @@ int Log::printf(const char* format, ...) {
 void Log::println(const char* text) {
   if (_enabled) {
     Serial.println(text);
-    Serial.flush();
   }
 }
 
 //*************************************
-void Log::enable(bool enabled, int baurate) {
-  if (_enabled != enabled) {
-    _enabled = enabled;
-    if (enabled) {
-      Serial.begin(baurate);
-    } else {
-      Serial.end();
-    }
+void Log::enable(int baurate) {
+  if (!_enabled) {	  
+    _enabled = true;
+    Serial.begin(baurate);	
+	_baudrate = baurate;
+  } else if (_baudrate != baurate) {
+	Serial.end();
+	Serial.begin(baurate);	
+	_baudrate = baurate;
+  }
+}
+
+//*************************************
+void Log::disable() {
+  if (_enabled) {
+    _enabled = false;
+    Serial.end();
+	_baudrate = 0;
+  }
+}
+
+//*************************************
+void Log::flush() {
+  if (_enabled) {
+    Serial.flush();
   }
 }

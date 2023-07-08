@@ -192,7 +192,7 @@ void Bluetooth::InitHardSerial() {
 
     // SerialMonitor (Log) and bluetooth have conflics at Nano and Uno. Mega has three additional hardware serial channels.
     if (GetLog()->enabled()) {
-      GetLog()->enable(false);
+      GetLog()->disable();
     }
     return;
   }
