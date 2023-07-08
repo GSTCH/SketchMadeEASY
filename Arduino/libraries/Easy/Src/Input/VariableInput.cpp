@@ -56,19 +56,19 @@ void VariableInput::Init(int aAnalogPin, int aConsideredMinChange)
 //*************************************
 void VariableInput::Loop()
 {
-  int readValue = analogRead(_analogPin);
-  if (abs(readValue - _lastValue) > _consideredMinChange)
+  _currentValue = analogRead(_analogPin);
+  if (abs(_currentValue - _lastValue) > _consideredMinChange)
   {
 #ifdef LOG_LOOP
-    GetLog()->printf("VI(%d):L Vl=%d", _id, readValue);
+    GetLog()->printf("VI(%d):L Vl=%d", _id, _currentValue);
 #endif
     _lastValue = _currentValue;
-    _currentValue = readValue;
+    _currentValue = _currentValue;
   }
   else
   {
 #ifdef LOG_LOOP_DEBUG
-    GetLog()->printf("VI(%d):L ignore LVl=%d CVl=%d", _id, _lastValue, readValue);
+    GetLog()->printf("VI(%d):L ignore LVl=%d CVl=%d", _id, _lastValue, _currentValue);
 #endif   
   }
 }

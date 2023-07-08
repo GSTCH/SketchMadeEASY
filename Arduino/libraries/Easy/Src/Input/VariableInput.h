@@ -23,7 +23,9 @@
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Kernel\Input.h"
 
+#ifndef EASY_VARIABLEINPUT_CONSIDERED_MIN_CHANGE
 #define EASY_VARIABLEINPUT_CONSIDERED_MIN_CHANGE 5
+#endif
 
 class VariableInput : public Input
 {
