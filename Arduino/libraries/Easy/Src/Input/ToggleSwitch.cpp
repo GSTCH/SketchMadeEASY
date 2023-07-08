@@ -81,7 +81,7 @@ void ToggleSwitch::Setup()
 //*************************************
 void ToggleSwitch::Loop()
 {
-  unsigned long currentTime =millis();
+  unsigned long currentTime = millis();
   if (_ignoreChangeMillis > currentTime)
   {
 #ifdef LOG_LOOP_DEBUG
@@ -134,14 +134,10 @@ void ToggleSwitch::Loop()
 #ifdef LOG_LOOP
   else 
   {
-    // both HIGH or LOW
+    // both HIGH 
     if (valueDirection1 == _switchPressed && valueDirection2 == _switchPressed && _switchResistoreMode == smPullUpExternal)
     {
       GetLog()->printf("TS(%d):L 2*H", _id );
-    }
-	else if (valueDirection1 == _switchPressed && valueDirection2 == _switchPressed && _switchResistoreMode != smPullUpExternal)
-    {
-      GetLog()->printf("TS(%d):L 2*L", _id );
     }
   }
 #endif

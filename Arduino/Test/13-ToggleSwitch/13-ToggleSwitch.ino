@@ -25,6 +25,7 @@
 // Parameter of limit switches
 #define DIRECTION_PIN1 43  
 #define DIRECTION_PIN2 41  
+#define SWITCHMODE smPullUpExternal
 
 void setup()
 {
@@ -34,7 +35,7 @@ void setup()
 #endif
 
   // Toggle the value between two values, change controlled by limit switches
-  ToggleSwitch* toggleSwitch = new ToggleSwitch(DIRECTION_PIN1, DIRECTION_PIN2);
+  ToggleSwitch* toggleSwitch = new ToggleSwitch(DIRECTION_PIN1, DIRECTION_PIN2, SWITCHMODE);
 // ***))
 
   // Initialize control
