@@ -24,14 +24,12 @@
 #include <Easy.h>
 
 //*****************************************************************
-#define DIGITALINPUT_PIN 7
+#define DIGITALINPUT_PIN 39
 
 void setup() {
 	
 //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
   GetLog()->printf("Setup DigitalInput Test");
-#endif
 
   DigitalInput* digitalInput = new DigitalInput(DIGITALINPUT_PIN);
 // ***))
