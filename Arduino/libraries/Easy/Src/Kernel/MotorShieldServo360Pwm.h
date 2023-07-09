@@ -5,6 +5,7 @@
 //*
 //* Class changes the PWM frequency from PIN9 and 10 to 50 Hz.
 //* After this  pulse width changes by set the register value.
+//* Advantage: Log possible on Serial0.
 //*
 //* https://forum.arduino.cc/t/pwm-to-50-hz/
 //* https://tkristner.github.io/blog/Arduino-PWM-AC-50hz/
@@ -34,10 +35,17 @@
 // Depending on the pulse duration, it turns forwards, backwards or stands still.
 // Values have to be adjusted depending on the type.
 // For this it exists a constructor with extra parameter, this are the default values.
+#ifndef MAX_BACKWARD_PWMVALUE
 #define MAX_BACKWARD_PWMVALUE 2000
+#endif
+
+#ifndef MAX_FORWARD_PWMVALUE
 #define MAX_FORWARD_PWMVALUE 4000
+#endif
+
+#ifndef STOP_PWMVALUE
 #define STOP_PWMVALUE 3000  // (MIN+MAX)/2
-#define MILLIS_PWMRANGE 1000
+#endif
 
 class MotorShieldServo360Pwm : public MotorShieldBase {
 private:
@@ -68,6 +76,12 @@ public:
     _maxBackwardPwm = aMaxBackwardPwm;
 
     _pin = aPin;
+#ifdef LOG_CREATE
+	if (_pin<9 ||_pin>10)
+	{
+	  GetLog()->printf("S3PWM:C P=%d ![9|10]", _pin);
+	}
+#endif	
   }
 
   //*************************************
@@ -93,8 +107,7 @@ public:
 
   //*************************************
   void forward(int aSpeed) {
-    //_pwm = map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, _stopPwm, _maxForwardPwm);
-    _pwm = STOP_PWMVALUE - map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, MILLIS_PWMRANGE);
+    _pwm = _stopPwm + map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, _maxForwardPwm-_stopPwm);
     if (_pin == 9) {
       OCR1A = _pwm;
 #ifdef LOG_LOOP_DEBUG
@@ -110,8 +123,7 @@ public:
 
   //*************************************
   void backward(int aSpeed) {
-    //_pwm = map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, _stopPwm, _maxBackwardPwm);
-    _pwm = STOP_PWMVALUE - map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, MILLIS_PWMRANGE);
+    _pwm = _stopPwm - map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, _stopPwm-_maxBackwardPwm);
 
     if (_pin == 9) {
       OCR1A = _pwm;
@@ -123,7 +135,7 @@ public:
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("S3PWM OCR1B=%d", OCR1B);
 #endif
-    }
+	 }
   }
 
   //*************************************

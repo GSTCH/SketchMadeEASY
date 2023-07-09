@@ -23,11 +23,25 @@
 #include "MotorShieldBase.h"
 #include <Arduino.h>
 
-#define SERVO_FREQ 50               // Analog servos run at ~50 Hz updates
-#define SERVO_MAXBACKWARD_TIME 1000  // This is the rounded 'minimum' microsecond length
-#define SERVO_MAXFORWARD_TIME 2000  // This is the rounded 'maximum' microsecond length 
-#define SERVO_STOP_TIME 1500        // (SERVO_MAXBACKWARD_TIME + SERVO_MAXFORWARD_TIME) / 2
+#ifndef I2C_SERVO_FREQ
+// Servos run at ~50 Hz updates
+#define I2C_SERVO_FREQ 50               
+#endif
 
+#ifndef SERVO_MAXBACKWARD_TIME_I2C
+// This is the rounded 'minimum' microsecond length
+#define SERVO_MAXBACKWARD_TIME_I2C 1000  
+#endif
+
+#ifndef SERVO_MAXFORWARD_TIME_I2C
+// This is the rounded 'maximum' microsecond length 
+#define SERVO_MAXFORWARD_TIME_I2C 2000  
+#endif
+
+#ifndef SERVO_STOP_TIME_I2C
+// (SERVO_MAXBACKWARD_TIME_I2C + SERVO_MAXFORWARD_TIME_I2C) / 2
+#define SERVO_STOP_TIME_I2C 1500        
+#endif
 
 class MotorShieldServo360I2C : public MotorShieldBase {
 private:
@@ -42,9 +56,9 @@ public:
   MotorShieldServo360I2C(int aServoNr, int aBusAddress = 0x40)
     : MotorShieldBase() {
     _servoNr = aServoNr;
-    _maxForwardMillis = SERVO_MAXFORWARD_TIME;
-    _stopMillis = SERVO_STOP_TIME;
-    _maxBackwardMillis = SERVO_MAXBACKWARD_TIME;
+    _maxForwardMillis = SERVO_MAXFORWARD_TIME_I2C;
+    _stopMillis = SERVO_STOP_TIME_I2C;
+    _maxBackwardMillis = SERVO_MAXBACKWARD_TIME_I2C;
     _servoShield = AdafruitI2cShield::getPwmServoShield(aBusAddress);
   }
 
@@ -62,18 +76,26 @@ public:
   void Setup() {
     _servoShield->begin();
     _servoShield->setOscillatorFrequency(27000000);
-    _servoShield->setPWMFreq(SERVO_FREQ);  // Analog servos run at ~50 Hz updates
+    _servoShield->setPWMFreq(I2C_SERVO_FREQ);  // Analog servos run at ~50 Hz updates
     stop();
   }
 
   //*************************************
   void forward(int aSpeed) {
-    _servoShield->writeMicroseconds(_servoNr, map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, _stopMillis, _maxForwardMillis));
+long val = _stopMillis + map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, _stopMillis-_maxForwardMillis);
+#ifdef _LOG_LOOP_DEBUG
+    GetLog()->printf("S3I2C:F Spd=%d, Val=%d", aSpeed, val);
+#endif
+    _servoShield->writeMicroseconds(_servoNr, val);
   }
 
   //*************************************
   void backward(int aSpeed) {
-    _servoShield->writeMicroseconds(_servoNr, map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, _stopMillis, _maxBackwardMillis));
+long val = _stopMillis - map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, _maxBackwardMillis-_stopMillis);
+#ifdef _LOG_LOOP_DEBUG
+    GetLog()->printf("S3I2C:B Spd=%d, Val=%d", aSpeed, val);
+#endif	 
+    _servoShield->writeMicroseconds(_servoNr, val);
   }
 
   //*************************************

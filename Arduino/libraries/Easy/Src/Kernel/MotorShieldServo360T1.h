@@ -27,10 +27,17 @@
 // Depending on the pulse duration, it turns forwards, backwards or stands still.
 // Values have to be adjusted depending on the type.
 // For this it exists a constructor with extra parameter, this are the default values.
+#ifndef MILLIS_MAX_FORWARD_T1
 #define MILLIS_MAX_FORWARD_T1 1000
-#define MILLIS_STOP_T1 1500
-#define MILLIS_MAX_BACKWARD_T1 2000
+#endif
 
+#ifndef MILLIS_STOP_T1
+#define MILLIS_STOP_T1 1500
+#endif
+
+#ifndef MILLIS_MAX_BACKWARD_T1
+#define MILLIS_MAX_BACKWARD_T1 2000
+#endif
 
 class MotorShieldServo360T1 : public MotorShieldBase {
 private:
@@ -72,12 +79,20 @@ public:
 
   //*************************************
   void forward(int aSpeed) {
-    _servo360.writeMicroseconds(map(aSpeed, _minMotorShieldSpeed, _maxForwardMillis, _stopMillis, _maxForwardMillis));
+long val = _stopMillis + map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, _stopMillis-_maxForwardMillis);
+#ifdef _LOG_LOOP_DEBUG
+    GetLog()->printf("S3T1:F Spd=%d, Val=%d", aSpeed, val);
+#endif
+    _servo360.writeMicroseconds(val);
   }
 
   //*************************************
   void backward(int aSpeed) {
-    _servo360.writeMicroseconds(map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, _stopMillis, _maxBackwardMillis));
+long val = _stopMillis - map(aSpeed, _minMotorShieldSpeed, _maxMotorShieldSpeed, 0, _maxBackwardMillis-_stopMillis);
+#ifdef _LOG_LOOP_DEBUG
+    GetLog()->printf("S3T1:B Spd=%d, Val=%d", aSpeed, val);
+#endif
+    _servo360.writeMicroseconds(val);
   }
 
   //*************************************

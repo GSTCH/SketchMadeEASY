@@ -1,5 +1,7 @@
 //*****************************************************************
-// Test for 360°-servo works with modified PWM signal
+// Test for 360°-servo works with modified PWM signal. 
+//* Does only works one Arduino UNO R3, PIN9 or PIN10
+//* Advantage: Log possible on Serial0.
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".

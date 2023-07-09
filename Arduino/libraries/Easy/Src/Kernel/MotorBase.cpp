@@ -47,12 +47,23 @@ void MotorBase::Setup() {
 //*************************************
 void MotorBase::Act(Input* aInput) {
   int mappedSpeed;
-  if (aInput->GetMinValue() == 0 && aInput->GetMaxValue() > 0) {
-    mappedSpeed = abs(aInput->Map(_motorShield->GetMinSpeed(), _motorShield->GetMaxSpeed()));
-  } else if (aInput->GetMinValue() == 0 && aInput->GetMaxValue() < 0) {
-    mappedSpeed = abs(aInput->Map(_motorShield->GetMinSpeed(), -_motorShield->GetMaxSpeed()));
-  } else {
-    mappedSpeed = abs(aInput->Map(_motorShield->GetMinSpeed(), _motorShield->GetMaxSpeed()));
+  if (aInput->GetMinValue() == 0 && aInput->GetMaxValue() != 0) {
+	// Sign defines the rotation direction, the speed is from 0...MAX 
+    if (aInput->Value() > 0)
+	{
+	  mappedSpeed = aInput->Map(0, abs(_motorShield->GetMaxSpeed()));
+	}
+	else if (aInput->Value() < 0)
+	{
+	  mappedSpeed = aInput->Map(0, -abs(_motorShield->GetMaxSpeed()));
+	}	
+	else
+	{
+	  mappedSpeed = 0;
+	}	
+  } else {	 
+    // Input is from -MAX to +MAX, motor is from 0...MAX 
+    mappedSpeed = abs(aInput->Map(-_motorShield->GetMaxSpeed(), _motorShield->GetMaxSpeed()));
   }
 
 #ifdef LOG_LOOP_DEBUG

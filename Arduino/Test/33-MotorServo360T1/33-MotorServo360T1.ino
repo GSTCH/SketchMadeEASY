@@ -22,7 +22,7 @@
 #include <Easy.h>
 
 //*****************************************************************
-#define SERVO360_PIN 9
+#define SERVO360_PIN 10
 #define MOTOR_SPEED_STEPWIDTH 10
 #define STEPWIDTH_MSEC 1000
 
