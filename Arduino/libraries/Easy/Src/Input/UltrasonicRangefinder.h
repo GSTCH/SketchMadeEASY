@@ -2,6 +2,7 @@
 //* Class UltrasonicRangefinder - Header
 //*
 //* A common Ultrasonic Rangefinders such as the HY-SRF05
+//* Value (distance in [cm]).
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
@@ -20,10 +21,12 @@
 #define EASY_ULTRASONICRANGEFINDER_H
 
 #ifdef USE_NEWPING
-#include <NewPing.h>
+  #include <NewPing.h>
 #else
-#include <Arduino.h>
-#define MEASURE_REPETITIONS 1
+  #include <Arduino.h>
+  #ifndef EASY_MEASURE_REPETITIONS
+    #define EASY_MEASURE_REPETITIONS 1
+  #endif
 #endif
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Kernel\Input.h"
@@ -33,6 +36,15 @@
 #define EASY_MAX_DISTANCE 200
 #endif
 
+#ifndef EASY_MEASURE_INTERVAL_MSEC
+#define EASY_MEASURE_INTERVAL_MSEC 500
+#endif
+
+#ifndef EASY_MINIMUM_MEASURE_INTERVAL_MSEC
+// Sensor does not work when read to often
+#define EASY_MINIMUM_MEASURE_INTERVAL_MSEC 100
+#endif
+
 class UltrasonicRangefinder : public Input {
 private:
 #ifdef USE_NEWPING
@@ -40,18 +52,17 @@ private:
 #endif
 
   //*************************************
-  void Init(int aEchoPin, int aTriggerPin, int aMeasureInterval) {
+  void Init(int aEchoPin, int aTriggerPin, int aMeasureInterval = EASY_MEASURE_INTERVAL_MSEC) {
 #ifdef LOG_SETUP
     GetLog()->printf("UR(%d):C EP=%d, TP=%d MI=%d", _id, aEchoPin, aTriggerPin, aMeasureInterval);
 #endif
 
     _echoPin = aEchoPin;
     _triggerPin = aTriggerPin;
-    if (aMeasureInterval > 100) {
+    if (aMeasureInterval > EASY_MINIMUM_MEASURE_INTERVAL_MSEC) {
       _measureInterval = aMeasureInterval;
-    } else {
-      // Sensor does not work when read to often
-      _measureInterval = 100;
+    } else {      
+      _measureInterval = EASY_MINIMUM_MEASURE_INTERVAL_MSEC;
     }
 
 #ifdef USE_NEWPING
@@ -126,29 +137,29 @@ public:
 #ifdef USE_NEWPING
     duration = _ultraSonic->ping();
 #else
-    // Init measuring for a better distance we repeat it 3 times.
-    for (int idx = 0; idx < MEASURE_REPETITIONS; ++idx) {
+    // Init measuring for a better distance we repeat it.
+    for (int idx = 0; idx < EASY_MEASURE_REPETITIONS; ++idx) {
       duration += MessureOneTime();
-      if (idx < MEASURE_REPETITIONS-1) {
+      if (idx < EASY_MEASURE_REPETITIONS-1) {
         // TODO: Improve with a non blocking sleep
-        delay(50);
+        delay(EASY_MINIMUM_MEASURE_INTERVAL_MSEC);
       }
     }
-    duration /= MEASURE_REPETITIONS;
+    duration /= EASY_MEASURE_REPETITIONS;
 
-    //duration += MessureOneTime();
-    //delayMicroseconds(50);
-    //duration += MessureOneTime();
 #endif
 
-    // Calc lenth in [mm]:
+    // Calc lenth in [cm]:
     // The speed of sound is 340 m/s or 29 microseconds per centimeter.
     // The ping travels out and back, so to find the distance of the object we
     // take half of the distance travelled.
     _currentValue = duration / (29 * 2.0);  // Integer division, floors value
 
 #ifdef LOG_LOOP
-    GetLog()->printf("UR(%d):L CVl=%d", _id, _currentValue);
+    if (_lastValue!=_currentValue)
+    {
+	  GetLog()->printf("UR(%d):L CVl=%d", _id, _currentValue);
+    }
 #endif
 
     _lastMeasure = current_time;

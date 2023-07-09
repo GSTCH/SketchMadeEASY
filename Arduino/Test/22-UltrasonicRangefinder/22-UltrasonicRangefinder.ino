@@ -23,8 +23,8 @@
 
 //*****************************************************************
 // Parameter joystick
-#define ECHO_PIN 13
-#define TRIGGER_PIN 12
+#define ECHO_PIN 30
+#define TRIGGER_PIN 31
 #define MEASURE_INTERVAL_MSEC 1000
 
 void setup()

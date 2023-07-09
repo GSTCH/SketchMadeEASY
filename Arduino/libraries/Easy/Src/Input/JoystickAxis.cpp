@@ -23,12 +23,31 @@
 
 #define IMPOSIBLE_VALUE_TO_INIT_JOYSTICKAXIS 9999
 
-#define CONSIDERED_MIN_CHANGE 5
-#define DEATH_ZONE_WIDTH 20
-#define CALIBRATION_LOOPS 20
+#ifndef CONSIDERED_MIN_CHANGE 
+// To make not to much changes to the Actuators e.g. by toggleing +/-1
+#define CONSIDERED_MIN_CHANGE 5 
+#endif 
 
-#define ANALOG_PIN_RESOLUTION 1024 // Read position is 0...ANALOG_PIN_RESOLUTION
-#define MAX_AXIS_VALUE 255 // Joystick value is 0...Abs(MAX_AXIS_VALUE)
+#ifndef DEATH_ZONE_WIDTH
+// Increase the center to area of the 0 value
+#define DEATH_ZONE_WIDTH 20 
+#endif
+
+#ifndef CALIBRATION_LOOPS
+// Analog reads have some tolerance. To minimize this, the current position has 
+// been read multiple time to get an average (exact) centre position. 
+#define CALIBRATION_LOOPS 20 
+#endif
+
+#ifndef ANALOG_PIN_RESOLUTION 
+// Read position is 0...ANALOG_PIN_RESOLUTIO. Depend on the Board, this is with a 10-bit ADC resolution
+#define ANALOG_PIN_RESOLUTION 1024 
+#endif
+
+#ifndef MAX_AXIS_VALUE
+// Joystick value is -MAX_AXIS_VALUE...0...MAX_AXIS_VALUE
+#define MAX_AXIS_VALUE 255 
+#endif
 
 //*************************************
 #ifdef CREATE_ID_MANUALLY  
