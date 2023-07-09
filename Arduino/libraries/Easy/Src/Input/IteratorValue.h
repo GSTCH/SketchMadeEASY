@@ -28,7 +28,9 @@
 #include "..\Common\Log.h"
 #include "..\Kernel\Input.h"
 
+#ifndef DEFAULT_STEP_TIME_WIDTH_MSEC
 #define DEFAULT_STEP_TIME_WIDTH_MSEC 50
+#endif
 
 class IteratorValue : public Input {
 private:

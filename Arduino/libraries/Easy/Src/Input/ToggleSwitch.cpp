@@ -85,7 +85,7 @@ void ToggleSwitch::Loop()
   if (_ignoreChangeMillis > currentTime)
   {
 #ifdef LOG_LOOP_DEBUG
-    GetLog()->printf("TS(%d):L debounce", _id,  valueDirection1, valueDirection2);
+    GetLog()->printf("TS(%d):L debounce", _id);
 #endif
     return;
   }

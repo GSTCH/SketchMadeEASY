@@ -3,6 +3,14 @@
 //*
 //* Internal class to set command of a stepper with controlled by
 //* Adafruit Motor Shield V2, with controled rotation.
+//*
+//* Adafruit Motor Shield V2 library only supports rotate by angle. 
+//* "Exact RPM" is not supported. AccelStepper does not support this either.
+//* Long angle presets are not allowed because it blocks the sketch. 
+//* This solution only blocks the sketch during each step. Due to the 
+//* many small steps during the loop, there is enough time to process 
+//* the events.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -24,7 +32,7 @@
 #include "MotorShieldBase.h"
 
 #ifndef STEPPERROTATE_I2C_MAX_CYCLES_PER_SEC
-// 1000 PPS/min
+// 1000 PPS/min (according to manufacturer)
 #define STEPPERROTATE_I2C_MAX_CYCLES_PER_SEC 17
 #endif
 
@@ -60,7 +68,10 @@ public:
     _lastLoopTime = 0;
 
     _minMotorShieldSpeed = 0;
-    _maxMotorShieldSpeed = round(aMaxCylcesPerSecond / aResolution * 60);
+    _maxMotorShieldSpeed = round(1.0 * aMaxCylcesPerSecond / aResolution * 60);
+#ifdef LOG_SETUP
+    GetLog()->printf("SRI:C Vmax=%d", _maxMotorShieldSpeed);
+#endif
 
     if (aStepperNr > 2 || aStepperNr < 1) {
 #ifdef LOG_SETUP
@@ -114,7 +125,7 @@ public:
     }
 
     if (cyclesToGo > 0) {
-#ifdef LOG_SETUP_DEBUG
+#ifdef LOG_LOOP_DEBUG
       GetLog()->printf("SRI:L C=%d, S=%d, D=%d", cyclesToGo, _cycleSpeed, _direction);
 #endif
       // Step is a blocking call. No problem at low speeds, at higher speeds the system swings up, until a loop use serveral seconds.
@@ -130,7 +141,7 @@ public:
   void forward(int aSpeed) {
     _cycleSpeed = aSpeed / 60.0 * _resolution;
 
-#ifdef LOG_SETUP_DEBUG
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("SRI:Fw S=%d, C=%d", aSpeed, _cycleSpeed);
 #endif
     _direction = FORWARD;
@@ -142,7 +153,7 @@ public:
   void backward(int aSpeed) {
     _cycleSpeed = aSpeed / 60.0 * _resolution;
 
-#ifdef LOG_SETUP_DEBUG
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("SRI:Fw S=%d, C=%d", aSpeed, _cycleSpeed);
 #endif
     _direction = BACKWARD;
@@ -151,12 +162,12 @@ public:
 
   //*************************************
   void stop() {
-#ifdef LOG_SETUP_DEBUG
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("SRI:Sp");
 #endif
     _direction = 0;
     _cycleSpeed = 0;
-    _stepper->setSpeed(_cycleSpeed);
+    //Do not callx "_stepper->setSpeed(_cycleSpeed);" because Arduino hangs (PWM frequency = 0)
   }
 };
 

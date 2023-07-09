@@ -82,7 +82,7 @@ void MotorBase::Act(Input* aInput) {
 //*************************************
 void MotorBase::Loop() {
 #ifdef LOG_LOOP_DEBUG
-  GetLog()->printf("MO(%d):L %d", _id, _delayedMillis);
+  GetLog()->printf("MO(%d):L DT=%d", _id, _delayedMillis);
 #endif
 
   if (_delayedMillis > 0) {

@@ -18,6 +18,7 @@
 
 // Library
 #include "AdafruitI2cShield.h"
+#include "..\Common\Log.h"
 
 // Initialize static members (create at first use)
 LinkedList<AdafruitShield*>* AdafruitI2cShield::_shields = NULL;
@@ -87,7 +88,7 @@ Adafruit_PWMServoDriver* AdafruitI2cShield::getPwmServoShield(unsigned int aBusA
 
   // Nothing found, create new one
 #ifdef LOG_SETUP
-  GetLog()->println("A2:CS C %d", aBusAddress);
+  GetLog()->printf("A2:CS C %d", aBusAddress);
 #endif
   Adafruit_PWMServoDriver* servoShield = new Adafruit_PWMServoDriver(aBusAddress);
   servoShield->begin();
