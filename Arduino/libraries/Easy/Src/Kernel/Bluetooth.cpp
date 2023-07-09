@@ -5,7 +5,7 @@
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
-//* (C) written in 2023 by Hans Rothenbühler. All right reserved.
+//* (C) written in 2023 by Hans Rothenbuehler. All right reserved.
 //*
 //* https://github.com/GSTCH/Easy
 //*
@@ -112,8 +112,6 @@ void Bluetooth::LoopHardSerial() {
 
 //*************************************
 void Bluetooth::LoopSoftSerial() {
-  //TODO: Bei unterbrochen übertragenen Telegrammen, diese zusammensetzen --> Input stream
-
 #ifdef LOG_LOOP_DEBUG
   GetLog()->printf("BT:LSs C=%d CC=%d DR=%d, DA=%d", _connected, _connectionChanged, _dataReceived, _hc06->available());
 #endif

@@ -5,7 +5,7 @@
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
-//* (C) written in 2023 by Hans Rothenbühler. All right reserved.
+//* (C) written in 2023 by Hans Rothenbuehler. All right reserved.
 //*
 //* https://github.com/GSTCH/Easy
 //*
@@ -20,8 +20,10 @@
 #include "..\Common\Log.h"
 #include <arduino.h>
 
+#ifndef TIME_UNTIL_MOTOR_STOPED_MS
+// Wait time when motor change direction without stop (mass inertia). Increase this time when moving large/heavy constructions.
 #define TIME_UNTIL_MOTOR_STOPED_MS 500
-
+#endif
 
 //*************************************
 #ifdef CREATE_ID_MANUALLY 
@@ -138,7 +140,7 @@ void MotorBase::forward(int aSpeed) {
   }
 
   if (_delayedMillis > 0) {
-#ifdef LOG_LOOP
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("MO(%d):Fd delay %d", _id, _delayedMillis);
 #endif
 
@@ -179,7 +181,7 @@ void MotorBase::backward(int aSpeed) {
   }
 
   if (_delayedMillis > 0) {
-#ifdef LOG_LOOP
+#ifdef LOG_LOOP_DEBUG
     GetLog()->printf("MO(%d):Bk delay %d", _id, _delayedMillis);
 #endif
 
@@ -189,7 +191,7 @@ void MotorBase::backward(int aSpeed) {
   }
 
 #ifdef LOG_LOOP
-  GetLog()->printf("MO(%d):Bk Dr=%d Sp=%d", _id, LOW, aSpeed);
+  GetLog()->printf("MO(%d):Bk Sp=%d", _id, aSpeed);
 #endif
 
   // Hardware shield is implemented in derived class of CMotorShield.

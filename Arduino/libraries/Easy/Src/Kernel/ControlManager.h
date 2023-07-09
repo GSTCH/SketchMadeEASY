@@ -8,7 +8,7 @@
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
-//* (C) written in 2023 by Hans Rothenbühler. All right reserved.
+//* (C) written in 2023 by Hans Rothenbuehler. All right reserved.
 //*
 //* https://github.com/GSTCH/Easy
 //*
