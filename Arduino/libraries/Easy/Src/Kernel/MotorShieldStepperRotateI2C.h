@@ -32,8 +32,8 @@
 #include "MotorShieldBase.h"
 
 #ifndef STEPPERROTATE_I2C_MAX_CYCLES_PER_SEC
-// 1000 PPS/min (according to manufacturer)
-#define STEPPERROTATE_I2C_MAX_CYCLES_PER_SEC 17
+// 1000 PPS/sec (according to manufacturer)
+#define STEPPERROTATE_I2C_MAX_CYCLES_PER_SEC 1000 // 17
 #endif
 
 
@@ -167,7 +167,6 @@ public:
 #endif
     _direction = 0;
     _cycleSpeed = 0;
-    //Do not callx "_stepper->setSpeed(_cycleSpeed);" because Arduino hangs (PWM frequency = 0)
   }
 };
 

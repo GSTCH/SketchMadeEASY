@@ -31,6 +31,7 @@
  * LOG_SETUP      : Common information during startup
  * LOG_SETUP_DEBUG: Extended informations during startup, used to find bugs
  */  
+
 #ifndef LOG
 #define LOG 
 #endif

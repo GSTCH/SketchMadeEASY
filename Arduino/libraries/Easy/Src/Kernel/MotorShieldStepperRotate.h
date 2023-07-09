@@ -24,6 +24,15 @@
 #include <Arduino.h>
 #include <AccelStepper.h>  // https://www.airspayce.com/mikem/arduino/AccelStepper/
 
+#ifndef STEPPERROTATE_MAX_CYCLES_PER_SEC
+// 1000 PPS/sec (according to manufacturer)
+#define STEPPERROTATE_MAX_CYCLES_PER_SEC 1000
+#endif
+
+#ifndef STEPPERROTATE_ACCELERATION_MSEC 
+#define STEPPERROTATE_ACCELERATION_MSEC 250
+#endif
+
 class MotorShieldStepperRotate : public MotorShieldBase {
 private:
   int _resolution;
@@ -36,10 +45,18 @@ private:
             int aResolution,  // Resolution of the stepper motor in "steps per one rotation"
             int aMaxCylcesPerSecond,
             EMotorInterfaceType aMotorInterfaceType) {
+#ifdef LOG_SETUP
+      GetLog()->printf("SPS:C P1=%d, P2=%d, P3=%d, P4=%d, R=%d, I=%d, MaxC=%d", aPin1, aPin2, aPin3, aPin4, aResolution, aMotorInterfaceType, aMaxCylcesPerSecond);
+#endif
+				
     _resolution = aResolution;
     _maxCylcesPerSecond = aMaxCylcesPerSecond;
     _minMotorShieldSpeed = 0;
-    _maxMotorShieldSpeed = round(60.0 / aResolution * aMaxCylcesPerSecond);
+    _minMotorShieldSpeed = 0;
+    _maxMotorShieldSpeed = round(1.0 * aMaxCylcesPerSecond / aResolution * 60);
+#ifdef LOG_SETUP
+    GetLog()->printf("SRI:C Vmax=%d", _maxMotorShieldSpeed);
+#endif	
 
     _stepper = new AccelStepper(aMotorInterfaceType, aPin1, aPin2, aPin3, aPin4, false);
   }
@@ -48,25 +65,19 @@ public:
   //*************************************
   MotorShieldStepperRotate(int aPin1, int aPin2, int aPin3, int aPin4, int aResolution, EMotorInterfaceType aMotorInterfaceType)
     : MotorShieldBase() {
-#ifdef LOG_SETUP
-      GetLog()->printf("SPS:C P1=%d, P2=%d, P3=%d, P4=%d, R=%d, I=%d", aPin1, aPin2, aPin3, aPin4, aResolution, aMotorInterfaceType);
-#endif
-    Init(aPin1, aPin2, aPin3, aPin4, 1000, aResolution, aMotorInterfaceType);   
+    Init(aPin1, aPin2, aPin3, aPin4, aResolution, STEPPERROTATE_MAX_CYCLES_PER_SEC, aMotorInterfaceType);   
   }
 
   //*************************************
   MotorShieldStepperRotate(int aPin1, int aPin2, int aPin3, int aPin4, int aResolution, int aMaxCylcesPerSecond, EMotorInterfaceType aMotorInterfaceType)
     : MotorShieldBase() {
-#ifdef LOG_SETUP
-      GetLog()->printf("SPS:C P1=%d, P2=%d, P3=%d, P4=%d, R=%d, I=%d, M=%d", aPin1, aPin2, aPin3, aPin4, aResolution, aMotorInterfaceType, _maxCylcesPerSecond);
-#endif
-    Init(aPin1, aPin2, aPin3, aPin4, aMaxCylcesPerSecond, aResolution, aMotorInterfaceType);
+    Init(aPin1, aPin2, aPin3, aPin4, aResolution, aMaxCylcesPerSecond, aMotorInterfaceType);
   }
 
   //*************************************
   void Setup() {
     _stepper->setMaxSpeed(_maxCylcesPerSecond);  // steps/sec
-    _stepper->setAcceleration(500);
+    _stepper->setAcceleration(STEPPERROTATE_ACCELERATION_MSEC);
     _stepper->enableOutputs();
   }
 
@@ -78,17 +89,28 @@ public:
   //*************************************
   //* aSpeed: Value in rotations per minute [RPM]
   void forward(int aSpeed) {
-    _stepper->setSpeed(round(aSpeed / 60.0 * _resolution));
+    float val = _resolution / 60.0 * aSpeed;
+//#ifdef _LOG_LOOP_DEBUG
+    GetLog()->printf("SPS:F Spd=%d, Vl=%d", aSpeed, (int)val);
+//#endif	  
+    _stepper->setSpeed(val);
   }
 
   //*************************************
   //* aSpeed: Value in rotations per minute [RPM]
   void backward(int aSpeed) {
-    _stepper->setSpeed(-round(aSpeed / 60.0 * _resolution));
+	float val = -_resolution / 60.0 * aSpeed;
+//#ifdef _LOG_LOOP_DEBUG
+    GetLog()->printf("SPS:B Spd=%d, Vl=%d", aSpeed, (int)val);
+//#endif	  
+    _stepper->setSpeed(val);
   }
 
   //*************************************
   void stop() {
+#ifdef _LOG_LOOP_DEBUG
+    GetLog()->println("SPS:S");
+#endif	 	  
     _stepper->stop();
   }
 };
