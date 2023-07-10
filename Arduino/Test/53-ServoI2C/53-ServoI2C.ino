@@ -23,7 +23,7 @@
 
 //*****************************************************************
 // Parameter Motor
-#define SERVO_NR 0
+#define SERVO_NR 15
 #define SERVO_ANGLE_MIN 0
 #define SERVO_ANGLE_MAX 180
 #define ANGLE_STEPWIDTH_DEGREE 10
