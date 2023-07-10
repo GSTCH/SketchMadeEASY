@@ -1,7 +1,7 @@
 //*****************************************************************
 //* Test for Buzzer
-//* 
-//* Activate Log into ".\Common\BuildDefintion.h" 
+//*
+//* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".
 //*
 //*****************************************************************
@@ -18,50 +18,48 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#define LOG 
+#define LOG
 #define LOG_LOOP
 #include <Easy.h>
 
 //*****************************************************************
-// Parameter Timer
-#define TIMER_INTERVAL_MSEC 1000
-// Parameter Buzzer 
-#define BUZZER_FREQUENCY 440
+// Parameter Iterator
+#define ITERATOR_VALUE_START 0 // [%]
+#define ITERATOR_VALUE_END 100 // [%]
+#define ITERATOR_STEPWIDTH 10
+#define ITERATOR_STEPDURATION_MSEC 500
+
+// Parameter Buzzer
 #define BUZZER_PIN 4
+#define BUZZER_MIN_FREQUENCY 50
+#define BUZZER_MAX_FREQUENCY 1000
+
 
 void setup() {
-	
-//((*** Initialize: Configure your sketch here....
+
+//((*** Initialize: Configure your sketch here...
 #ifdef LOG_SETUP
   GetLog()->printf("Buzzer Test");
 #endif
-  Timer* timer = new Timer(TIMER_INTERVAL_MSEC, true);
 
-   Buzzer* buzzer = new Buzzer(BUZZER_PIN, BUZZER_FREQUENCY);
+  Buzzer* buzzer = new Buzzer(BUZZER_PIN, BUZZER_MIN_FREQUENCY, BUZZER_MAX_FREQUENCY);
+  IteratorValue* iteratorValue = new IteratorValue(ITERATOR_VALUE_START, ITERATOR_VALUE_END,  ITERATOR_STEPWIDTH, ITERATOR_STEPDURATION_MSEC, cmMin2Max2Min);
+  Relation1to1* relation = new Relation1to1(NULL, buzzer, iteratorValue);
+  // ***))
 
-    //** Define logic with conditions and relations
-  // Define relation when timer value changes to High
-  CompareCondition* conditionLedOn = new CompareCondition(timer, OpEQ, Timer::High);
-  Relation1to1* relationLedOn = new Relation1to1(conditionLedOn, buzzer, FixValue::On());
-
-  // Define relation when timer value changes to Low
-  CompareCondition* conditionLedOff = new CompareCondition(timer, OpEQ, Timer::Low);
-  Relation1to1* relationLedOff = new Relation1to1(conditionLedOff, buzzer, FixValue::Off());
-// ***))
-
-  // Initialize control  
+  // Initialize control
   ControlManagerFactory::GetControlManager()->Setup();
 }
 
 //*****************************************************************
 void loop() {
-  //*** Run: No additional code is required 
-  
+  //*** Run: No additional code is required
+
 #ifdef LOG_LOOP_DEBUG
   GetLog()->println("Loop");
 #endif
 
- ControlManagerFactory::GetControlManager()->Loop();
+  ControlManagerFactory::GetControlManager()->Loop();
 
- delay(5);
+  delay(5);
 }

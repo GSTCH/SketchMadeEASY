@@ -110,7 +110,7 @@ class Buzzer : public Actuator
         _currentFrequency = _fixFrequency ? _frequency : aInput->Map(_frequency, _maxFrequency);
         if (_currentFrequency != _lastFrequency) {
           EasyBuzzer.stopBeep();
-#ifdef LOG_LOOP_DEBUG
+#ifdef LOG_LOOP
           if (!_fixFrequency)
           {
             GetLog()->printf("BZ(%d):A Fq=%d", _id, _currentFrequency);
