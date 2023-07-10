@@ -71,6 +71,12 @@ private:
 #endif
       return;
     }
+	else
+	{
+#ifdef LOG_LOOP		
+      GetLog()->printf("AI:PT %s", _commandBuffer);		
+#endif		
+	}
 
     char* command = strtok(_commandBuffer, ",");
     if (command == NULL) {
@@ -255,7 +261,7 @@ public:
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("AI:L Recvd");
 #endif
-      strcat(_commandBuffer, _bluetooth->Data());
+      strcpy(_commandBuffer, _bluetooth->Data());
       ParseAndUpdateTelegram();
     }
 
