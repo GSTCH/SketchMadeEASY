@@ -31,9 +31,9 @@
 #define STEPPER_PIN4 11
 */
 /* Frugo Robotic Shield */
-#define STEPPER_PIN1 12
-#define STEPPER_PIN2 10
-#define STEPPER_PIN3 13
+#define STEPPER_PIN1 8
+#define STEPPER_PIN2 9
+#define STEPPER_PIN3 10
 #define STEPPER_PIN4 11
 
 /* 28BYJ-48 */
@@ -45,6 +45,7 @@
 #define STEPPER_MAX_ANGLE 360
 
 #define HOME_LIMITSWITCH_PIN 2
+#define HOME_LIMITSWITCH_MODE smPullDownInternal
 
 #define ANGLE_STEPWIDTH_DEGREE 10
 #define STEPWIDTH_MSEC 1000
@@ -52,14 +53,13 @@
 void setup() {
   //((*** Initialize: Configure your sketch here....
 #ifdef LOG
-  GetLog()->printf("ServoStepperPositionI2C Test");
+  GetLog()->printf("ServoStepperPosition Test");
 #endif
 
   //** Shields: ULN2003, L9110S:
-  //ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN2, STEPPER_PIN3, STEPPER_PIN4, STEPPER_RPM, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RESOLUTION, spForward, HOME_LIMITSWITCH_PIN, miHalf4Wire);
-  //ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN2, STEPPER_PIN3, STEPPER_PIN4, STEPPER_RPM, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RESOLUTION, spBackward, HOME_LIMITSWITCH_PIN, miHalf4Wire);
-  ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN2, STEPPER_PIN3, STEPPER_PIN4, STEPPER_RPM, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RESOLUTION, spNone, 0, miHalf4Wire);
-
+  //ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN3, STEPPER_PIN2, STEPPER_PIN4, STEPPER_RPM, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RESOLUTION, STEPPER_GEARRATIO, spForward, HOME_LIMITSWITCH_PIN, HOME_LIMITSWITCH_MODE, miFull4Wire);
+  //ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN3, STEPPER_PIN2, STEPPER_PIN4, STEPPER_RPM, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RESOLUTION, STEPPER_GEARRATIO, spBackward, HOME_LIMITSWITCH_PIN, HOME_LIMITSWITCH_MODE, miFull4Wire);
+  ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN3, STEPPER_PIN2, STEPPER_PIN4, STEPPER_RPM, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RESOLUTION, STEPPER_GEARRATIO, spNone, 0, HOME_LIMITSWITCH_MODE, miFull4Wire);
   
   IteratorValue* iteratorValue = new IteratorValue(stepper->getMinAngle(), stepper->getMaxAngle(), ANGLE_STEPWIDTH_DEGREE, STEPWIDTH_MSEC, cmMin2Max2Min);
 

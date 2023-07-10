@@ -33,30 +33,39 @@ private:
   int _homeSwitchPin;
   int _initalizeStepWidth;
   int _sleepUntilNextInitStep;
+  ESwitchResistoreMode _homeSwitchResistoreMode;
+  int _switchValue;
   Input* _inputActDuringInitialize = NULL;
 
 protected:
   //*************************************
-  void Init(EInitializeMode aInitializeMode, int aHomeSwitchPin, int aResolution) {
+  void Init(EInitializeMode aInitializeMode, int aHomeSwitchPin, int aResolution, ESwitchResistoreMode aHomeSwitchResistoreMode) {
 #ifdef LOG_SETUP
-    GetLog()->printf("SPB(%d):C I=%d, P=%d", _id, aInitializeMode, aHomeSwitchPin);
+    GetLog()->printf("SPB(%d):C I=%d, P=%d, R=%d, M=%d", _id, aInitializeMode, aHomeSwitchPin, aResolution, aHomeSwitchResistoreMode);
 #endif
     _sleepUntilNextInitStep = 0;
 
     switch (aInitializeMode) {
       case spNone:
         _homeSwitchPin = 0;
+		_homeSwitchResistoreMode = aHomeSwitchResistoreMode;
         _initalizeStepWidth = 0;
         break;
       case spForward:
         _homeSwitchPin = aHomeSwitchPin;
+		_homeSwitchResistoreMode = aHomeSwitchResistoreMode;
         _initalizeStepWidth = round(aResolution / 360.0);
         break;
       case spBackward:
         _homeSwitchPin = aHomeSwitchPin;
+		_homeSwitchResistoreMode = aHomeSwitchResistoreMode;
         _initalizeStepWidth = -round(aResolution / 360.0);
-        break;
+        break;		
     }
+#ifdef LOG_SETUP_DEBUG
+    GetLog()->printf("SPB(%d):C SW=%d", _id, _initalizeStepWidth);
+#endif
+	
   }
 
   //*************************************
@@ -65,7 +74,7 @@ protected:
     if (_initalizeStepWidth != 0) {
       int limitSwitch = digitalRead(_homeSwitchPin);
 
-      if (limitSwitch == 0) {
+      if (limitSwitch != _switchValue) {
         unsigned long currentTime = millis();
         if (currentTime < _sleepUntilNextInitStep) {
           return;
@@ -96,9 +105,9 @@ protected:
 
 public:  
   //*************************************
-  ServoStepperPositionBase(int aMinAngle, int aMaxAngle, int aResolution, EInitializeMode aInitializeMode = spNone, int aHomeSwitchPin = 0)
+  ServoStepperPositionBase(int aMinAngle, int aMaxAngle, int aResolution, EInitializeMode aInitializeMode = spNone, int aHomeSwitchPin = 0, ESwitchResistoreMode aHomeSwitchResistoreMode = smPullDownInternal)
     : ServoBase(aMinAngle, aMaxAngle, CreateElementId(EbtActuator, EkaServo, SERVO_STEPPERPOSITION_INDEX)) {
-    Init(aInitializeMode, aHomeSwitchPin, aResolution);
+    Init(aInitializeMode, aHomeSwitchPin, aResolution, aHomeSwitchResistoreMode);
   }
 
   //*************************************
@@ -106,7 +115,21 @@ public:
     ServoBase::Setup();
 
     if (_homeSwitchPin > 0) {
-      pinMode(_homeSwitchPin, INPUT_PULLUP);
+      switch(_homeSwitchResistoreMode)
+	  {
+	    case smPullDownInternal:
+		  pinMode(_homeSwitchPin, INPUT_PULLUP);
+		  _switchValue = LOW;
+		  break;
+		case smPullDownExternal:
+		  pinMode(_homeSwitchPin, INPUT);
+		  _switchValue = LOW;
+		  break;
+		case smPullUpExternal:
+		  pinMode(_homeSwitchPin, INPUT);
+		  _switchValue = HIGH;
+		  break;
+	  }
     }
   }
 

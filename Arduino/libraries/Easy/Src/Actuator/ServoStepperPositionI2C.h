@@ -30,12 +30,21 @@ public:
   //* Adafruit MotorShield V2:
   //* aStepperNr : Number of stepper on shield
   //* aResolution : steps per revolution of the stepper motor (without gear) [PPS]
-  //* aGearRatio : Gear box ratio
+  //* aGearRatio : Gear box ratio  
   //* aRotationSpeed : Speed of the motor [rotations per minute]. 
   //* aStepStyle : Type of stepper motor signal (ssSingle, ssDouble, ssInterleave, ssMicrostep)
   //* aBusAdddress : I2C Address of the shield
-  ServoStepperPositionI2C(int aStepperNr, int aResolution, int aGearRatio, int aMinAngle, int aMaxAngle, int aRotationSpeed = 50, EInitializeMode aInitializeMode = spNone, int aHomeSwitchPin = 0, EStepStyle aStepStyle = ssSingle, int aBusAdddress = 0x60)
-    : ServoStepperPositionBase(aMinAngle, aMaxAngle, aResolution, aInitializeMode, aHomeSwitchPin) {
+  //* aInitializeMode : 
+  //*     None      : Start at current position
+  //*     spForward : Begin forward to limit switch
+  //*     SpBackward: Begin backward to limit switch, 
+  //* aHomeSwitchPin : Pin with Limit switch to detect 0-position 
+  //* aHomeSwitchResistoreMode:
+  //*     smPullDownInternal 
+  //*     smPullDownExternal 
+  //*     smPullUpExternal
+  ServoStepperPositionI2C(int aStepperNr, int aResolution, int aGearRatio, int aMinAngle, int aMaxAngle, int aRotationSpeed = 50, EInitializeMode aInitializeMode = spNone, int aHomeSwitchPin = 0, ESwitchResistoreMode aHomeSwitchResistoreMode = smPullDownInternal, EStepStyle aStepStyle = ssSingle, int aBusAdddress = 0x60)
+    : ServoStepperPositionBase(aMinAngle, aMaxAngle, aResolution*aGearRatio, aInitializeMode, aHomeSwitchPin, aHomeSwitchResistoreMode) {
     _servoShield = new ServoShieldStepperPositionI2C(aStepperNr, aResolution, aRotationSpeed*aGearRatio, aStepStyle, aBusAdddress);
   }
 };

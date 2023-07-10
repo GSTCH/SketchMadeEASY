@@ -15,7 +15,7 @@
 //* This program is free software; you can redistribute it and/or modify
 //* it under the terms of the GNU General Public License as published by
 //* the Free Software Foundation; either version 2 of the License, or
-//* (at your option) any later version.
+//* (at your option) any l ater version.
 //*****************************************************************
 
 #ifndef EASY_SERVOSTEPPERPOSITION_H
@@ -29,10 +29,32 @@ class ServoStepperPosition : public ServoStepperPositionBase {
 private:
 public:  
   //*************************************
-  ServoStepperPosition(int aPin1, int aPin2, int aPin3, int aPin4, int aRotationSpeed, int aMinAngle, int aMaxAngle, int aResolution, EInitializeMode aInitializeMode = spNone, int aHomeSwitchPin = 0, EMotorInterfaceType aMotorInterfaceType = miFull4Wire)
-    : ServoStepperPositionBase(aMinAngle, aMaxAngle, aResolution, aInitializeMode, aHomeSwitchPin) {
-    _servoShield = new ServoShieldStepperPosition(aPin1, aPin2, aPin3, aPin4, aResolution, aRotationSpeed, aMotorInterfaceType);
-    Init(aInitializeMode, aHomeSwitchPin, aResolution);
+  //* aPin1, aPin2, aPin3, aPin4 : Digital pins to connect motor shield
+  //* aResolution : steps per revolution of the stepper motor (without gear) [PPS]
+  //* aGearRatio : Gear box ratio
+  //* aRotationSpeed : Speed of the motor [rotations per minute]. 
+  //* aMinAngle...aMaxAngle : Turn range
+  //* aStepStyle : Type of stepper motor signal (ssSingle, ssDouble, ssInterleave, ssMicrostep)
+  //* aInitializeMode : 
+  //*     None      : Start at current position
+  //*     spForward : Begin forward to limit switch
+  //*     SpBackward: Begin backward to limit switch, 
+  //* aHomeSwitchPin : Pin with Limit switch to detect 0-position 
+  //* aHomeSwitchResistoreMode:
+  //*     smPullDownInternal 
+  //*     smPullDownExternal 
+  //*     smPullUpExternal
+  //* aMotorInterfaceType : Read AccelStepper documentation to get more informations
+  //*     miFunction
+  //*     miDriver 
+  //*     miFull2Wire 
+  //*     miFull3Wire 
+  //*     miFull4Wire 
+  //*     miHalf3Wire - Turns only the half angle!
+  //*     miHalf4Wire - Turns only the half angle!
+  ServoStepperPosition(int aPin1, int aPin2, int aPin3, int aPin4, int aRotationSpeed, int aMinAngle, int aMaxAngle, int aResolution, int aGearRatio, EInitializeMode aInitializeMode = spNone, int aHomeSwitchPin = 0, ESwitchResistoreMode aHomeSwitchResistoreMode = smPullDownInternal, EMotorInterfaceType aMotorInterfaceType = miFull4Wire)
+    : ServoStepperPositionBase(aMinAngle, aMaxAngle, aResolution*aGearRatio, aInitializeMode, aHomeSwitchPin, aHomeSwitchResistoreMode) {
+    _servoShield = new ServoShieldStepperPosition(aPin1, aPin2, aPin3, aPin4, aResolution*aGearRatio, aRotationSpeed, aMotorInterfaceType);
   }
 };
 
