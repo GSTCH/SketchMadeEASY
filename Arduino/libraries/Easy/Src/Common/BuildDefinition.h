@@ -36,9 +36,9 @@
 #define LOG 
 #endif
 
-#ifndef LOG_LOOP
-#define LOG_LOOP
-#endif
+//#ifndef LOG_LOOP
+//#define LOG_LOOP
+//#endif
 
 //#ifndef LOG_LOOP_DEBUG
 //#define LOG_LOOP_DEBUG
@@ -81,9 +81,6 @@
 //#define CREATE_ID_MANUALLY
 
 
-
-//#define PLOT_ROTARYENCODER
-//#define PLOT_ENCODERMOTOR
 //#define USE_NEWPING
 
 #define REALMODEL

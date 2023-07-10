@@ -23,10 +23,10 @@
 
 //*****************************************************************
 // Parameter Motor
-#define MOTOR_PINA1 11
-#define MOTOR_PINB1 12
-#define MOTOR_PINA2 3
-#define MOTOR_PINB2 4
+#define MOTOR_PINA1 44
+#define MOTOR_PINB1 46
+#define MOTOR_PINA2 11
+#define MOTOR_PINB2 12
 #define MOTOR_SPEED_STEPWIDTH 10
 #define STEPWIDTH_MSEC 1000
 
@@ -37,8 +37,9 @@ void setup()
   GetLog()->printf("MotorL9110 Test");
 #endif
 
-  // Create actuator motor L9110 (1, to use 2 change leading 1 of the defines to 2)
-  MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
+  // Create actuator motor L9110 (1, to use 2 change commented line)
+  //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
+  MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
 
   IteratorValue* iteratorValue = new IteratorValue(-motor->getMaxSpeed(), motor->getMaxSpeed(), MOTOR_SPEED_STEPWIDTH, STEPWIDTH_MSEC, cmMin2Max2Min);
   Relation1to1* relationServoOff = new Relation1to1(NULL, motor, iteratorValue);

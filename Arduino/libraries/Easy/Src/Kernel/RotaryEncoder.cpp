@@ -28,7 +28,12 @@
 //* This arrays is shared from CRotaryEncoder objects and the interrupt handler function (IH).
 //* The IH calls when A-Signal raising. The IH read the B-Signal to detect rotary direction.
 //* "volatile" directive for variables used in an interrupt
+
+#ifndef EASY_MAX_ENCODERS
 #define EASY_MAX_ENCODERS 6
+#endif
+
+
 int RotaryEncoder::_encoderCount = 0;
 
 // Pos_i contains step count of rotary encoder, calculated by  interrupt handler function
@@ -157,7 +162,7 @@ void RotaryEncoder::Loop() {
 #endif
 
 #ifdef PLOT_ROTARYENCODER
-  GetLog()->printf("Pos: %d, RPMr: %d, RPMf: %d", pos, (int)RotationalSpeed, (int)FilteredRotationalSpeed);
+  GetLog()->printf("Pos:%d, RPMr:%d, RPMf:%d", pos, (int)RotationalSpeed, (int)FilteredRotationalSpeed);
 #endif
 
   _previousRotationalSpeed = RotationalSpeed;

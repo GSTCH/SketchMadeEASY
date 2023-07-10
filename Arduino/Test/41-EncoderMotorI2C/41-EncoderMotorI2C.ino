@@ -29,7 +29,7 @@
 // Parameter MotorShield
 #define MOTOR_NR 2
 // Parameter for RotaryEncoder
-#define ENCA 3
+#define ENCA 3  // (use a interrupt when RISING, read doc to attachInterupt() to get usable pins)
 #define ENCB 4
 // Motor N20, n=100m 6V
 #define PPR 7

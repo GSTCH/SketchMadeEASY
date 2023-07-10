@@ -20,20 +20,20 @@
 //*****************************************************************
 
 #define LOG 
-#define LOG_LOOP
+//#define LOG_LOOP
 //#define PLOT_ENCODERMOTOR
 //#define PLOT_ROTARYENCODER
 #include <Easy.h>
 
 //*****************************************************************
 // Parameter MotorShield
-#define MOTOR_PINA1 11
-#define MOTOR_PINB1 12
-#define MOTOR_PINA2 3
-#define MOTOR_PINB2 4
+#define MOTOR_PINA1 44
+#define MOTOR_PINB1 46
+#define MOTOR_PINA2 11
+#define MOTOR_PINB2 12
 
 // Parameter for RotaryEncoder
-#define ENCA 3
+#define ENCA 3 // (use a interrupt when RISING, read doc to attachInterupt() to get usable pins)
 #define ENCB 4
 // Motor N20, n=100m 6V
 #define PPR 7
@@ -57,7 +57,7 @@ void setup()
 #endif
   
   // Create actuator encoder motor
-  EncoderMotorL9110* encoderMotor = new EncoderMotorL9110(MOTOR_PINA1, MOTOR_PINB1, ENCA, ENCB, PPR, GEAR_RATIO, 0);
+  EncoderMotorL9110* encoderMotor = new EncoderMotorL9110(MOTOR_PINA2, MOTOR_PINB2, ENCA, ENCB, PPR, GEAR_RATIO, 0);
   
   IteratorValue* iteratorValue = new IteratorValue(MIN_ROTATIONSPEED, MAX_ROTATIONSPEED, STEP_AMOUNT, STEP_DURATION_MSEC, cmMin2Max2Min);
 
