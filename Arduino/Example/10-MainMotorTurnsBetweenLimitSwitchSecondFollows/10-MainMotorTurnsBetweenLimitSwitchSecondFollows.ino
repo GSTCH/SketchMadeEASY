@@ -9,6 +9,19 @@
 //* - Shield(s) to control motors
 //* - Potentiometer 10kOhm
 //* - Switch On/Off
+//*
+//* Hardware:
+//* - Shield to control motor
+//* - DC motor 
+//* - Switch with position (1-0-1)
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -24,6 +37,7 @@
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 // Parameter Master Motor
 // Parameter Motor L298
@@ -32,10 +46,11 @@
 // Parameter Motor L9110
 #define MOTOR_PINA1 10
 #define MOTOR_PINB1 12
-#define MOTOR_PINA2 3
-#define MOTOR_PINB2 4
+#define MOTOR_PINA2 44
+#define MOTOR_PINB2 46
 // Parameter  I2C Motor
-#define MOTOR_NUMBER 2
+#define MOTOR_LEADER_NR 2
+#define MOTOR_FOLLOWER_NR 1
 // Parameter MainSwitch
 #define MAIN_SWITCH_PIN 14
 // Parameter variable Input
@@ -52,8 +67,9 @@ void setup() {
   // Different motor shields are supported, some are comment. Change comment and chose your motor shield.
   //MotorL298* motor = new MotorL298(MOTOR_DIRECTIONPIN, MOTOR_SPEEDPIN);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
-  MotorL9110* motorFollower = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
-  MotorI2C* motorLeader = new MotorI2C(MOTOR_NUMBER);
+  //MotorL9110* motorFollower = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
+  MotorI2C* motorLeader = new MotorI2C(MOTOR_LEADER_NR);
+  MotorI2C* motorFollower = new MotorI2C(MOTOR_FOLLOWER_NR);
 
   //** Define Input
   // Main switch to start/stop all.
