@@ -65,10 +65,10 @@ void setup() {
 
   //** Create input:
   // Create input direction switch
-  Switch3Position* motorSwitch = new Switch3Position(MOTOR_SWITCH_FORWARDPIN, MOTOR_SWITCH_BACKWARDPIN, smPullUpExternal);
+  Switch3Position* motorSwitch = new Switch3Position(MOTOR_SWITCH_FORWARDPIN, MOTOR_SWITCH_BACKWARDPIN);
 
   // Create input main switch
-  Switch2Position* mainSwitch = new Switch2Position(MAIN_SWITCH_PIN, smPullUpExternal);
+  Switch2Position* mainSwitch = new Switch2Position(MAIN_SWITCH_PIN);
 
   // Create variable input, defines speed
   VariableInput* motorSpeed = new VariableInput(VARIABLE_INPUT_PIN);

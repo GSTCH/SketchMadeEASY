@@ -206,7 +206,7 @@ void MotorBase::backward(int aSpeed) {
 #endif
 
   // Hardware shield is implemented in derived class of CMotorShield.
-  _motorShield->backward(aSpeed);
+  _motorShield->backward(abs(aSpeed));
 
   _currentDirection = moBackward;
   _currentSpeed = aSpeed;
