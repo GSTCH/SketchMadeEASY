@@ -8,6 +8,14 @@
 //* - Shield to control motor
 //* - DC motor 
 //* - Switch with position (1-0-1)
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -29,10 +37,10 @@
 #define MOTOR_SPEEDPIN 11
 #define MOTOR_DIRECTIONPIN 12
 // Parameter Motor L9110
-#define MOTOR_PINA1 11
-#define MOTOR_PINB1 12
-#define MOTOR_PINA2 3
-#define MOTOR_PINB2 4
+#define MOTOR_PINA1 44
+#define MOTOR_PINB1 46
+#define MOTOR_PINA2 11
+#define MOTOR_PINB2 12
 // Parameter  I2C Motor
 #define MOTOR_NUMBER 1
 // Parameter of Switch
