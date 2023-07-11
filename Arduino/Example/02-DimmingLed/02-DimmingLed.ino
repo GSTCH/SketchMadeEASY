@@ -7,6 +7,13 @@
 //* Hardware:
 //* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
 //* - Potentiometer 10kOhm at Pin A0
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example is also a picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -31,10 +38,7 @@
 void setup()
 {
     //((*** Initialize: Configure your sketch here....
-#ifdef LOG_SETUP
-  GetLog()->printf("Example 2 - Dimming lamp");
-#endif
-  
+ 
   //** Create actuator:
   // A variable output has a range from 0 to 255. It's needs PWM pin.
   VariableOutput* led = new VariableOutput(LED_PIN);
