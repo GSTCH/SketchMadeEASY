@@ -78,7 +78,7 @@ public:
     _lastValue = _currentValue;
     _currentValue = map(aValue, aMinRange, aMaxRange, _minValue, _maxValue);
 
-#ifdef LOG_LOOP_DEBUG
+#ifdef LOG_LOOP
     if (_lastValue != _currentValue) {
       GetLog()->printf("RI(%d):Sv CVl=%d LVl=%d", _id, _currentValue, _lastValue);
     }

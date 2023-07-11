@@ -72,7 +72,7 @@ class RemoteJoystickAxis : public RemoteInput
 
     //*************************************
     void Loop()
-    {
+    {	  
       RemoteInput::Loop();
 
       if (abs(_currentValue) < _deathZoneWidth)

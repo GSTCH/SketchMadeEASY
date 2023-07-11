@@ -29,7 +29,7 @@ void setup()
   GetLog()->printf("FlySky RemoteControl Test");
 #endif
 
-  FlySky* flySky = new FlySky(scHard1);
+  FlySky* flySky = new FlySky(scHard2);
 
   // Control has been creted when get it --> get all controls
   flySky->getControl(rcJoystick1X);

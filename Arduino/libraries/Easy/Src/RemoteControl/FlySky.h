@@ -29,9 +29,13 @@
 #include <IBusBM.h>
 #include <Arduino.h>
 
+#ifndef EASY_FLYSKY_MINVALUE
 #define EASY_FLYSKY_MINVALUE 1000
-#define EASY_FLYSKY_MAXVALUE 2000
+#endif 
 
+#ifndef EASY_FLYSKY_MAXVALUE
+#define EASY_FLYSKY_MAXVALUE 2000
+#endif
 
 class FlySky : public RemoteControl {
 private:
@@ -184,7 +188,7 @@ public:
 #endif
 
     if (_ibusRC != NULL) {
-      bool changed = false;
+      bool anyChanges = false;
 
       for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {
         if (_channelRemoteInputs[idx] != NULL) {
@@ -192,17 +196,17 @@ public:
           int newValue = _ibusRC->readChannel(idx);
           if (newValue != _channelValue[idx]) {
             _channelValue[idx] = newValue;
-            changed = true;
-          }
-
-          if (_channelRemoteInputs[idx] != NULL) {
-            _channelRemoteInputs[idx]->SetMapValue(_channelValue[idx], EASY_FLYSKY_MINVALUE, EASY_FLYSKY_MAXVALUE);
+            anyChanges = true;
+			
+            if (_channelRemoteInputs[idx] != NULL) {
+              _channelRemoteInputs[idx]->SetMapValue(_channelValue[idx], EASY_FLYSKY_MINVALUE, EASY_FLYSKY_MAXVALUE);
+            }
           }
         }
       }
 
 #ifdef LOG_LOOP
-      if (changed) {
+      if (anyChanges) {
         GetLog()->printf("FS:L J [%d] [%d] [%d] [%d]", _channelValue[0], _channelValue[1], _channelValue[2], _channelValue[3]);
         GetLog()->printf("FS:L S [%d] [%d] [%d] [%d] [%d] [%d]", _channelValue[4], _channelValue[5], _channelValue[6], _channelValue[7], _channelValue[8], _channelValue[9]);
       }
