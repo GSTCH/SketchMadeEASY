@@ -5,8 +5,15 @@
 //* Shows a simple relation of an input to an actuator.
 //*
 //*  Hardware:
-//* - Switch with two Position (On/Off) on Pin 14(Pulldown internal, no Resistor needed)
+//* - Switch with two Position (On/Off) on Pin 39(Pulldown internal, no Resistor needed)
 //* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example is also a picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
@@ -24,7 +31,7 @@
 #include <Easy.h>
 
 //*****************************************************************
-#define SWITCH_PIN 14
+#define SWITCH_PIN 39
 #define LED_PIN 6
 #define ONBOARD_LED_PIN 13
 
