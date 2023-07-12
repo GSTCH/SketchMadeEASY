@@ -19,8 +19,7 @@
 //* tests and examples are possible. Adjust the pins depending on 
 //* your board.
 //*
-//* In the directory with the example are picture of the breadboard 
-//* with different motor shield types.
+//* In the directory with the example are picture of the breadboard.
 //*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy

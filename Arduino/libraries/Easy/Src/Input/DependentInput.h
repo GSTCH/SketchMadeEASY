@@ -85,7 +85,7 @@ public:
 	_inputValues[0] = aInputValue1;
 	_inputValues[1] = aInputValue2;
 	_inputValues[2] = aInputValue3;
-    _inputValueCount = 2;
+    _inputValueCount = 3;
     _currentSelection = _lastSelection = -1;
     _valueChanged = true;
   }   

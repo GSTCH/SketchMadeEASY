@@ -4,6 +4,12 @@
 //* Input that defines the brightness of the LED depends on the 
 //* position of a switch. 
 //*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
@@ -18,14 +24,12 @@
 //* (at your option) any later version. 
 //*****************************************************************
 
-#define LOG 
-#define LOG_LOOP
 #include <Easy.h>
 
 //*****************************************************************
 // Parameter switch
-#define PIN_SWITCH_MODE1 15
-#define PIN_SWITCH_MODE2 16
+#define PIN_SWITCH_MODE1 40
+#define PIN_SWITCH_MODE2 42
 #define INPUT_VALUES_COUNT 3
 #define LED_PIN 6
 #define ONBOARD_LED_PIN 13
@@ -33,14 +37,10 @@
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
-#ifdef LOG
-  GetLog()->printf("DependentInput");
-#endif
-
   // Switch define the to use input
   Switch3Position* modeSelectorSwitch = new Switch3Position(PIN_SWITCH_MODE1, PIN_SWITCH_MODE2);
 
-  // Create object to test
+  // DependentInput use the input in relation of the switch value.
   DependentInput* dependentInput = new DependentInput(
     modeSelectorSwitch, 
     FixValue::Off(), // Pos0: Off
@@ -61,11 +61,6 @@ void setup()
 //*****************************************************************
 void loop() {
   //*** Run: No additional code is required
-  
-#ifdef LOG_LOOP_DEBUG
-  GetLog()->println("Loop");
-#endif
-
   ControlManagerFactory::GetControlManager()->Loop();
 
   delay(5);
