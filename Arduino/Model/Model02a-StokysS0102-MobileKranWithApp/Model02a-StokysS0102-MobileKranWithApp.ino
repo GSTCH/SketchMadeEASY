@@ -18,6 +18,9 @@
 //* - Servo360
 //* - HC06 Bluetooth shield
 //* - Buzzer
+//*
+//* In the directory with the example is also a picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Arduino quick and easy
 //

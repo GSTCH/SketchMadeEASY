@@ -13,6 +13,9 @@
 //* - Potentiometer 10kOhm
 //* - HC06 Bluetooth shield
 //*- Arduino Mega 2560 R3 is recommended, works at Uno R3 as well
+//*
+//* In the directory with the example is also a picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Arduino quick and easy
 //

@@ -12,6 +12,9 @@
 //* - L298 shield to control motor
 //* - Servo360 at pin 9
 //* - analog Joystick with two 10kOhm potentiometer at Pin A1 and A2
+//*
+//* In the directory with the example is also a picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Arduino quick and easy
 //
