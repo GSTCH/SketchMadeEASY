@@ -17,7 +17,7 @@
 
 #include "MonoFlop.h"
 
-#define ARDUINO_STARTUP_TIME_MS 2000
+#define ARDUINO_STARTUP_TIME_MS 1000
 
 //*************************************
 #ifdef CREATE_ID_MANUALLY 
@@ -79,18 +79,10 @@ void MonoFlop::Init(int aPin, int aHighDelay, int aLowDelay, bool aStart, ESwitc
 	_switchNotPressed = HIGH;
   }
   
-  if (aStart)
-  {
-    _currentValue == mfStateLowTimerRun;
-    _lastValue = mfStateLow;
-    _monoflopEndTime = millis() + ARDUINO_STARTUP_TIME_MS;
-  }
-  else
-  {
-    _currentValue = mfStateLowTimerEnd;
-    _lastValue = mfStateLowTimerEnd;
-    _monoflopEndTime = 0;
-  }
+  _currentValue = mfStateLowTimerEnd;
+  _lastValue = mfStateLowTimerEnd;
+  _monoflopEndTime = 0;
+  _autoStartup = aStart;
 }
 
 //*************************************
@@ -173,6 +165,14 @@ void MonoFlop::Loop()
   }
 
   _currentPinValue = digitalRead(_pin);
+  
+  if (_currentPinValue==LOW && _autoStartup)
+  {
+	  _currentValue = mfStateHigh;
+      _autoStartup = false;	   
+	  return;
+  }
+  
   if (_currentPinValue != _lastPinValue)
   {
     _ignoreChangeMillis = currentTime + _debounceTimeMSec;

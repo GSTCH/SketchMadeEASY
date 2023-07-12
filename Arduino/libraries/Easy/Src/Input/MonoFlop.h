@@ -37,6 +37,7 @@ enum MonoflopState { mfStateLow=0, mfStateLowTimerRun=1,mfStateLowTimerEnd=2, mf
 class MonoFlop : public Input
 {
   private:
+	bool _autoStartup;
 	unsigned long _debounceTimeMSec; // ReadOnly
     byte _switchPressed; // ReadyOnly
 	byte _switchNotPressed; // ReadyOnly 
@@ -64,5 +65,12 @@ class MonoFlop : public Input
     void Setup();
 	
     void Loop();
+	
+	const static int StateLow = mfStateLow;
+	const static int StateLowTimerRun = mfStateLowTimerRun;
+	const static int StateLowTimerEnd = mfStateLowTimerEnd;
+	const static int StateHigh = mfStateHigh;
+	const static int StateHighTimerRun = mfStateHighTimerRun;
+	const static int StateHighTimerEnd = mfStateHighTimerEnd;
 };
 #endif
