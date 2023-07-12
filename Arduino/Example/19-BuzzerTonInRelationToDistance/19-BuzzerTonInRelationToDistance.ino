@@ -4,8 +4,16 @@
 //* Buzzer tone, frequence in relation to distance
 //*
 //* Hardware:
-//* - Buzzer with 100ohm Resistor to GRD
+//* - Buzzer with 100 ohm Resistor to GRD
 //* - Ultrasonic Sensor HY-SRF05
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -18,13 +26,21 @@
 //* it under the terms of the GNU General Public License as published by
 //* the Free Software Foundation; either version 2 of the License, or
 //* (at your option) any later version.
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 
 #include <Easy.h>
 
 //****************************************************************
-#define ECHO_PIN 13
-#define TRIGGER_PIN 12
+#define ECHO_PIN 30
+#define TRIGGER_PIN 31
 #define MEASURE_INTERVAL_MSEC 1000
 #define BUZZER_FREQUENCY_MIN 20
 #define BUZZER_FREQUENCY_MAX 1000
@@ -53,5 +69,5 @@ void loop() {
   ControlManagerFactory::GetControlManager()->Loop();
 
   // Depending on Arduino it needs a short delay. Do not add any other delays!
-  delay(5);
+  delay(1);
 }
