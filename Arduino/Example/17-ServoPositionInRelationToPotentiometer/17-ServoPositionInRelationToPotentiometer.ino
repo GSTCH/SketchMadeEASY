@@ -6,6 +6,14 @@
 //* Hardware:
 //* - Servo at Pin 9
 //* - Potentiometer with 10kOhm
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -18,9 +26,18 @@
 //* it under the terms of the GNU General Public License as published by
 //* the Free Software Foundation; either version 2 of the License, or
 //* (at your option) any later version.
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 // Parameter Servo
 #define SERVO_PIN 9

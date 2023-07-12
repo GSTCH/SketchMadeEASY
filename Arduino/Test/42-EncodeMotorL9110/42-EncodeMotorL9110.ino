@@ -51,7 +51,7 @@
 
 void setup()
 {
-    //((*** Initialize: Configure your sketch here....
+  //((*** Initialize: Configure your sketch here....
 #ifdef LOG
   GetLog()->printf("EncoderMotorL298 Test");
 #endif
