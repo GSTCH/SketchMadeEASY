@@ -6,6 +6,14 @@
 //* - DC motor
 //* - Bluetooth Shield HC-05 or HC-06 
 //* - Handy with installed "Sketch made easy for Arduino"-RemoteControl App
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -21,6 +29,7 @@
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 // Parameter Motor L298
 #define MOTOR_SPEEDPIN 11
@@ -28,8 +37,8 @@
 // Parameter Motor L9110
 #define MOTOR_PINA1 11
 #define MOTOR_PINB1 12
-#define MOTOR_PINA2 3
-#define MOTOR_PINB2 4
+#define MOTOR_PINA2 44
+#define MOTOR_PINB2 46
 // Parameter  I2C Motor
 #define MOTOR_NUMBER 1
 // Parameter for Bluetooth 
@@ -54,7 +63,7 @@ void setup()
 
   //** Define logic with condition and relation
   // No condition (NULL) because the relation is always active. 
-  // With GetControl the FlySky class creates the input control and returns its pointer. 
+  // With GetControl the AppInventor class creates the input control and returns its pointer. 
   Relation1to1* relationFlySkyToMotor = new Relation1to1(NULL, motor, app->getControl(rcJoystick1Y));
   // ***))
 
