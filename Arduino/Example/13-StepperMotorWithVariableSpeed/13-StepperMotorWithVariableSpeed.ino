@@ -7,6 +7,14 @@
 //* - H-bridge shield to control stepper
 //* - stepper motor 
 //* - Potentiometer with 10kOhm
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -22,6 +30,7 @@
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 // H-Bridge shield like L9110, ULN2003, ... 
 #define HBRIDGE_PIN1 9
