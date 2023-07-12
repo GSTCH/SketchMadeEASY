@@ -5,6 +5,14 @@
 //* - Stepper motor
 //* - Stepper motor shield (L298n oder L9110h)
 //* - Analog joystick with 10kOhm Potentiometer
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Arduino quick and easy
 //
@@ -29,21 +37,22 @@
 #define STEPPER_PIN4 12
 // Parameter Adafruit MotorShield V2 
 #define STEPPER_NR 2
-// Parameter Motor
-#define RESOLUTION 200
-#define SPEED_RPM 30
-#define MIN_ANGLE 0
-#define MAX_ANGLE 360
-#define POSITION 180
+#define STEPPER_RPM 20
+#define STEPPER_MIN_ANGLE -180
+#define STEPPER_MAX_ANGLE 180
+
+// Stepper motor:  Moons PG22L71.7
+#define STEPPER_RESOLUTION 20
+#define STEPPER_GEARRATIO 71
+
 // Parameter JoyStick
-#define JOYSTICK_AXIS_PIN A2 // x=A2, y=A1
+#define JOYSTICK_AXIS_PIN A10
 
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
   //** Define Actuators:
-  //ServoStepperPositionI2C* stepper = new ServoStepperPositionI2C(STEPPER_NR, STEP_PER_ROTATION, GEAR_RATIO, MIN_ANGLE, MAX_ANGLE, SPEED_RPM, spNone, 0, ssSingle);
-  ServoStepperPosition* stepper = new ServoStepperPosition(STEPPER_PIN1, STEPPER_PIN2, STEPPER_PIN3, STEPPER_PIN4, SPEED_RPM, MIN_ANGLE, MAX_ANGLE, RESOLUTION);
+  ServoStepperPositionI2C* stepper = new ServoStepperPositionI2C(STEPPER_NR, STEPPER_RESOLUTION, STEPPER_GEARRATIO, STEPPER_MIN_ANGLE, STEPPER_MAX_ANGLE, STEPPER_RPM);
 
   //** Define Input
   JoystickAxis* xAxis = new JoystickAxis(JOYSTICK_AXIS_PIN, false);

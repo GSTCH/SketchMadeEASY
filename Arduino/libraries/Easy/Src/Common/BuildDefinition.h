@@ -37,7 +37,7 @@
 #endif
 
 //#ifndef LOG_LOOP
-//#define LOG_LOOP
+#define LOG_LOOP
 //#endif
 
 //#ifndef LOG_LOOP_DEBUG
