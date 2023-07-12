@@ -7,6 +7,14 @@
 //* - FlySky FS-i6X RemoteControl
 //* - FlySky FS-iA6B Receiver (iBus)
 //* - LED and 220ohm resistor
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -23,12 +31,15 @@
 
 #include <Easy.h>
 //*****************************************************************
-// Parameter motor shield
-#define MOTOR_NR 2
+// Parameter MotorShield L9110
+#define MOTOR_PINA1 44
+#define MOTOR_PINB1 46
+#define MOTOR_PINA2 11
+#define MOTOR_PINB2 12
 // Parameter Rotary Encoder
-#define ENCA 3
+#define ENCA 3 // (use a interrupt when RISING, read doc to attachInterupt() to get usable pins)
 #define ENCB 4
-// Parameter motor 
+// Motor N20, n=100m 6V
 #define MOTOR_RPM_MAX 60
 #define PPR 7
 #define GEAR_RATIO 150
@@ -42,11 +53,11 @@ void setup()
   //** Define motor at X-Axis of Joystick
   //* Create actuator: 
   // Encoder gear motor 
-  EncoderMotorI2C* encoderMotor = new EncoderMotorI2C(MOTOR_NR, ENCA, ENCB, PPR, GEAR_RATIO, MOTOR_RPM_MAX);
+  EncoderMotorL9110* encoderMotor = new EncoderMotorL9110(MOTOR_PINA2, MOTOR_PINB2, ENCA, ENCB, PPR, GEAR_RATIO, 0);
 
   //* Create input. 
   // Input is at RemoteControl FlySky  
-  FlySky* flySky = new FlySky(scHard1);
+  FlySky* flySky = new FlySky(scHard2);
 
   //* Define logic with condition and relation
   Relation1to1* relationMotor = new Relation1to1(NULL, encoderMotor, flySky->getControl(rcJoystick1X));

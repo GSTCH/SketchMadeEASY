@@ -136,8 +136,6 @@ public:
 
   //*************************************
   void Setup() {
-    GetLog()->println("FS:S");
-
 #ifdef LOG_SETUP_DEBUG
     GetLog()->println("FS:S");
 #endif
@@ -148,7 +146,9 @@ public:
         break;
 #ifdef __AVR_ATmega2560__
       case scHard1:
+#ifdef LOG_SETUP
         GetLog()->println("FS:S HW1");
+#endif		
         pinMode(19, INPUT_PULLUP);  // fix Serial1
         _ibusRC->begin(Serial1);
         break;
