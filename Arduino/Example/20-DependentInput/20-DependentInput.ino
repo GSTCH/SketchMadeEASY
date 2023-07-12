@@ -4,6 +4,11 @@
 //* Input that defines the brightness of the LED depends on the 
 //* position of a switch. 
 //*
+//*  Hardware:
+//* - Switch with three Position 
+//* - LED with 220 Ohm on Pin 6 / Pin 13 is OnBoard LED --> no additional hardware
+
+//*
 //* The pins are for the Arduino Mega 2560 test board, on which all 
 //* tests and examples are possible. Adjust the pins depending on 
 //* your board.

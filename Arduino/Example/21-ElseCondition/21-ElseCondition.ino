@@ -4,6 +4,16 @@
 //* A DigitalOutout/LED knows the value on and off. The other
 //* DigitalOutout/LED does the same but inverted. 
 //*
+//* Hardware:
+//* - LED with 220 Ohm on Pin 6
+//* - LED with 220 Ohm on Pin 38
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
@@ -18,8 +28,6 @@
 //* (at your option) any later version. 
 //*****************************************************************
 
-#define LOG 
-#define LOG_LOOP
 #include <Easy.h>
 
 //*****************************************************************
@@ -31,10 +39,6 @@
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
-#ifdef LOG
-  GetLog()->printf("ElseCondition Test");
-#endif
- 
   //** Create actuators
   DigitalOutput* led1 = new DigitalOutput(LED1_PIN);
   DigitalOutput* led2 = new DigitalOutput(LED2_PIN);
@@ -67,11 +71,6 @@ void setup()
 //*****************************************************************
 void loop() {
   //*** Run: No additional code is required
-  
-#ifdef LOG_LOOP_DEBUG
-  GetLog()->println("Loop");
-#endif
-
   ControlManagerFactory::GetControlManager()->Loop();
 
   delay(5);
