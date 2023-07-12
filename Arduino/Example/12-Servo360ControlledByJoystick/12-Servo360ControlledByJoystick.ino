@@ -6,6 +6,14 @@
 //* Hardware:
 //* - Servo 360° 
 //* - Analog joystick with 10kOhm potentiometer
+//*
+//* The pins are for the Arduino Mega 2560 test board, on which all 
+//* tests and examples are possible. Adjust the pins depending on 
+//* your board.
+//*
+//* In the directory with the example are picture of the breadboard 
+//* with different motor shield types.
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -21,6 +29,7 @@
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 #define SERVO360_PIN 10
 #define JOYSTICK_AXIS_PIN A10 // y=A9, x=A10

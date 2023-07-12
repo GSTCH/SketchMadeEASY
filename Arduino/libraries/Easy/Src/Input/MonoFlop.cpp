@@ -172,6 +172,12 @@ void MonoFlop::Loop()
       _autoStartup = false;	   
 	  return;
   }
+  else if (_currentPinValue==HIGH && _autoStartup)
+  {
+	  _currentValue = mfStateHighTimerEnd;
+      _autoStartup = false;	   
+	  return;
+  }  
   
   if (_currentPinValue != _lastPinValue)
   {
