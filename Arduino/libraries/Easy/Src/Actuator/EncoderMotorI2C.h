@@ -32,7 +32,7 @@ public:
   //*************************************
 #ifdef CREATE_ID_MANUALLY
   EncoderMotorI2C(int aId, int aMotorNr, int aSensorAPin, int aSensorBPin, int aPPR, int aGearRatio, int aMaxSpeed)
-    : CEncoderMotorBase(aId, CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_I2C_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed) {
+    : EncoderMotorBase(aId, CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_I2C_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed) {
     _motorShield = new MotorShieldAdafruitV2(aMotorNr);
   }
 #endif

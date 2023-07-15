@@ -26,7 +26,7 @@
 
 //*************************************
 #ifdef CREATE_ID_MANUALLY
-Switch3Position::Switch3Position(int aId, int aPosition1Pin, int aPosition2Pin, ESwitchResistoreMode aSwitchResistoreMode)
+Switch3Position::Switch3Position(int aId, int aPosition1Pin, int aPosition2Pin, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTime)
   : Input(aId, CreateElementId(EbtInput, EkiDigital, DIGITAL_SWITCH3POSITION_INDEX), Switch3Position::Pos0, Switch3Position::Pos2) {
   Init(aPosition1Pin, aPosition2Pin, aSwitchResistoreMode, aDebounceTime);
 }

@@ -31,7 +31,7 @@ public:
 #ifdef CREATE_ID_MANUALLY
   MotorI2C(int aId, int aMotorNr, int aBusAdddress)
     : MotorBase(aId, CreateElementId(EbtActuator, EkaMotor, MOTOR_I2C_INDEX)) {
-    _motorShield = new CMotorShieldAdafruitV2(aMotorNr, aBusAdddress);
+    _motorShield = new MotorShieldAdafruitV2(aMotorNr, aBusAdddress);
   }
 #endif
 

@@ -90,10 +90,10 @@ void ControlManager::Setup() {
   }
 
   // The  remote control logic can wait until the connection has been made.
-  // Because of this we call this as last to be sure that all has been initialized before.
+  // Because of this we call this as last to be sure that all has been initialized before. 
 #ifdef MULTI_REMOTECONTROL
-#ifdef #ifdef LOG_SETUP_DEBUG
-  GetLog()->println("CM:S RC*");
+#ifdef LOG_SETUP
+  GetLog()->println("CM:S RC *");
 #endif
   for (int i = 0; i < _remoteControls->size(); i++) {
     RemoteControl* remoteControl = _remoteControls->get(i);
@@ -101,17 +101,18 @@ void ControlManager::Setup() {
     remoteControl->Setup();
   }
 #else
-#ifdef LOG_SETUP_DEBUG
-  GetLog()->println("CM:S RC");
+#ifdef LOG_SETUP
+  GetLog()->println("CM:S RC 1");
 #endif
 
   if (_remoteControl != NULL) {
     _remoteControl->Setup();
-#endif
   }
+#endif
+  
 
 #ifdef LOG_SETUP
-GetLog()->println("CM:S }");
+  GetLog()->println("CM:S }");
 #endif
 
 #ifdef LOG

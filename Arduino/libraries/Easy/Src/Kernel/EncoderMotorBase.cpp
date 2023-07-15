@@ -29,7 +29,7 @@ EncoderMotorBase::EncoderMotorBase(int aId, struct SElementType aElementType, in
 #ifdef LOG_SETUP
   GetLog()->printf("EM(%d):C1 PA=%d, PB=%d, PPR=%d, GR=%d, MaxRPM=%d", _id, aSensorAPin, aSensorBPin, aPPR, (int)aGearRatio, _maxRpm);
 #endif
-  _rotaryEncoder = new CRotaryEncoder(aSensorAPin, aSensorBPin, aGearRatio * aPPR);
+  _rotaryEncoder = new RotaryEncoder(aSensorAPin, aSensorBPin, aGearRatio * aPPR);
 }
 #endif
 
