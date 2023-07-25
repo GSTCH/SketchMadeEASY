@@ -143,6 +143,9 @@ void MotorBase::forward(int aSpeed) {
   }
 
   if (_currentDirection == moBackward && _delayedMillis == 0) {
+#ifdef LOG_LOOP_DEBUG
+  GetLog()->printf("MO(%d):Bw2Fd Sp=%d", _id, aSpeed);
+#endif    
     stop();
 
     // Physics: The model does not stops within one cycle. We have to make a non blocking wait.
@@ -159,10 +162,6 @@ void MotorBase::forward(int aSpeed) {
     _delayedSpeed = aSpeed;
     return;
   }
-
-#ifdef LOG_LOOP
-  GetLog()->printf("MO(%d):Fd Sp=%d", _id, aSpeed);
-#endif
 
   // Hardware shield is implemented in derived class of CMotorShield.
   _motorShield->forward(aSpeed);

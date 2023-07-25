@@ -1,5 +1,11 @@
 //*****************************************************************
-//* Test FlySky FS-i6X-RemoteControl (with setting to 14 channel) 
+//* Test HandyApp RemoteControl, developed with MIT AppInventor  
+//*
+//* This library is able to manage multiple different remote control 
+//* at once. The RC to use is selectable by a switch. Because of 
+//* interrupt conflict, the RC has only an active communication when
+//* it's used. 
+//* This test is to check the dynamic enable/disable of the RC.
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".
@@ -21,27 +27,32 @@
 #define LOG_LOOP
 #include <Easy.h>
 
-//*****************************************************************
+//***************************************************************************************************************
+// Parameter MainSwitch
+#define SWITCH_POS1 39
+#define SWITCHMODE smPullUpExternal
+
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
 #ifdef LOG
-  GetLog()->printf("FlySky RemoteControl Test");
+  GetLog()->printf("AppInventor MultiRemoteControl Test");
 #endif
 
-  FlySky* flySky = new FlySky(scHard2);
+  Switch2Position* mainSwitch = new Switch2Position(SWITCH_POS1, SWITCHMODE);
+  CompareCondition* flySkyEnabledCondition = new CompareCondition(mainSwitch, OpEQ, Switch2Position::On );
 
-  // Control has been created when get it --> get all controls
-  flySky->getControl(rcJoystick1X);
-  flySky->getControl(rcJoystick1Y);
-  flySky->getControl(rcJoystick2X);
-  flySky->getControl(rcJoystick2Y);
-  flySky->getControl(rcVrA);
-  flySky->getControl(rcVrB);
-  flySky->getControl(rcSwA);
-  flySky->getControl(rcSwB);
-  flySky->getControl(rcSwC);
-  flySky->getControl(rcSwD);
+  AppInventor* app = new AppInventor(scHard3, flySkyEnabledCondition);
+  app->getControl(rcJoystick1X);
+  app->getControl(rcJoystick1Y);
+  app->getControl(rcJoystick2X);
+  app->getControl(rcJoystick2Y);
+  app->getControl(rcVrA);
+  app->getControl(rcVrB);
+  app->getControl(rcSwA);
+  app->getControl(rcSwB);
+  app->getControl(rcSwC);
+  app->getControl(rcSwD);  
 // ***))
 
   // Initialize control

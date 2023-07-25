@@ -90,9 +90,9 @@ public:
   //* aSpeed: Value in rotations per minute [RPM]
   void forward(int aSpeed) {
     float val = _resolution / 60.0 * aSpeed;
-//#ifdef _LOG_LOOP_DEBUG
+#ifdef _LOG_LOOP_DEBUG
     GetLog()->printf("SPS:F Spd=%d, Vl=%d", aSpeed, (int)val);
-//#endif	  
+#endif	  
     _stepper->setSpeed(val);
   }
 
@@ -100,9 +100,9 @@ public:
   //* aSpeed: Value in rotations per minute [RPM]
   void backward(int aSpeed) {
 	float val = -_resolution / 60.0 * aSpeed;
-//#ifdef _LOG_LOOP_DEBUG
+#ifdef _LOG_LOOP_DEBUG
     GetLog()->printf("SPS:B Spd=%d, Vl=%d", aSpeed, (int)val);
-//#endif	  
+#endif	  
     _stepper->setSpeed(val);
   }
 

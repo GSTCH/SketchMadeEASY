@@ -64,7 +64,7 @@ class RemoteValue : public RemoteInput
     }
 
     //*************************************
-	static const int Pos2 = 2;
+	  static const int Pos2 = 2;
     static const int Pos1 = 1;
     static const int Pos0 = 0;
 };

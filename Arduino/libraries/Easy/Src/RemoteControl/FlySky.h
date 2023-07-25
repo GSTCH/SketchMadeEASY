@@ -40,7 +40,12 @@
 class FlySky : public RemoteControl {
 private:
   IBusBM* _ibusRC;
-  EHardwareSerialMode _serialMode;
+  EHardwareSerialMode _serialMode;  
+
+#ifdef MULTI_REMOTECONTROL		
+  Condition* _enableCondition = NULL;
+  ERcCommunicationState _communicationEnabled = csOff;
+#endif
 
   inline void ConfigIBus(EHardwareSerialMode aHardwareSerialMode) {
     _serialMode = aHardwareSerialMode;
@@ -52,90 +57,137 @@ protected:
 public:
   //*************************************
   FlySky(RemoteInput** aRemoteInputs, EHardwareSerialMode aHardwareSerialMode)
-    : RemoteControl(rcAppInventor, aRemoteInputs) {
+    : RemoteControl(rtFlySky, aRemoteInputs) {
 #ifdef LOG_SETUP
     GetLog()->printf("FS:C1");
-#endif
-    for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {
-      _channelRemoteInputs[idx] = aRemoteInputs[idx];
-      _channelValue[idx] = 0;
-    }
 
+#endif
     ConfigIBus(aHardwareSerialMode);
   }
 
   //*************************************
   FlySky(EHardwareSerialMode aHardwareSerialMode)
-    : RemoteControl(rcAppInventor) {
+    : RemoteControl(rtFlySky) 
+  {
 #ifdef LOG_SETUP_DEBUG
     GetLog()->printf("FS:C2 in");
 #endif
-    for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {
-      _channelRemoteInputs[idx] = NULL;
-      _channelValue[idx] = 0;
-    }
 
     ConfigIBus(aHardwareSerialMode);
   }
+  
+  //*************************************
+#ifdef MULTI_REMOTECONTROL		  
+  FlySky(EHardwareSerialMode aHardwareSerialMode, Condition* aConditionWhenEnabled)
+  : RemoteControl(rtFlySky) 
+  {
+    _communicationEnabled = csOff;
+    _enableCondition = aConditionWhenEnabled; 
+
+    ConfigIBus(aHardwareSerialMode);
+  }
+#endif
 
   //*************************************
-  RemoteInput* getControl(ERcControl aControl) {
+  RemoteInput* getControl(ERcControl aControl) {         
+#ifdef LOG_SETUP_DEBUG    
+    GetLog()->printf("FS:G Tp=%d", aControl);
+#endif               
+  
     switch (aControl) {
-      case rcJoystick1X:
+      case rcJoystick1X:    
         if (_channelRemoteInputs[0] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G J1X");
+#endif               
           _channelRemoteInputs[0] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[0];
       case rcJoystick1Y:
         if (_channelRemoteInputs[1] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G J1Y");
+#endif                        
           _channelRemoteInputs[1] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[1];
       case rcJoystick2X:
         if (_channelRemoteInputs[2] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G J2X");
+#endif                        
           _channelRemoteInputs[2] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[2];
       case rcJoystick2Y:
         if (_channelRemoteInputs[3] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G J2Y");
+#endif                         
           _channelRemoteInputs[3] = new RemoteJoystickAxis(-255, 255, false);
         }
         return _channelRemoteInputs[3];
-      case rcVRA:
+      case rcVrA:
         if (_channelRemoteInputs[4] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G VrA");
+#endif                         
           _channelRemoteInputs[4] = new RemoteValue(0, 255);
         }
         return _channelRemoteInputs[4];
-      case rcVRB:
+      case rcVrB:
         if (_channelRemoteInputs[5] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G VrB");
+#endif                         
           _channelRemoteInputs[5] = new RemoteValue(0, 255);
         }
         return _channelRemoteInputs[5];
       case rcSwA:
         if (_channelRemoteInputs[6] == NULL) {
-          _channelRemoteInputs[6] = new RemoteValue(0, 1);  // SWRA
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G SwA");
+#endif                         
+          _channelRemoteInputs[6] = new RemoteValue(0, 1);
         }
         return _channelRemoteInputs[6];
       case rcSwB:
         if (_channelRemoteInputs[7] == NULL) {
-          _channelRemoteInputs[7] = new RemoteValue(0, 1);  // SWRB
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G SwB");
+#endif                         
+          _channelRemoteInputs[7] = new RemoteValue(0, 1); 
         }
         return _channelRemoteInputs[7];
       case rcSwC:
         if (_channelRemoteInputs[8] == NULL) {
-          _channelRemoteInputs[8] = new RemoteValue(0, 2);  // SWRC
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G SwC");
+#endif                         
+          _channelRemoteInputs[8] = new RemoteValue(0, 2);
         }
         return _channelRemoteInputs[8];
       case rcSwD:
         if (_channelRemoteInputs[9] == NULL) {
-          _channelRemoteInputs[9] = new RemoteValue(0, 1);  // SWRD
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G SwD");
+#endif                         
+          _channelRemoteInputs[9] = new RemoteValue(0, 1);
         }
         return _channelRemoteInputs[9];
-    }
+    }   
+
+    return NULL;    
   }
 
   //*************************************
   void Setup() {
+#ifdef MULTI_REMOTECONTROL
+	  bool enabledCommunication = _enableCondition==NULL;
+#else	  
+	  bool enabledCommunication = true;
+#endif	  
+	  
 #ifdef LOG_SETUP_DEBUG
     GetLog()->println("FS:S");
 #endif
@@ -143,6 +195,12 @@ public:
     switch (_serialMode) {
       case scHard:
         _ibusRC->begin(Serial);
+	      if (!enabledCommunication) {
+		      Serial.end();
+          _communicationEnabled = csDisabled;
+		    } else {          
+          _communicationEnabled = csOn;
+        }
         break;
 #ifdef __AVR_ATmega2560__
       case scHard1:
@@ -151,18 +209,38 @@ public:
 #endif		
         pinMode(19, INPUT_PULLUP);  // fix Serial1
         _ibusRC->begin(Serial1);
+		    if (!enabledCommunication) {
+		      Serial1.end();
+          _communicationEnabled = csDisabled;
+		    } else {
+          _communicationEnabled = csOn;
+        }        
         break;
       case scHard2:
+#ifdef LOG_SETUP	  
         GetLog()->println("FS:S HW2");
-
+#endif		
         pinMode(17, INPUT_PULLUP);  // fix Serial2
         _ibusRC->begin(Serial2);
+		    if (!enabledCommunication) {
+          Serial2.end();
+          _communicationEnabled = csDisabled;
+		    } else {
+          _communicationEnabled = csOn;
+        }        
         break;
       case scHard3:
+#ifdef LOG_SETUP	  
         GetLog()->println("FS:S HW3");
-
+#endif				
         pinMode(15, INPUT_PULLUP);  // fix Serial3
         _ibusRC->begin(Serial3);
+		    if (!enabledCommunication) {
+          Serial3.end();
+          _communicationEnabled = csDisabled;
+        } else {
+          _communicationEnabled = csOn;
+        }
         break;
 #endif  // __AVR_ATmega2560__
     }
@@ -173,8 +251,11 @@ public:
 #ifdef LOG_SETUP
     GetLog()->println("FS:S Wait RC");
 #endif
-    while (_ibusRC->cnt_rec == 0) delay(100);
-    _connected = true;
+
+    if (enabledCommunication) {
+      while (_ibusRC->cnt_rec == 0) delay(100);
+      _connected = true;
+    }
 
 #ifdef LOG_SETUP
     GetLog()->println("FS:S RC ok");
@@ -182,12 +263,104 @@ public:
   }
 
   //*************************************
-  void Loop() {
+  void Loop() 
+  {
 #ifdef LOG_LOOP_DEBUG
     GetLog()->printf("FS:L");
 #endif
 
-    if (_ibusRC != NULL) {
+#ifdef MULTI_REMOTECONTROL			  
+    if (_enableCondition != NULL )
+    {
+      if (_enableCondition->Check() && _communicationEnabled==csDisabled)
+	    {
+#ifdef LOG_LOOP
+        GetLog()->printf("FS:L enable");
+#endif		  
+        switch (_serialMode) {
+          case scHard:
+            #ifdef ARDUINO_ARCH_ESP32
+              Serial.begin(115200, SERIAL_8N1, rxPin, txPin);
+            #else
+              Serial.begin(115200, SERIAL_8N1);
+            #endif
+            break;
+          #ifdef __AVR_ATmega2560__
+          case scHard1:
+            #ifdef ARDUINO_ARCH_ESP32
+              Serial2.begin(115200, SERIAL_8N1, rxPin, txPin);
+            #else
+              Serial2.begin(115200, SERIAL_8N1);
+            #endif
+            break;
+          case scHard2:
+            #ifdef ARDUINO_ARCH_ESP32
+              Serial2.begin(115200, SERIAL_8N1, rxPin, txPin);
+            #else
+              Serial2.begin(115200, SERIAL_8N1);
+            #endif
+            break;
+          case scHard3:
+            #ifdef ARDUINO_ARCH_ESP32
+              Serial3.begin(115200, SERIAL_8N1, rxPin, txPin);
+            #else
+              Serial3.begin(115200, SERIAL_8N1);
+            #endif
+            break;
+          #endif  // __AVR_ATmega2560__
+        }
+		    _communicationEnabled = csOn;
+
+      } else if (!_enableCondition->Check() && _communicationEnabled==csOn) {
+#ifdef LOG_LOOP
+        GetLog()->printf("FS:L disable");
+#endif		  		  
+        switch (_serialMode) {
+          case scHard:
+            Serial.end();
+            break;
+          #ifdef __AVR_ATmega2560__
+          case scHard1:
+            Serial1.end();
+            break;
+          case scHard2:
+            Serial2.end();
+            break;
+          case scHard3:
+            Serial3.end();
+            break;
+          #endif  // __AVR_ATmega2560__
+        }
+		    _communicationEnabled = csDisabled;
+	    }	else if (_enableCondition->Check() && _communicationEnabled==csOff)
+	    {
+#ifdef LOG_LOOP
+        GetLog()->printf("FS:L on");
+#endif		  
+        switch (_serialMode) {
+          case scHard:
+            _ibusRC->begin(Serial);
+            break;
+          #ifdef __AVR_ATmega2560__
+          case scHard1:
+            _ibusRC->begin(Serial1);
+            break;
+          case scHard2:
+            _ibusRC->begin(Serial2);
+            break;
+          case scHard3:
+            _ibusRC->begin(Serial3);
+            break;
+          #endif  // __AVR_ATmega2560__
+        }
+		    _communicationEnabled = csOn;
+
+      } 
+
+    }
+#endif   
+
+    if (_ibusRC != NULL && _communicationEnabled==csOn) {
       bool anyChanges = false;
 
       for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {

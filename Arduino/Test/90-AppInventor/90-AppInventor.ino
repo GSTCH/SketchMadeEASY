@@ -1,5 +1,5 @@
 //*****************************************************************
-// Test HandyApp RemoteControl, developed with MIT AppInventor  
+//* Test HandyApp RemoteControl, developed with MIT AppInventor  
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".
@@ -21,13 +21,13 @@
 #define LOG_LOOP
 #include <Easy.h>
 
-//***************************************************************************************************************
+//*****************************************************************
 #define SOFTSERIAL_RXPIN 12
 #define SOFTSERIAL_TXPIN 13
 
 void setup()
 {
-    //((*** Initialize: Configure your sketch here....
+  //((*** Initialize: Configure your sketch here....
 #ifdef LOG
   GetLog()->printf("AppInventor RemoteControl Test");
 #endif

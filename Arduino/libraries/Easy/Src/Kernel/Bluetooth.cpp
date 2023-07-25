@@ -184,7 +184,7 @@ bool Bluetooth::SendMessageHardwareSerial(const char* aMessage) {
 //*************************************
 void Bluetooth::InitHardSerial() {
   if (_serialMode == smHard) {
-#ifdef LOG_LOOP
+#ifdef LOG_SETUP
     GetLog()->printf("BT:IHs Sx=0, M=%d", _serialMode);
 #endif
 
@@ -195,7 +195,7 @@ void Bluetooth::InitHardSerial() {
     return;
   }
 
-#ifdef LOG_LOOP
+#ifdef LOG_SETUP
   GetLog()->printf("BT:IHs Sx=%d M=%d", _serialMode - 2, _serialMode);
 #endif
 
@@ -212,8 +212,6 @@ void Bluetooth::InitHardSerial() {
       break;
   }
 #endif
-
-  GetHardwareSerial()->begin(9600);
 }
 
 //*************************************
@@ -221,7 +219,7 @@ void Bluetooth::InitSoftSerial(int aRxPin, int aTxPin) {
   GetLog()->enable(true);
 
   if (_serialMode != smNone) {
-#ifdef LOG_LOOP
+#ifdef LOG_SETUP
     GetLog()->printf("BT:ISs ERROR! n init");
 #endif
     return;
@@ -230,7 +228,7 @@ void Bluetooth::InitSoftSerial(int aRxPin, int aTxPin) {
   pinMode(aRxPin, INPUT);
   pinMode(aTxPin, OUTPUT);
 
-#ifdef LOG_LOOP
+#ifdef LOG_SETUP
   GetLog()->printf("BT:ISs RX=%d, TX=%d", aRxPin, aTxPin);
 #endif
 
@@ -259,3 +257,41 @@ inline HardwareSerial* Bluetooth::GetHardwareSerial() {
       return NULL;
   }
 }
+
+//*************************************
+void Bluetooth::Enable() 
+{
+  switch (_serialMode) {
+    case smSoft:
+      _hc06->begin(9600);
+	  break;
+    case smHard:
+    case smHard1:
+    case smHard2:
+    case smHard3:
+      GetHardwareSerial()->begin(9600);
+    case smNone:
+      // Please init!
+      break;      
+  }
+}
+
+//*************************************
+void Bluetooth::Disable() 
+{
+  switch (_serialMode) {
+    case smSoft:
+	  _hc06->end();
+      break;
+    case smHard:
+    case smHard1:
+    case smHard2:
+    case smHard3:
+      GetHardwareSerial()->end();
+	  break;
+    case smNone:
+      // Please init!
+      break;
+  }
+}
+

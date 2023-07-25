@@ -40,13 +40,13 @@ protected:
   //*************************************
   virtual bool ValueChanged() {
     return _valueChanged;
-  }
+  }   
 
 public:
   //*************************************
 #ifdef CREATE_ID_MANUALLY	 
   DependentInput(int aId, Input* aSelectionInput, Input** aInputValues, int aInputValuesCount)
-    : Input(aId, CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
+    : Input(aId, CreateElementId(EbtInput, EkiLogic, LOGIC_DEPENDENDINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = aInputValues;
     _inputValueCount = aInputValuesCount;
@@ -57,17 +57,17 @@ public:
 
   //*************************************
   DependentInput(Input* aSelectionInput, Input** aInputValues, int aInputValuesCount)
-    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
+    : Input(CreateElementId(EbtInput, EkiLogic, LOGIC_DEPENDENDINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = aInputValues;
     _inputValueCount = aInputValuesCount;
     _currentSelection = _lastSelection = -1;
-    _valueChanged = true;
+    _valueChanged = true;      
   }
   
   //*************************************
   DependentInput(Input* aSelectionInput, Input* aInputValue1, Input* aInputValue2)
-    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
+    : Input(CreateElementId(EbtInput, EkiLogic, LOGIC_DEPENDENDINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = new Input*[2];
 	_inputValues[0] = aInputValue1;
@@ -79,12 +79,12 @@ public:
 
   //*************************************
   DependentInput(Input* aSelectionInput, Input* aInputValue1, Input* aInputValue2, Input* aInputValue3)
-    : Input(CreateElementId(EbtInput, EkiHelper, INHELPER_DEPENDENTINPUT_INDEX), 0, 0) {
+    : Input(CreateElementId(EbtInput, EkiLogic, LOGIC_DEPENDENDINPUT_INDEX), 0, 0) {
     _selectionInput = aSelectionInput;
     _inputValues = new Input*[3];
-	_inputValues[0] = aInputValue1;
-	_inputValues[1] = aInputValue2;
-	_inputValues[2] = aInputValue3;
+	  _inputValues[0] = aInputValue1;
+	  _inputValues[1] = aInputValue2;
+	  _inputValues[2] = aInputValue3;
     _inputValueCount = 3;
     _currentSelection = _lastSelection = -1;
     _valueChanged = true;
@@ -101,23 +101,31 @@ public:
     if (_currentSelection != _lastSelection) {
       modeChanged = true;
       _valueChanged = true;
+    } 
+    else if (_inputValues[_currentSelection]->ValueChanged() && _inputValues[_currentSelection]->GetKind()== EkiLogic )
+    {
+      // When input is a logic input e.g. a dependentInput as well, selection can change and in this case Min/Max as well.
+      _minValue = _inputValues[_currentSelection]->GetMinValue();
+      _maxValue = _inputValues[_currentSelection]->GetMaxValue();
     }
 
-    if (_currentSelection >= 0 && _currentSelection < _inputValueCount) {
-      int value = _inputValues[_currentSelection]->Value();      
-      if (value != _currentValue) {
-        _valueChanged = true;
-        _currentValue = value;
-      } 
+    if (_currentSelection >= 0 && _currentSelection < _inputValueCount) {      
+      if (_inputValues[_currentSelection]!=NULL) {    
+        int value = _inputValues[_currentSelection]->Value();      
+        if (value != _currentValue) {
+          _valueChanged = true;
+          _currentValue = value;
+        } 
 
-      if (modeChanged) {
-        _minValue = _inputValues[_currentSelection]->GetMinValue();
-        _maxValue = _inputValues[_currentSelection]->GetMaxValue();
+        if (modeChanged) {
+          _minValue = _inputValues[_currentSelection]->GetMinValue();
+          _maxValue = _inputValues[_currentSelection]->GetMaxValue();
+        }
       }
 
-#ifdef LOG_LOOP_DEBUG
+#ifdef LOG_LOOP
       if (ValueChanged()) {
-        GetLog()->printf("IS(%d):L M=%d, Min=%d, Max=%d, CVl=%d, LVl=%d", _id, _currentSelection, _minValue, _maxValue, _currentValue, _lastValue);
+        GetLog()->printf("IS(%d):L M=%d, Min=%d, Max=%d, CVl=%d, LVl=%d", _id, _currentSelection, _minValue, _maxValue,  _currentValue, _lastValue);
       }
 #endif
     } else {

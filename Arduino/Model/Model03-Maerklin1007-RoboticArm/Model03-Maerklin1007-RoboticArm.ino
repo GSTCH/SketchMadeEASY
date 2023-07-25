@@ -85,10 +85,10 @@ void setup() {
 
   //modeSelectionSwitch=Pos1 RemoteControl
   ActuatorCollection* actuatorCollectionRemoteContol = new ActuatorCollection(
-    motorA, appInventor->GetControl(rcJoystick2X),
-    motorB, appInventor->GetControl(rcJoystick1X),
-    motorC, appInventor->GetControl(rcJoystick1Y),
-    motorD, appInventor->GetControl(rcJoystick2Y));
+    motorA, appInventor->getControl(rcJoystick2X),
+    motorB, appInventor->getControl(rcJoystick1X),
+    motorC, appInventor->getControl(rcJoystick1Y),
+    motorD, appInventor->getControl(rcJoystick2Y));
 
   CompareCondition* conditionSelectionSwitchApp = new CompareCondition(modeSelectionSwitch, OpEQ, Switch2Position::Pos1);
   Relation1to1* relationAppMotorA = new Relation1to1(conditionSelectionSwitchApp, actuatorCollectionRemoteContol, NULL);
@@ -104,7 +104,8 @@ void setup() {
   defineMotorWithSwitchInModeManually(motorC, modeSelectionSwitch, switchMotorC, motorSpeedForward, motorSpeedBackward, stopSpeed);
 
   // Motor D
-    defineMotorWithSwitchInModeManually(motorD, modeSelectionSwitch, switchMotorD, motorSpeedForward, motorSpeedBackward, stopSpeed);
+  defineMotorWithSwitchInModeManually(motorD, modeSelectionSwitch, switchMotorD, motorSpeedForward, motorSpeedBackward, stopSpeed);
+  
   // ***))
 
   // Initialize control

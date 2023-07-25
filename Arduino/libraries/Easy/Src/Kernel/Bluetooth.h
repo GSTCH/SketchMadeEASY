@@ -58,9 +58,12 @@ private:
   inline HardwareSerial* GetHardwareSerial();
 public:
   Bluetooth(int aRxPin, int aTxPin);
-  Bluetooth(EHardwareSerialMode aHardwareSerialMode);
-  void Setup();
+  Bluetooth(EHardwareSerialMode aHardwareSerialMode);  
+  void Setup();  
   void Loop();
+  void Enable();
+  void Disable();
+  
   bool SendMessage(const char* aMessage);
 
   //*************************************
@@ -72,6 +75,6 @@ public:
   char* Data() {
     _dataReceived=false;
     return _inData;
-  }
+  } 
 };
 #endif

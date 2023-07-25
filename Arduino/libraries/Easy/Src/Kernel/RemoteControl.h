@@ -134,7 +134,7 @@ public:
   }
 
   //*************************************
-  virtual RemoteInput* GetControl(int aControl) {
+  virtual RemoteInput* getControl(ERcControl aControl) {
     return _channelRemoteInputs[aControl];
   }  
 };

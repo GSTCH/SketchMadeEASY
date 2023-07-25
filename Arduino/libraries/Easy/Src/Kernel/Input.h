@@ -68,7 +68,11 @@ public:
   //*************************************
   int Map(int aMinValue, int aMaxValue) {
     if (_minValue != _maxValue) {
-      return map(_currentValue, _minValue, _maxValue, aMinValue, aMaxValue);
+      int mappedValue = map(_currentValue, _minValue, _maxValue, aMinValue, aMaxValue);
+#ifdef LOG_LOOP_DEBUG
+      GetLog()->printf("In(%d):Mp In=%d Out=%d [%d..%d][%d %d]", _id, _currentValue, mappedValue, _minValue, _maxValue, aMinValue, aMaxValue);
+#endif
+      return mappedValue;
     }
     return _currentValue;
   }

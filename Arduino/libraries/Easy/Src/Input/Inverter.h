@@ -32,6 +32,10 @@ class Inverter : public Input
       _input = aInput;
       _minValue = - _input->GetMinValue();
       _maxValue = - _input->GetMaxValue();
+      
+#ifdef LOG_SETUP
+    GetLog()->printf("IV(%d):C Id=%d, Min=%d, Max=%d", _id, _input->GetId(), _minValue, _maxValue);
+#endif           
     }
 
   protected:

@@ -25,15 +25,6 @@
 #include "Element.h"
 #include "ControlManagerFactory.h"
 
-enum ECompareOperator {
-  OpEQ = 1,
-  OpGT = 2,
-  OpLT = 3,
-  OpNEQ = 4,
-  OpGTE = 5,
-  OpLTE = 6,
-};
-
 class Condition : public Element {
 private:
   //*************************************

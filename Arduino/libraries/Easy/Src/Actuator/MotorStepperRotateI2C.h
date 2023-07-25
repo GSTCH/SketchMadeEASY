@@ -33,7 +33,7 @@ public:
   //* aStepStyle : Type of stepper motor signal (ssSingle, ssDouble, ssInterleave, ssMicrostep)
   //* aBusAdddress : I2C Address of the shield    
   MotorStepperRotateI2C(int aStepperNr, int aResolution, int aMaxCylcesPerSecond, EStepStyle aStepStyle = ssSingle, int aBusAdddress = 0x60)
-    : MotorBase(CreateElementId(EbtActuator, EkaMotor, MOTOR_STEPPERROTATE_INDEX)) {
+    : MotorBase(CreateElementId(EbtActuator, EkaMotor, MOTOR_STEPPERROTATEI2C_INDEX)) {
     _motorShield = new MotorShieldStepperRotateI2C(aStepperNr, aResolution, aMaxCylcesPerSecond, aStepStyle, aBusAdddress);
   }
 };

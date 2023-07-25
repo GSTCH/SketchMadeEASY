@@ -23,8 +23,8 @@ ControlManager::ControlManager()
   : ControlManagerBase() {
   _realInputs = new LinkedList<Input*>();
   _toolInputs = new LinkedList<Input*>();
-  _conditions = new LinkedList<Condition*>();
   _logicInputs = new LinkedList<Input*>();
+  _conditions = new LinkedList<Condition*>();
   _relations = new LinkedList<Relation*>();
   _actuators = new LinkedList<Actuator*>();
 
@@ -38,7 +38,8 @@ ControlManager::ControlManager()
 //*************************************
 void ControlManager::Setup() {
 #ifdef LOG_SETUP
-  GetLog()->printf("CM:S RI=%d, TI=%d, LI=%d, R=%d, A=%d", _realInputs->size(), _toolInputs->size(), _logicInputs->size(), _relations->size(), _actuators->size());
+  GetLog()->printf("CM:S RI=%d, TI=%d, LI=%d", _realInputs->size(), _toolInputs->size(), _logicInputs->size());
+  GetLog()->printf("CM:S C=%d, R=%d, A=%d", _conditions->size(), _relations->size(), _actuators->size());
 #endif
 
 #ifdef LOG_SETUP_DEBUG
@@ -193,9 +194,8 @@ void ControlManager::Add(Input* aInput) {
     _logicInputs->add(aInput);
   } else {
 #ifdef LOG_SETUP_DEBUG
-    GetLog()->printf("CM:+ RI %d", aInput->GetId());
+    GetLog()->printf("CM:+ TP=%d, RI %d", aInput->GetKind(), aInput->GetId());
 #endif
-
     _realInputs->add(aInput);
   }
 }

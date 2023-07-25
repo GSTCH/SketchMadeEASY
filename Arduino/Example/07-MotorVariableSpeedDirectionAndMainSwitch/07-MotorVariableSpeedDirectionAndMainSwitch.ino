@@ -46,12 +46,12 @@
 // Parameter  I2C Motor
 #define MOTOR_NUMBER 1
 // Parameter MainSwitch
-#define MAIN_SWITCH_PIN 39
+#define MAIN_SWITCH_PIN 29
 // Parameter of Switch
-#define MOTOR_SWITCH_FORWARDPIN 36
-#define MOTOR_SWITCH_BACKWARDPIN 37
+#define MOTOR_SWITCH_FORWARDPIN 32
+#define MOTOR_SWITCH_BACKWARDPIN 33
 // Parameter variable Input
-#define VARIABLE_INPUT_PIN A0
+#define VARIABLE_INPUT_PIN A15
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
@@ -60,8 +60,8 @@ void setup() {
   // Different motor shields are supported, some are comment. Change comment and chose your motor shield.
   //MotorL298* motor = new MotorL298(MOTOR_DIRECTIONPIN, MOTOR_SPEEDPIN);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
-  MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
-  //MotorI2C* motor = new MotorI2C(MOTOR_NUMBER);
+  //MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);
+  MotorI2C* motor = new MotorI2C(MOTOR_NUMBER);
 
   //** Create input:
   // Create input direction switch

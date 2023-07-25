@@ -93,6 +93,9 @@ public:
   //*************************************
   //* aSpeed [1...255]
   void forward(int aSpeed) {
+#ifdef LOG_LOOP_DEBUG
+    GetLog()->printf("MA(Mo=%d):Fwd", _motorNr);
+#endif    
     _motor->run(FORWARD);
     _motor->setSpeed(aSpeed);
   }
@@ -100,12 +103,18 @@ public:
   //*************************************
   //* aSpeed [1...255]
   void backward(int aSpeed) {
+#ifdef LOG_LOOP_DEBUG
+    GetLog()->printf("MA(Mo=%d):Fwd", _motorNr);
+#endif    
     _motor->run(BACKWARD);
     _motor->setSpeed(aSpeed);
   }
 
   //*************************************
   void stop() {
+#ifdef LOG_LOOP_DEBUG
+    GetLog()->printf("MA(Mo=%d):Stp", _motorNr);
+#endif       
     _motor->run(RELEASE);
     _motor->setSpeed(0);
   }

@@ -28,6 +28,15 @@
 typedef uint8_t byte;
 
 //*** Enums
+enum ECompareOperator {
+  OpEQ = 1,
+  OpGT = 2,
+  OpLT = 3,
+  OpNEQ = 4,
+  OpGTE = 5,
+  OpLTE = 6,
+};
+
 enum ETurnDirection { moStop = 0,
                       moForward = 1,
                       moBackward = 2 };
@@ -45,8 +54,8 @@ enum EStepType { stSingle,
                  stInterleave,
                  stMicrostepping };
 
-enum ERemoteControlType { rcAppInventor,
-                          rcFlySky };
+enum ERemoteControlType { rtAppInventor,
+                          rtFlySky };
 
 enum EHardwareSerialMode { scHard,
                            scHard1,
@@ -77,11 +86,17 @@ enum ERcControl { rcJoystick1X = 0, // JobstickAxis1X
                   rcJoystick1Y = 1, // JobstickAxis1Y
                   rcJoystick2X = 2, // JobstickAxis2X
                   rcJoystick2Y = 3, // JobstickAxis2Y
-                  rcVRA = 4,        // Poti1
-                  rcVRB = 5,        // Poti2
+                  rcVrA = 4,        // Poti1
+                  rcVrB = 5,        // Poti2
                   rcSwA = 6,        // Switch1, 2 Position
                   rcSwB = 7,        // Switch2, 2 Position
                   rcSwC = 8,        // Switch3, 3 Position
                   rcSwD = 9 };      // Switch4, 2 Position
 					 
+enum ERcCommunicationState {
+  csOff = 0,
+  csOn = 1,
+  csDisabled = 2
+};
+
 #endif

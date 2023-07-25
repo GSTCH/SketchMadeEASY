@@ -32,12 +32,12 @@
  * LOG_SETUP_DEBUG: Extended informations during startup, used to find bugs
  */  
 
-#ifndef LOG
+//#ifndef LOG
 #define LOG 
-#endif
+//#endif
 
 //#ifndef LOG_LOOP
-//#define LOG_LOOP
+#define LOG_LOOP
 //#endif
 
 //#ifndef LOG_LOOP_DEBUG
@@ -45,11 +45,15 @@
 //#endif
 
 //#ifndef LOG_SETUP
-//#define LOG_SETUP
+#define LOG_SETUP
 //#endif
 
 //#ifndef LOG_SETUP_DEBUG
 //#define LOG_SETUP_DEBUG
+//#endif
+
+//#ifndef EASY_LOG_FLUSHEACHTIME
+//#define EASY_LOG_FLUSHEACHTIME
 //#endif
 
 //#ifndef PLOT_ENCODERMOTOR
@@ -70,7 +74,7 @@
  * (e.g. Bluetooth and FlySky needs a Serial communication).
  */
 #ifdef __AVR_ATmega2560__
-//#define MULTI_REMOTECONTROL
+#define MULTI_REMOTECONTROL
 #endif
 
 /*
@@ -78,12 +82,11 @@
  * solve problems, when the ID of each element is manually defined during 
  * create. For this existing constructors, activated when set this define.
  */
+#ifndef CREATE_ID_MANUALLY
 //#define CREATE_ID_MANUALLY
+#endif
 
 
 //#define USE_NEWPING
-
-#define REALMODEL
-//#define TESTRACK
 
 #endif

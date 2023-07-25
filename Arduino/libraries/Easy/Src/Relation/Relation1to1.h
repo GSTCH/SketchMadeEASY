@@ -80,12 +80,6 @@ class Relation1to1 : public Relation
         {
           GetLog()->printf("R1(%d):L Ck=%d, CCk=%d", _id, _condition->Check(), _condition->CheckChanged());
         }
-        #ifdef LOG_LOOP_DEBUG
-        else
-        {
-          GetLog()->printf("R1(%d):L Ck=%d, CCk=%d", _id, _condition->Check(), _condition->CheckChanged());
-        }
-        #endif
       }
 #endif
 

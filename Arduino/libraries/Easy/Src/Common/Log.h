@@ -40,10 +40,11 @@
 #ifndef EasyLog_h
 #define EasyLog_h
 
+#include "BuildDefinition.h"
 #include <stdio.h>
 
 #ifndef EASY_LOG_BUFFER_LEN
-#define EASY_LOG_BUFFER_LEN 150
+#define EASY_LOG_BUFFER_LEN 250
 #endif
 
 // Baudrates: 9600,19200,31250,38400,57600,74880,115200
@@ -124,7 +125,9 @@ static Log* GetLog(int baurate = EASY_LOG_BAUDRATE) {
 
   if (log == NULL) {
     log = new Log();
-	log->enable(baurate);
+#ifdef LOG
+	  log->enable(baurate);
+#endif
   }
   return log;
 }

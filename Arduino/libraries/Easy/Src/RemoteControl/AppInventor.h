@@ -28,6 +28,7 @@
 #include "RemoteJoystickAxis.h"
 #include <Arduino.h>
 
+
 #define APPINVENTOR_JOYSTICK1_minX -200
 #define APPINVENTOR_JOYSTICK1_maxX 200
 #define APPINVENTOR_JOYSTICK1_minY -120
@@ -43,6 +44,10 @@ class AppInventor : public RemoteControl {
 private:
   Bluetooth* _bluetooth;
   char _commandBuffer[APPINVENTOR_COMMANDBUFFER_SIZE + 1];
+#ifdef MULTI_REMOTECONTROL
+  Condition* _enableCondition = NULL;
+  bool _communicationEnabled = false;
+#endif
 
   //*************************************
   inline int numberLen(int aNumber) {
@@ -79,7 +84,8 @@ private:
 	}
 
     char* command = strtok(_commandBuffer, ",");
-    if (command == NULL) {
+    if (command == NULL) 
+	{
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("AI:PT No command received");
 #endif
@@ -179,67 +185,153 @@ private:
 
 protected:
   //*************************************
-  bool DoSendMessage(const char* aMessage) {
+  bool DoSendMessage(const char* aMessage) 
+  {
     return _bluetooth->SendMessage(aMessage);
   }
 
 public:
   //*************************************
   AppInventor(RemoteInput** aRemoteInputs, int aRxPin, int aTxPin)  // SoftSerial
-    : RemoteControl(rcAppInventor, aRemoteInputs) {
+    : RemoteControl(rtAppInventor, aRemoteInputs) 
+  {
     // Hardware serial
     _bluetooth = new Bluetooth(aRxPin, aTxPin);
   }
 
   //*************************************
   AppInventor(RemoteInput** aRemoteInputs, EHardwareSerialMode aHardwareSerialMode)
-    : RemoteControl(rcAppInventor, aRemoteInputs) {
+    : RemoteControl(rtAppInventor, aRemoteInputs) 
+  {
     // Hardware serial only
     _bluetooth = new Bluetooth(aHardwareSerialMode);
   }
 
   //*************************************
   AppInventor(int aRxPin, int aTxPin)  // SoftSerial
-    : RemoteControl(rcAppInventor) {
+    : RemoteControl(rtAppInventor) 
+  {
     _bluetooth = new Bluetooth(aRxPin, aTxPin);
   }
 
   //*************************************
   AppInventor(EHardwareSerialMode aHardwareSerialMode)
-    : RemoteControl(rcAppInventor) {
+    : RemoteControl(rtAppInventor) 
+  {
     _bluetooth = new Bluetooth(aHardwareSerialMode);
   }
+  
+//*************************************
+#ifdef MULTI_REMOTECONTROL
+  AppInventor(EHardwareSerialMode aHardwareSerialMode, Condition* aConditionWhenEnabled)
+    : RemoteControl(rtAppInventor) 
+  {
+    _communicationEnabled = false;
+     _enableCondition = aConditionWhenEnabled;
+	 
+    _bluetooth = new Bluetooth(aHardwareSerialMode);
+  }
+#endif
 
   //*************************************
   RemoteInput* getControl(ERcControl aControl) {
+#ifdef LOG_SETUP_DEBUG    
+    GetLog()->printf("AI:G Tp=%d", aControl);
+#endif               
+    
     switch (aControl) {
       case rcJoystick1X:
         if (_channelRemoteInputs[0] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G J1X");
+#endif                         
           _channelRemoteInputs[0] = new RemoteJoystickAxis(-200, 200, false);
         }
         return _channelRemoteInputs[0];
       case rcJoystick1Y:
         if (_channelRemoteInputs[1] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G J1Y");
+#endif                         
           _channelRemoteInputs[1] = new RemoteJoystickAxis(-120, 120, false);
         }
         return _channelRemoteInputs[1];
       case rcJoystick2X:
         if (_channelRemoteInputs[2] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G J2X");
+#endif                                   
           _channelRemoteInputs[2] = new RemoteJoystickAxis(-120, 120, false);
         }
         return _channelRemoteInputs[2];
       case rcJoystick2Y:
         if (_channelRemoteInputs[3] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G J2Y");
+#endif                                   
           _channelRemoteInputs[3] = new RemoteJoystickAxis(-120, 120, false);
         }
         return _channelRemoteInputs[3];
+      case rcVrA:
+        if (_channelRemoteInputs[4] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G VrA");
+#endif                         
+          _channelRemoteInputs[4] = new RemoteValue(0, 255);
+        }
+        return _channelRemoteInputs[4];
+      case rcVrB:
+        if (_channelRemoteInputs[5] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G VrB");
+#endif                         
+          _channelRemoteInputs[5] = new RemoteValue(0, 255);
+        }
+        return _channelRemoteInputs[5];
+      case rcSwA:
+        if (_channelRemoteInputs[6] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G SwA");
+#endif                         
+          _channelRemoteInputs[6] = new RemoteValue(0, 1);
+        }
+        return _channelRemoteInputs[6];
+      case rcSwB:
+        if (_channelRemoteInputs[7] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G SwB");
+#endif                         
+          _channelRemoteInputs[7] = new RemoteValue(0, 1); 
+        }
+        return _channelRemoteInputs[7];
+      case rcSwC:
+        if (_channelRemoteInputs[8] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("AI:G SwC");
+#endif                         
+          _channelRemoteInputs[8] = new RemoteValue(0, 2);
+        }
+        return _channelRemoteInputs[8];
+      case rcSwD:
+        if (_channelRemoteInputs[9] == NULL) {
+#ifdef LOG_SETUP_DEBUG    
+          GetLog()->println("FS:G SwD");
+#endif                         
+          _channelRemoteInputs[9] = new RemoteValue(0, 1);
+        }
+        return _channelRemoteInputs[9];
+      
+        
+        
     }
 	return NULL;
   }
 
   //*************************************
   void Setup() {
+#ifdef LOG_SETUP_DEBUG        
     GetLog()->println("AI:S");
+#endif		  
 
     for (int idx = 0; idx < APPINVENTOR_COMMANDBUFFER_SIZE; ++idx) {
       _commandBuffer[idx] = '\0';
@@ -247,25 +339,60 @@ public:
 
     RemoteControl::Setup();
 
-    if (_bluetooth != NULL) {
-      _bluetooth->Setup();
-    }
+    if (_bluetooth != NULL) {		
+#ifdef MULTI_REMOTECONTROL		
+      if (_enableCondition==NULL) {
+#endif	
+        _bluetooth->Setup();
+	      _bluetooth->Enable();
+      
+#ifdef LOG_SETUP_DEBUG        
+      GetLog()->println("AI:S BT+");
+#endif		  
+      
+#ifdef MULTI_REMOTECONTROL				
+      }
+#endif	
+	}
   }
 
   //*************************************
   void Loop() {
-    if (_bluetooth != NULL) {
-      _bluetooth->Loop();
-    }
-    if (_bluetooth->DataReceived()) {
+#ifdef MULTI_REMOTECONTROL	  
+    if (_enableCondition!=NULL)
+	{
+		if (_enableCondition->Check() != _communicationEnabled)
+		{
+			if (_enableCondition->Check() && !_communicationEnabled)
+			{
+			  _bluetooth->Enable();
+        _communicationEnabled = true;
+			}
+			else if (!_enableCondition->Check() && _communicationEnabled)
+			{
+			  _bluetooth->Disable();
+        _communicationEnabled = false;
+			}
+		}		
+	}	  
+#endif	
+	  
+    if (_communicationEnabled) {
+      if (_bluetooth != NULL) {
+        _bluetooth->Loop();
+      }
+
+      if (_bluetooth->DataReceived()) {
 #ifdef LOG_LOOP_DEBUG
-      GetLog()->printf("AI:L Recvd");
+        GetLog()->printf("AI:L Recvd");
 #endif
-      strcpy(_commandBuffer, _bluetooth->Data());
-      ParseAndUpdateTelegram();
+        strcpy(_commandBuffer, _bluetooth->Data());
+        ParseAndUpdateTelegram();
+      }
+
+      this->RemoteControl::Loop();
     }
 
-    this->RemoteControl::Loop();
   }
 };
 #endif

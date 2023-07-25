@@ -10,13 +10,13 @@
 //* - Arduino Mega 2560 R3 is recommended,
 //* - Adafruit MotorShield v2
 //* - Prototyp/Screw shield (Optional)
-//* - 1 switch with 3 position 1-0-1 
-//* - 5 switch with 3 position (1)-0-(1) 
+//* - 1 switch with 3 position 1-0-1
+//* - 5 switch with 3 position (1)-0-(1)
 //* - 5 Potentiometer 10kOhm
 //* - HC06 Bluetooth shield
 //* - FlySky FS-I6X sender
 //* - FlySky FS-iA6B receiver
-//* 
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino - Arduino quick and easy
 //
@@ -31,28 +31,30 @@
 //* (at your option) any later version.
 //*****************************************************************
 
+#define LOG
+#define LOG_LOOP
 #include <Easy.h>
 
 //*****************************************************************
 
-// Parameter for motor shields 
+// Parameter for motor shields
 #define I2CBUS_ADRESS_MOTORSHIELD1 0x60
 #define I2CBUS_ADRESS_MOTORSHIELD2 0x61
 #define MOTORa_I2C_NUMBER 1
 #define MOTORb_I2C_NUMBER 2
 #define MOTORc_I2C_NUMBER 3
 #define MOTORd_I2C_NUMBER 4
-#define MOTORe_I2C_NUMBER 1
+#define MOTORe_I2C_NUMBER 4
 // Parameter motor speed
-#define SPEED_MOTORa_PIN A0
-#define SPEED_MOTORb_PIN A8
-#define SPEED_MOTORc_PIN A11
-#define SPEED_MOTORd_PIN A3
-#define SPEED_MOTORe_PIN A4
+#define SPEED_MOTORa_PIN A15
+#define SPEED_MOTORb_PIN A14
+#define SPEED_MOTORc_PIN A13
+#define SPEED_MOTORd_PIN A12
+#define SPEED_MOTORe_PIN A11
 // Parameter mode selection switch
 #define SWITCH_MODESELECTION_HANDY_PIN 29
 #define SWITCH_MODESELECTION_FLYSKY_PIN 30
-// Parameter for MotorControlSwitch (manually mode)  
+// Parameter for MotorControlSwitch (manually mode)
 #define SWITCH_MOTORa_DIRECTION1 32
 #define SWITCH_MOTORa_DIRECTION2 33
 #define SWITCH_MOTORb_DIRECTION1 35
@@ -66,8 +68,17 @@
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
+  GetLog()->println("Setup");
 
   //** Common elements
+
+  // Define actuators
+  MotorI2C* motorA = new MotorI2C(MOTORa_I2C_NUMBER);
+  MotorI2C* motorB = new MotorI2C(MOTORb_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
+  MotorI2C* motorC = new MotorI2C(MOTORc_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
+  MotorI2C* motorD = new MotorI2C(MOTORd_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
+  MotorI2C* motorE = new MotorI2C(MOTORe_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD2);
+
   // Define mode switch
   Switch3Position* modeSelectionSwitch = new Switch3Position(SWITCH_MODESELECTION_HANDY_PIN, SWITCH_MODESELECTION_FLYSKY_PIN);
 
@@ -78,8 +89,8 @@ void setup() {
   Switch3Position* switchMotorD = new Switch3Position(SWITCH_MOTORd_DIRECTION1, SWITCH_MOTORd_DIRECTION2);
   Switch3Position* switchMotorE = new Switch3Position(SWITCH_MOTORe_DIRECTION1, SWITCH_MOTORe_DIRECTION2);
 
-  // Define speeds 
-  FixValue* stopSpeed = FixValue::Off(); // Spare RAM: define once, use multiple times
+  // Define speeds
+  FixValue* stopSpeed = FixValue::Off();  // Spare RAM: define once, use multiple times
 
   VariableInput* motorSpeedForwardA = new VariableInput(SPEED_MOTORa_PIN);
   Inverter* motorSpeedBackwardA = new Inverter(motorSpeedForwardA);
@@ -96,50 +107,88 @@ void setup() {
   VariableInput* motorSpeedForwardE = new VariableInput(SPEED_MOTORe_PIN);
   Inverter* motorSpeedBackwardE = new Inverter(motorSpeedForwardE);
 
-  // Define remote controls
-  FlySky* flySky = new FlySky(scHard1);
-  AppInventor* appInventor = new AppInventor(scHard3);
 
-  // Define actuators
-  MotorI2C* motorA = new MotorI2C(MOTORa_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
-  MotorI2C* motorB = new MotorI2C(MOTORb_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
-  MotorI2C* motorC = new MotorI2C(MOTORc_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
-  MotorI2C* motorD = new MotorI2C(MOTORd_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);  
-  MotorI2C* motorE = new MotorI2C(MOTORe_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD2);
+  // Define remote controls
+  CompareCondition* flySkyEnabledCondition = new CompareCondition(modeSelectionSwitch, OpEQ, Switch3Position::Pos1);
+  FlySky* flySky = new FlySky(scHard2, flySkyEnabledCondition);
+
+  CompareCondition* appEnabledCondition = new CompareCondition(modeSelectionSwitch, OpEQ, Switch3Position::Pos2);
+  AppInventor* app = new AppInventor(scHard3, appEnabledCondition);
 
   //** Define logic with relations and conditions
 
-  //* FlySky
-  CompareCondition* conditionControledByFlySky = new CompareCondition(modeSelectionSwitch, OpEQ, Switch3Position::Pos1);
-  ActuatorCollection* actuatorCollectionFlySky = new ActuatorCollection(
-    motorA, flySky->GetControl(rcJoystick2X),
-    motorB, flySky->GetControl(rcJoystick1X),
-    motorC, flySky->GetControl(rcJoystick1Y),
-    motorD, flySky->GetControl(rcJoystick2Y),
-    motorE, flySky->GetControl(rcSwC));
-  Relation1to1* relationFlySky = new Relation1to1(conditionControledByFlySky, actuatorCollectionFlySky, NULL);
+  //* Motor A:
+  GetLog()->println("***MotorA");
+  // Manual mode depends on motorSwitchA
+  DependentInput* motorManualSpeedA = new DependentInput(switchMotorA,
+                                                         stopSpeed,             // motor switch at Pos0/PosMid: Stop
+                                                         motorSpeedForwardA,    // motor switch at Pos1 : Forward
+                                                         motorSpeedBackwardA);  // motor switch at Pos2 : Backward
 
-  //* AppInventor
-  CompareCondition* conditionControledByAppInventor = new CompareCondition(modeSelectionSwitch, OpEQ, Switch3Position::Pos2);
-  ActuatorCollection* actuatorCollectionAppInventor = new ActuatorCollection(
-    motorA, appInventor->GetControl(rcJoystick2X),
-    motorB, appInventor->GetControl(rcJoystick1X),
-    motorC, appInventor->GetControl(rcJoystick1Y),
-    motorD, appInventor->GetControl(rcJoystick2Y),
-    motorE, appInventor->GetControl(rcSwC));
-  Relation1to1* relationAppInventor = new Relation1to1(conditionControledByAppInventor, actuatorCollectionAppInventor, NULL);
+  // Input is in relation to the mode switch:
+  DependentInput* inputMotorA = new DependentInput(
+    // Switch define the index of input to use
+    modeSelectionSwitch,
+    // Mode selection switch Pos0/PosMid: Manual Mode with switch: True when greather than Pos1, is when Pos2
+    motorManualSpeedA,
+    // Mode selection switch Pos1: FlySky FS-I6X remote control
+    flySky->getControl(rcJoystick1X),
+    // Mode selection switch Pos2: HandyApp
+    app->getControl(rcJoystick1X));
 
-  //* Manual mode
-  // Motor A
-  defineMotorWithSwitchInModeManually(motorA, modeSelectionSwitch, switchMotorA, motorSpeedForwardA, motorSpeedBackwardA, stopSpeed);
-  // Motor B
-  defineMotorWithSwitchInModeManually(motorB, modeSelectionSwitch, switchMotorB, motorSpeedForwardB, motorSpeedBackwardB, stopSpeed);
-  // Motor C
-  defineMotorWithSwitchInModeManually(motorC, modeSelectionSwitch, switchMotorC, motorSpeedForwardC, motorSpeedBackwardC, stopSpeed);
-  // Motor D
-  defineMotorWithSwitchInModeManually(motorD, modeSelectionSwitch, switchMotorD, motorSpeedForwardD, motorSpeedBackwardD, stopSpeed);
-  // Motor E
-  defineMotorWithSwitchInModeManually(motorE, modeSelectionSwitch, switchMotorE, motorSpeedForwardE, motorSpeedBackwardE, stopSpeed);
+  // Define logic and link motor conditionless to the DepentInput
+  Relation1to1* relationManualStopMotorA = new Relation1to1(NULL, motorA, inputMotorA);
+
+  //* Motor B:
+  GetLog()->println("***MotorB");
+  // Same as motorB, to increase readability, the definiton is in a method.
+  // This method is usable for all motors
+  DefineMotor(modeSelectionSwitch, switchMotorB,
+              motorSpeedForwardB, motorSpeedBackwardB, stopSpeed,
+              flySky->getControl(rcJoystick1Y), app->getControl(rcJoystick1Y),
+              motorB);
+
+  //* Motor C:
+  GetLog()->println("***MotorC");
+  DefineMotor(modeSelectionSwitch, switchMotorC,
+              motorSpeedForwardC, motorSpeedBackwardC, stopSpeed,
+              flySky->getControl(rcJoystick2X), app->getControl(rcJoystick2X),
+              motorC);
+
+  //* Motor D:
+  GetLog()->println("***MotorD");
+  DefineMotor(modeSelectionSwitch, switchMotorD,
+              motorSpeedForwardD, motorSpeedBackwardD, stopSpeed,
+              flySky->getControl(rcJoystick2Y), app->getControl(rcJoystick2Y),
+              motorD);
+
+  //* Motor E:
+  GetLog()->println("***MotorE");
+  // The remote control has only 8 joystick axis. To simulator the ninth, we use a DependentInput:
+  // Switch 3-Position (SwC) defines the direction, control dial (VrB) defines the speed.
+  Input* flySkySpeedForwardMotorE = flySky->getControl(rcVrB);
+  Input* flySkySpeedBackwardMotorE = new Inverter(flySkySpeedForwardMotorE);
+
+  DependentInput* flySkyMotorSpeedE = new DependentInput(flySky->getControl(rcSwC), 
+                     flySkySpeedForwardMotorE, // motor switch at Pos1 : Forward
+                     stopSpeed,                // motor switch at Pos0/PosMid: Stop
+                     flySkySpeedBackwardMotorE);  // motor switch at Pos2 : Backward    
+  // But only when the mode switch is on position "FlySky"
+  CompareCondition* modeSelectionSwitchOnFlySky = new CompareCondition(modeSelectionSwitch, OpEQ, Switch3Position::Pos1);
+  ConditionInput* speedInFlySkyModeMotorE = new ConditionInput(modeSelectionSwitchOnFlySky, flySkyMotorSpeedE, stopSpeed );
+  
+  // Same logic of FlySky for the App
+  DependentInput* appMotorSpeedE = new DependentInput(app->getControl(rcSwC), 
+                     stopSpeed,             // motor switch at Pos0/PosMid: Stop
+                     app->getControl(rcVrB),    // motor switch at Pos1 : Forward
+                     new Inverter(app->getControl(rcVrB)));  // motor switch at Pos2 : Backward    
+  CompareCondition* modeSelectionSwitchApp = new CompareCondition(modeSelectionSwitch, OpEQ, Switch3Position::Pos2);
+  ConditionInput* speedInAppModeMotorE = new ConditionInput(modeSelectionSwitchApp, appMotorSpeedE, stopSpeed );
+
+  DefineMotor(modeSelectionSwitch, switchMotorE, 
+              motorSpeedForwardE, motorSpeedBackwardE, stopSpeed, 
+              speedInFlySkyModeMotorE, speedInAppModeMotorE,
+              motorE);      
   // ***))
 
   // Initialize control
@@ -156,25 +205,27 @@ void loop() {
 }
 
 //*****************************************************************
-// All switches have the same logic. To make the code shorter and better maintainable, this fuction defines
-// the logic of a moto in manually mode.
-void defineMotorWithSwitchInModeManually(Actuator* aMotor, Input* aModeSwitch, Input* aMotorSwitch,
-                                       Input* aForwardSpeed, Input* aBackwardSpeed, Input* aStopSpeed) {
-  // Motor stopped
-  LogicCondition* conditionManualStopMotor = new LogicCondition(aModeSwitch, OpEQ, Switch2Position::Pos0,
-                                                                LgAND,
-                                                                aMotorSwitch, OpEQ, Switch3Position::Pos0);
-  Relation1to1* relationManualStopMotor = new Relation1to1(conditionManualStopMotor, aMotor, aStopSpeed);
+void DefineMotor(Input* aModeSelectionSwitch, Input* aSwitchMotor,
+                 Input* aMotorSpeedForward, Input* aMotorSpeedBackward, Input* aStopSpeed,
+                 Input* aFlySkyInput, Input* aAppInput,
+                 Actuator* aMotor) {
+  // Manual mode depends on motorSwitchA
+  DependentInput* motorManualSpeed = new DependentInput(aSwitchMotor,
+                                                        aStopSpeed,            // motor switch at Pos0/PosMid: Stop
+                                                        aMotorSpeedForward,    // motor switch at Pos1 : Forward
+                                                        aMotorSpeedBackward);  // motor switch at Pos2 : Backward
 
-  // Motor forward
-  LogicCondition* conditionManualForwardMotor = new LogicCondition(aModeSwitch, OpEQ, Switch2Position::Pos0,
-                                                                   LgAND,
-                                                                   aMotorSwitch, OpEQ, Switch3Position::Pos1);
-  Relation1to1* relationManualForwardMotor = new Relation1to1(conditionManualForwardMotor, aMotor, aForwardSpeed);
+  // Input is in relation to the mode switch:
+  DependentInput* inputMotor = new DependentInput(
+    // Switch define the index of input to use
+    aModeSelectionSwitch,
+    // Mode selection switch Pos0/PosMid: Manual Mode with switch: True when greather than Pos1, is when Pos2
+    motorManualSpeed,
+    // Mode selection switch Pos1: FlySky FS-I6X remote control
+    aFlySkyInput,
+    // Mode selection switch Pos2: HandyApp
+    aAppInput);
 
-  // Motor backward
-  LogicCondition* conditionManualBackwardMotor = new LogicCondition(aModeSwitch, OpEQ, Switch2Position::Pos0,
-                                                                    LgAND,
-                                                                    aMotorSwitch, OpEQ, Switch3Position::Pos2);
-  Relation1to1* relationManualBackwardMotor = new Relation1to1(conditionManualBackwardMotor, aMotor, aBackwardSpeed);
+  // Define logic and link motor conditionless to the DepentInput
+  Relation1to1* relationManualStopMotorA = new Relation1to1(NULL, aMotor, inputMotor);
 }

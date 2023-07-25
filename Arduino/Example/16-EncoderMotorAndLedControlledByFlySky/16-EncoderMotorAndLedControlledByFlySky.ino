@@ -70,7 +70,7 @@ void setup()
   //* Define logic with condition and relation
   // Switch is on, brightness with a Poti on the RC
   CompareCondition* conditionSwitchOn = new CompareCondition(flySky->getControl(rcSwA), OpEQ, RemoteValue::Pos1);
-  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, flySky->getControl(rcVRA));
+  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, flySky->getControl(rcVrA));
 
   // Switch is off
   CompareCondition* conditionSwitchOff = new CompareCondition(flySky->getControl(rcSwA), OpEQ, RemoteValue::Pos0);

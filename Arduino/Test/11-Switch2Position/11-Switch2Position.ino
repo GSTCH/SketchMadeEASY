@@ -24,7 +24,7 @@
 #include <Easy.h>
 
 //*****************************************************************
-// Parameter MainSwitch
+// Parameter switch
 #define SWITCH_POS1 39
 #define SWITCHMODE smPullUpExternal
 
