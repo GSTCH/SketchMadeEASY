@@ -28,7 +28,6 @@ char Log::_buffer[EASY_LOG_BUFFER_LEN];
 
 //*************************************
 int Log::printf(const char* format, ...) {
-#ifdef LOG  
   if (_enabled) {
     // Log text eats up memory and should therefore be as short as possible.
     // The class therefore supports texts with a maximum length of EASY_LOG_BUFFER_LEN characters.
@@ -43,24 +42,20 @@ int Log::printf(const char* format, ...) {
 	Serial.flush();
 #endif	
   }
-#endif  
 }
 
 //*************************************
 void Log::println(const char* text) {
-#ifdef LOG  
   if (_enabled) {
     Serial.println(text);
 #ifdef EASY_LOG_FLUSHEACHTIME
 	Serial.flush();
 #endif
   }
-#endif  
 }
 
 //*************************************
 void Log::enable(int baurate) {
-#ifdef LOG  
   if (!_enabled) {	  
     _enabled = true;
     Serial.begin(baurate);	
@@ -70,25 +65,20 @@ void Log::enable(int baurate) {
 	Serial.begin(baurate);	
 	_baudrate = baurate;
   }
-#endif  
 }
 
 //*************************************
 void Log::disable() {
-#ifdef LOG  
   if (_enabled) {
     _enabled = false;
     Serial.end();
 	_baudrate = 0;
   }
-#endif  
 }
 
 //*************************************
 void Log::flush() {
-#ifdef LOG  
   if (_enabled) {
     Serial.flush();
   }
-#endif  
 }
