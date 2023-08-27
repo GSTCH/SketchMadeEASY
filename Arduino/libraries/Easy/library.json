@@ -1,12 +1,12 @@
 {
-	"name": "Sketch made Easy for Arduino",
+	"name": "SketchMadeEasy",
 	"frameworks": "Arduino",
 	"keywords": "Arduino, Easy, Log",
-	"description": "Sketch made Easy for Arduino is a high-level abstraction of an Arduino. Instead of programming in bits and bytes, the control logic is configured by combining the classes.",
+	"description": "Sketch made Easy is a high-level abstraction of an Arduino. Instead of programming in bits and bytes, the control logic is configured by combining the classes.",
 	"authors": [
 		{
 			"name": "Hans Rothenbuehler",
-			"email": "hans.rothenbuehler@hispeed.ch",
+			"email": "Easy4Arduino@gmail.com",
 			"url": "",
 			"maintainer": true
 		}

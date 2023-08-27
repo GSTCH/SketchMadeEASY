@@ -24,11 +24,19 @@ SET CompressToolWithPath="C:\Program Files\7-zip\7z.exe"
 
 
 ECHO *** Move files***
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\keywords.txt keywords.txt
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\library.json library.json
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\library.properties library.properties
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\src src
+
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\keywords.txt Easy\keywords.txt
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\library.json Easy\library.json
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\library.properties Easy\library.properties
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip README.md Easy\README.md
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip LICENSE Easy\LICENSE
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\src Easy\src
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip Example Easy\Examples\Examples
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip Model Easy\Examples\Models
+%CompressToolWithPath% rn _ZipLibrary/Easy.zip Test Easy\Examples\Tests
 %CompressToolWithPath% d _ZipLibrary/Easy.zip libraries\Easy
+
 
 ECHO *** Finish ****
 ECHO Add version into the filename (e.g. "Easy_1.2.3.zip")!
+PAUSE

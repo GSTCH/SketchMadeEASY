@@ -1,3 +1,5 @@
+..\LICENSE
+..\README.md
 Example\
 Model\
 Test\
