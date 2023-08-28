@@ -3,4 +3,5 @@
 Example\
 Model\
 Test\
+Template\
 Libraries\Easy\

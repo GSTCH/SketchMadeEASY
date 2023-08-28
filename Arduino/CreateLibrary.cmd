@@ -20,21 +20,22 @@ REM ******************************
 
 ECHO *** Create Archive ***
 SET CompressToolWithPath="C:\Program Files\7-zip\7z.exe"
-%CompressToolWithPath% a -tzip _ZipLibrary/Easy.zip @"IncludedFiles.txt" -scsWIN
+%CompressToolWithPath% a -tzip _ZipLibrary/SketchMadeEasy.zip @"IncludedFiles.txt" -scsWIN
 
 
 ECHO *** Move files***
 
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\keywords.txt Easy\keywords.txt
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\library.json Easy\library.json
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\library.properties Easy\library.properties
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip README.md Easy\README.md
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip LICENSE Easy\LICENSE
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip libraries\Easy\src Easy\src
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip Example Easy\Examples\Examples
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip Model Easy\Examples\Models
-%CompressToolWithPath% rn _ZipLibrary/Easy.zip Test Easy\Examples\Tests
-%CompressToolWithPath% d _ZipLibrary/Easy.zip libraries\Easy
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip libraries\Easy\keywords.txt Easy\keywords.txt
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip libraries\Easy\library.json Easy\library.json
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip libraries\Easy\library.properties Easy\library.properties
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip README.md Easy\README.md
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip LICENSE Easy\LICENSE
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip libraries\Easy\src Easy\src
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip Example Easy\Examples\Examples
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip Model Easy\Examples\Models
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip Test Easy\Examples\Tests
+%CompressToolWithPath% rn _ZipLibrary/SketchMadeEasy.zip Template Easy\Examples\Templates
+%CompressToolWithPath% d _ZipLibrary/SketchMadeEasy.zip libraries\Easy
 
 
 ECHO *** Finish ****
