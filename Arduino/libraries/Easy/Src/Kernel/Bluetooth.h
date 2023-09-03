@@ -27,7 +27,7 @@
 #include <SoftwareSerial.h>
 
 // Internal consts and types
-#define EASY_BLUETOOTH_INPUTBUFFER_SIZE 50
+#define EASY_BLUETOOTH_INPUTBUFFER_SIZE 150
 
 class Bluetooth {
   //*** PRIVATE = interna, gegen aussen verborgen.

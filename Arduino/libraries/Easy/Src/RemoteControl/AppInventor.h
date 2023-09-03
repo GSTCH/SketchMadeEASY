@@ -29,16 +29,23 @@
 #include <Arduino.h>
 
 
-#define APPINVENTOR_JOYSTICK1_minX -200
-#define APPINVENTOR_JOYSTICK1_maxX 200
-#define APPINVENTOR_JOYSTICK1_minY -120
-#define APPINVENTOR_JOYSTICK1_maxY 120
-#define APPINVENTOR_SLIDER1_MIN -120
-#define APPINVENTOR_SLIDER1_MAX 120
-#define APPINVENTOR_SLIDER2_MIN -120
-#define APPINVENTOR_SLIDER2_MAX 120
+#define APPINVENTOR_JOYSTICK_minX -180
+#define APPINVENTOR_JOYSTICK_maxX 180
+#define APPINVENTOR_JOYSTICK_minY -120
+#define APPINVENTOR_JOYSTICK_maxY 120
+#define APPINVENTOR_VrX_minY 0
+#define APPINVENTOR_VrX_maxY 178
 #define APPINVENTOR_COMMANDBUFFER_SIZE 100
+#define APPINVENTOR_SLIDER_MIN -120
+#define APPINVENTOR_SLIDER_MAX 120
 
+#ifndef ARDUINO_MAX_PWM_OUT
+  #define ARDUINO_MAX_PWM_OUT 255
+#endif
+  
+#ifndef ARDUINO_MAX_PWM_IN
+  #define ARDUINO_MAX_PWM_IN 255
+#endif
 
 class AppInventor : public RemoteControl {
 private:
@@ -97,58 +104,168 @@ private:
 #endif
     int cutLen = 1;
     switch (command[0]) {
-      case 'W':
-        {
-          char* value = strtok(NULL, ",");
-          if (value != NULL) {
-            _channelValue[2] = atoi(value);
-            if (_channelRemoteInputs[2] != NULL) {
-              _channelRemoteInputs[2]->SetMapValue(_channelValue[2], APPINVENTOR_SLIDER1_MIN, APPINVENTOR_SLIDER1_MAX);
-            }
-            cutLen = 3 + numberLen(_channelValue[2]);
-          }
-        }
-      case 'V':
-        {
-          char* value = strtok(NULL, ",");
-          if (value != NULL) {
-            _channelValue[3] = atoi(value);
-            if (_channelRemoteInputs[3] != NULL) {
-              _channelRemoteInputs[3]->SetMapValue(_channelValue[3], APPINVENTOR_SLIDER2_MIN, APPINVENTOR_SLIDER2_MAX);
-            }
-            cutLen = 3 + numberLen(_channelValue[3]);
-          }
-        }
-        break;
-      case 'D':
+      case 'D':     
+      case 'E':      
         {
           char* xAxis = strtok(NULL, ",");
           if (xAxis != NULL) {
-            _channelValue[0] = atoi(xAxis);
-            if (_channelRemoteInputs[0] != NULL) {
-              _channelRemoteInputs[0]->SetMapValue(_channelValue[0], APPINVENTOR_JOYSTICK1_minX, APPINVENTOR_JOYSTICK1_maxX);
+            _channelValue[rcJoystick1X] = atoi(xAxis);
+            if (_channelRemoteInputs[rcJoystick1X] != NULL) {
+              _channelRemoteInputs[rcJoystick1X]->SetMapValue(_channelValue[rcJoystick1X], APPINVENTOR_JOYSTICK_minX, APPINVENTOR_JOYSTICK_maxX);
             }
             char* yAxis = strtok(NULL, ",");
             if (yAxis != NULL) {
 #ifdef LOG_LOOP_DEBUG
               GetLog()->printf("AI:PT Js X=%s Y=%s", xAxis, yAxis);
 #endif
-              _channelValue[1] = atoi(yAxis);
-              if (_channelRemoteInputs[1] != NULL) {
-                _channelRemoteInputs[1]->SetMapValue(_channelValue[1], APPINVENTOR_JOYSTICK1_minY, APPINVENTOR_JOYSTICK1_maxY);
+              _channelValue[rcJoystick1Y] = atoi(yAxis);
+              if (_channelRemoteInputs[rcJoystick1Y] != NULL) {
+                _channelRemoteInputs[rcJoystick1Y]->SetMapValue(_channelValue[rcJoystick1Y], APPINVENTOR_JOYSTICK_minY, APPINVENTOR_JOYSTICK_maxY);
               }
-              cutLen = 4 + numberLen(_channelValue[0]) + numberLen(_channelValue[1]);
+              cutLen = 4 + numberLen(_channelValue[rcJoystick1X]) + numberLen(_channelValue[rcJoystick1Y]);
             } else {
-              cutLen = 3 + numberLen(_channelValue[0]);
+              cutLen = 3 + numberLen(_channelValue[rcJoystick1X]);
             }
           }
         }
         break;
+      case 'F':      
+        {
+          char* xAxis = strtok(NULL, ",");
+          if (xAxis != NULL) {
+            _channelValue[rcJoystick2X] = atoi(xAxis);
+            if (_channelRemoteInputs[rcJoystick2X] != NULL) {
+              _channelRemoteInputs[rcJoystick2X]->SetMapValue(_channelValue[rcJoystick2X], APPINVENTOR_JOYSTICK_minX, APPINVENTOR_JOYSTICK_maxX);
+            }
+            char* yAxis = strtok(NULL, ",");
+            if (yAxis != NULL) {
+#ifdef LOG_LOOP_DEBUG
+              GetLog()->printf("AI:PT Js X=%s Y=%s", xAxis, yAxis);
+#endif
+              _channelValue[rcJoystick2Y] = atoi(yAxis);
+              if (_channelRemoteInputs[rcJoystick2Y] != NULL) {
+                _channelRemoteInputs[rcJoystick2Y]->SetMapValue(_channelValue[rcJoystick2Y], APPINVENTOR_JOYSTICK_minY, APPINVENTOR_JOYSTICK_maxY);
+              }
+              cutLen = 4 + numberLen(_channelValue[rcJoystick2X]) + numberLen(_channelValue[rcJoystick2Y]);
+            } else {
+              cutLen = 3 + numberLen(_channelValue[rcJoystick2X]);
+            }
+          }
+        }
+        break;        
+        
+      case 'J':
+        {
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcSwA] = atoi(value);
+            if (_channelRemoteInputs[rcSwA] != NULL) {
+              _channelRemoteInputs[rcSwA]->SetValue(_channelValue[rcSwA]);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcSwA]);
+          }          
+        }
+        break;        
+        
+      case 'K':
+        {
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcSwB] = atoi(value);
+            if (_channelRemoteInputs[rcSwB] != NULL) {
+              _channelRemoteInputs[rcSwB]->SetValue(_channelValue[rcSwB]);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcSwB]);
+          }      
+        }
+        break;        
+        
+      case 'L':
+        {
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcSwC] = atoi(value);
+            if (_channelRemoteInputs[rcSwC] != NULL) {
+              _channelRemoteInputs[rcSwC]->SetValue(_channelValue[rcSwC]);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcSwC]);
+          }          
+        }
+        break;        
+        
+      case 'M':
+        {
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcSwD] = atoi(value);
+            if (_channelRemoteInputs[rcSwD] != NULL) {
+              _channelRemoteInputs[rcSwD]->SetValue(_channelValue[rcSwD]);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcSwD]);
+          }          
+        }
+        break; 
+        
+      case 'X':
+        {
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcVrA] = atoi(value);
+            if (_channelRemoteInputs[rcVrA] != NULL) {
+              _channelRemoteInputs[rcVrA]->SetMapValue(_channelValue[rcVrA], APPINVENTOR_VrX_minY, APPINVENTOR_VrX_maxY);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcVrA]);
+          }      
+        }
+        break;        
+        
+      case 'Y':
+        {
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcVrB] = atoi(value);
+            if (_channelRemoteInputs[rcVrB] != NULL) {
+              _channelRemoteInputs[rcVrB]->SetMapValue(_channelValue[rcVrB], APPINVENTOR_VrX_minY, APPINVENTOR_VrX_maxY);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcVrB]);
+          }            
+        }
+        break;        
+        
       case 'A':
         // No connection monitoring is currently implemented. The LED on the HC06
         // lights up every second to see whether communication is taking place.
         cutLen = 2;
         break;
+        
+      case 'W':
+        {
+          // Obsolete: For compatiblity to old app only
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcJoystick2X] = atoi(value);
+            if (_channelRemoteInputs[rcJoystick2X] != NULL) {
+              _channelRemoteInputs[rcJoystick2X]->SetMapValue(_channelValue[rcJoystick2X], APPINVENTOR_SLIDER_MIN, APPINVENTOR_SLIDER_MAX);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcJoystick2X]);
+          }
+        }
+        break;
+        
+      case 'V':
+        {
+          // Obsolete: For compatiblity to old app only
+          char* value = strtok(NULL, ",");
+          if (value != NULL) {
+            _channelValue[rcJoystick2Y] = atoi(value);
+            if (_channelRemoteInputs[rcJoystick2Y] != NULL) {
+              _channelRemoteInputs[rcJoystick2Y]->SetMapValue(_channelValue[rcJoystick2Y], APPINVENTOR_SLIDER_MIN, APPINVENTOR_SLIDER_MAX);
+            }
+            cutLen = 3 + numberLen(_channelValue[rcJoystick2Y]);
+          }
+        }
+        break;   
+        
       default:
 
 #ifdef LOG_LOOP
@@ -180,6 +297,9 @@ private:
 
 #ifdef LOG_LOOP_DEBUG
     GetLog()->printf("AI:PT cut %d, Cmd=%d %d %d", cutLen, _commandBuffer[0], _commandBuffer[1], _commandBuffer[2]);
+    
+    GetLog()->printf("AI:PT CV[0..4] %d, %d, %d, %d, %d", _channelValue[0], _channelValue[1], _channelValue[2], _channelValue[3], _channelValue[4]);
+    GetLog()->printf("AI:PT CV[5..9] %d, %d, %d, %d, %d", _channelValue[5], _channelValue[6], _channelValue[7], _channelValue[8], _channelValue[9]);
 #endif
   }
 
@@ -197,6 +317,7 @@ public:
   {
     // Hardware serial
     _bluetooth = new Bluetooth(aRxPin, aTxPin);
+    _communicationEnabled = true;
   }
 
   //*************************************
@@ -205,6 +326,7 @@ public:
   {
     // Hardware serial only
     _bluetooth = new Bluetooth(aHardwareSerialMode);
+    _communicationEnabled = true;
   }
 
   //*************************************
@@ -212,6 +334,7 @@ public:
     : RemoteControl(rtAppInventor) 
   {
     _bluetooth = new Bluetooth(aRxPin, aTxPin);
+    _communicationEnabled = true;
   }
 
   //*************************************
@@ -219,6 +342,7 @@ public:
     : RemoteControl(rtAppInventor) 
   {
     _bluetooth = new Bluetooth(aHardwareSerialMode);
+    _communicationEnabled = true;
   }
   
 //*************************************
@@ -241,88 +365,85 @@ public:
     
     switch (aControl) {
       case rcJoystick1X:
-        if (_channelRemoteInputs[0] == NULL) {
+        if (_channelRemoteInputs[rcJoystick1X] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G J1X");
 #endif                         
-          _channelRemoteInputs[0] = new RemoteJoystickAxis(-200, 200, false);
+          _channelRemoteInputs[rcJoystick1X] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
-        return _channelRemoteInputs[0];
+        return _channelRemoteInputs[rcJoystick1X];
       case rcJoystick1Y:
-        if (_channelRemoteInputs[1] == NULL) {
+        if (_channelRemoteInputs[rcJoystick1Y] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G J1Y");
 #endif                         
-          _channelRemoteInputs[1] = new RemoteJoystickAxis(-120, 120, false);
+          _channelRemoteInputs[rcJoystick1Y] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
-        return _channelRemoteInputs[1];
+        return _channelRemoteInputs[rcJoystick1Y];
       case rcJoystick2X:
-        if (_channelRemoteInputs[2] == NULL) {
+        if (_channelRemoteInputs[rcJoystick2X] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G J2X");
 #endif                                   
-          _channelRemoteInputs[2] = new RemoteJoystickAxis(-120, 120, false);
+          _channelRemoteInputs[rcJoystick2X] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
-        return _channelRemoteInputs[2];
+        return _channelRemoteInputs[rcJoystick2X];
       case rcJoystick2Y:
-        if (_channelRemoteInputs[3] == NULL) {
+        if (_channelRemoteInputs[rcJoystick2Y] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G J2Y");
 #endif                                   
-          _channelRemoteInputs[3] = new RemoteJoystickAxis(-120, 120, false);
+          _channelRemoteInputs[rcJoystick2Y] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
-        return _channelRemoteInputs[3];
+        return _channelRemoteInputs[rcJoystick2Y];
       case rcVrA:
-        if (_channelRemoteInputs[4] == NULL) {
+        if (_channelRemoteInputs[rcVrA] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G VrA");
 #endif                         
-          _channelRemoteInputs[4] = new RemoteValue(0, 255);
+          _channelRemoteInputs[rcVrA] = new RemoteValue(0, ARDUINO_MAX_PWM_IN);
         }
-        return _channelRemoteInputs[4];
+        return _channelRemoteInputs[rcVrA];
       case rcVrB:
-        if (_channelRemoteInputs[5] == NULL) {
+        if (_channelRemoteInputs[rcVrB] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G VrB");
 #endif                         
-          _channelRemoteInputs[5] = new RemoteValue(0, 255);
+          _channelRemoteInputs[rcVrB] = new RemoteValue(0, ARDUINO_MAX_PWM_IN);
         }
-        return _channelRemoteInputs[5];
+        return _channelRemoteInputs[rcVrB];
       case rcSwA:
-        if (_channelRemoteInputs[6] == NULL) {
+        if (_channelRemoteInputs[rcSwA] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G SwA");
 #endif                         
-          _channelRemoteInputs[6] = new RemoteValue(0, 1);
+          _channelRemoteInputs[rcSwA] = new RemoteValue(0, 1);
         }
-        return _channelRemoteInputs[6];
+        return _channelRemoteInputs[rcSwA];
       case rcSwB:
-        if (_channelRemoteInputs[7] == NULL) {
+        if (_channelRemoteInputs[rcSwB] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G SwB");
 #endif                         
-          _channelRemoteInputs[7] = new RemoteValue(0, 1); 
+          _channelRemoteInputs[rcSwB] = new RemoteValue(0, 1); 
         }
-        return _channelRemoteInputs[7];
+        return _channelRemoteInputs[rcSwB];
       case rcSwC:
-        if (_channelRemoteInputs[8] == NULL) {
+        if (_channelRemoteInputs[rcSwC] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("AI:G SwC");
 #endif                         
-          _channelRemoteInputs[8] = new RemoteValue(0, 2);
+          _channelRemoteInputs[rcSwC] = new RemoteValue(0, 2);
         }
-        return _channelRemoteInputs[8];
+        return _channelRemoteInputs[rcSwC];
       case rcSwD:
-        if (_channelRemoteInputs[9] == NULL) {
+        if (_channelRemoteInputs[rcSwD] == NULL) {
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G SwD");
 #endif                         
-          _channelRemoteInputs[9] = new RemoteValue(0, 1);
+          _channelRemoteInputs[rcSwD] = new RemoteValue(0, 1);
         }
-        return _channelRemoteInputs[9];
-      
-        
-        
+        return _channelRemoteInputs[rcSwD];        
     }
 	return NULL;
   }
@@ -374,7 +495,7 @@ public:
         _communicationEnabled = false;
 			}
 		}		
-	}	  
+	}
 #endif	
 	  
     if (_communicationEnabled) {
@@ -387,7 +508,10 @@ public:
         GetLog()->printf("AI:L Recvd");
 #endif
         strcpy(_commandBuffer, _bluetooth->Data());
-        ParseAndUpdateTelegram();
+        while(_commandBuffer[0] != '\0')
+        {
+          ParseAndUpdateTelegram();
+        }
       }
 
       this->RemoteControl::Loop();
