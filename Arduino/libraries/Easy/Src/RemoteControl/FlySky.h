@@ -37,6 +37,15 @@
 #define EASY_FLYSKY_MAXVALUE 2000
 #endif
 
+#ifndef ARDUINO_MAX_PWM_OUT
+  #define ARDUINO_MAX_PWM_OUT 255
+#endif
+  
+#ifndef ARDUINO_MAX_PWM_IN
+  #define ARDUINO_MAX_PWM_IN 1024
+#endif
+
+
 class FlySky : public RemoteControl {
 private:
   IBusBM* _ibusRC;
@@ -100,7 +109,7 @@ public:
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G J1X");
 #endif               
-          _channelRemoteInputs[0] = new RemoteJoystickAxis(-255, 255, false);
+          _channelRemoteInputs[0] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
         return _channelRemoteInputs[0];
       case rcJoystick1Y:
@@ -108,7 +117,7 @@ public:
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G J1Y");
 #endif                        
-          _channelRemoteInputs[1] = new RemoteJoystickAxis(-255, 255, false);
+          _channelRemoteInputs[1] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
         return _channelRemoteInputs[1];
       case rcJoystick2X:
@@ -116,7 +125,7 @@ public:
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G J2X");
 #endif                        
-          _channelRemoteInputs[2] = new RemoteJoystickAxis(-255, 255, false);
+          _channelRemoteInputs[2] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
         return _channelRemoteInputs[2];
       case rcJoystick2Y:
@@ -124,7 +133,7 @@ public:
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G J2Y");
 #endif                         
-          _channelRemoteInputs[3] = new RemoteJoystickAxis(-255, 255, false);
+          _channelRemoteInputs[3] = new RemoteJoystickAxis(-ARDUINO_MAX_PWM_OUT, ARDUINO_MAX_PWM_OUT, false);
         }
         return _channelRemoteInputs[3];
       case rcVrA:
@@ -132,7 +141,7 @@ public:
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G VrA");
 #endif                         
-          _channelRemoteInputs[4] = new RemoteValue(0, 255);
+          _channelRemoteInputs[4] = new RemoteValue(0, ARDUINO_MAX_PWM_IN);
         }
         return _channelRemoteInputs[4];
       case rcVrB:
@@ -140,7 +149,7 @@ public:
 #ifdef LOG_SETUP_DEBUG    
           GetLog()->println("FS:G VrB");
 #endif                         
-          _channelRemoteInputs[5] = new RemoteValue(0, 255);
+          _channelRemoteInputs[5] = new RemoteValue(0, ARDUINO_MAX_PWM_IN);
         }
         return _channelRemoteInputs[5];
       case rcSwA:
