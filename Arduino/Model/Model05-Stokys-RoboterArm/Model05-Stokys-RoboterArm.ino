@@ -4,14 +4,15 @@
 //*
 //* Robotic arm with 4 motors and a servo. 
 //* Switch to change mode. 3 modes are supported:
-//* - Manual: (L)-0-(R) switch per motor,  potentionmeter defines speed per motor
-//* - Potentionmeter to define the servo position
+//* - Manual: - (L)-0-(R) switch per motor,  potentionmeter defines speed per motor
+//*           - Potentionmeter to define the servo position
 //* - Bluetooth/App built with AppInventor
 //* - RemoteControl FlySky FS-I6X
 //*
 //* Hardware:
 //* - Arduino Mega 2560 R3 is recommended,
 //* - Adafruit MotorShield v2
+//* - Adafruit 16-Channel 12-bit PWM/Servo Shield-I2C
 //* - Prototyp/Screw shield (Optional)
 //* - 1 switch with 3 position 1-0-1
 //* - 4 switch with 3 position (1)-0-(1)
@@ -66,7 +67,7 @@
 #define SWITCH_MOTORd_DIRECTION2 42
 //Servo Parameters
 #define SERVO_POSITION_PIN A11
-#define SERVO_PIN 10
+#define SERVO_NR 15
 #define SERVO_MIN_ANGLE 0
 #define SERVO_MAX_ANGLE 90
 
@@ -82,7 +83,7 @@ void setup() {
   MotorI2C* motorC = new MotorI2C(MOTORc_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
   MotorI2C* motorD = new MotorI2C(MOTORd_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
 
-  ServoT1* servo = new ServoT1(SERVO_PIN, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
+  ServoI2C* servo = new ServoI2C(SERVO_MIN_ANGLE, SERVO_MAX_ANGLE, SERVO_NR);
   
   // Define mode switch
   Switch3Position* modeSelectionSwitch = new Switch3Position(SWITCH_MODESELECTION_HANDY_PIN, SWITCH_MODESELECTION_FLYSKY_PIN);
@@ -163,10 +164,9 @@ void setup() {
               motorSpeedForwardD, motorSpeedBackwardD, stopSpeed,
               flySky->getControl(rcJoystick2Y), app->getControl(rcJoystick2Y),
               motorD);
-
-  //* Servo:
+  //* Servo:  
   GetLog()->println("***Servo"); 
-  // The remote control has only 8 joystick axis. Servo position use a rotation knob
+  // The remote control has only 8 joystick axis. Servo position use a rotation knob 
    DependentInput* servoModePosition = new DependentInput(modeSelectionSwitch,
                                                          servoPosition, 
                                                          flySky->getControl(rcVrA),
