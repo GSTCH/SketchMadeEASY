@@ -48,19 +48,19 @@ void MotorBase::Setup() {
 void MotorBase::Act(Input* aInput) {
   int mappedSpeed;
   if (aInput->GetMinValue() == 0 && aInput->GetMaxValue() != 0) {
-	// Sign defines the rotation direction, the speed is from 0...MAX 
+	  // Sign defines the rotation direction, the speed is from 0...MAX 
     if (aInput->Value() > 0)
-	{
-	  mappedSpeed = aInput->Map(0, abs(_motorShield->GetMaxSpeed()));
-	}
-	else if (aInput->Value() < 0)
-	{
-	  mappedSpeed = aInput->Map(0, -abs(_motorShield->GetMaxSpeed()));
-	}	
-	else
-	{
-	  mappedSpeed = 0;
-	}	
+	  {
+   	  mappedSpeed = aInput->Map(0, abs(_motorShield->GetMaxSpeed()));
+	  }
+	  else if (aInput->Value() < 0)
+	  {
+  	  mappedSpeed = aInput->Map(0, -abs(_motorShield->GetMaxSpeed()));
+	  }	
+	  else
+	  {
+  	  mappedSpeed = 0;
+	  }	
   } else {	 
     // Input is from -MAX to +MAX, motor is from 0...MAX 
     mappedSpeed = abs(aInput->Map(-_motorShield->GetMaxSpeed(), _motorShield->GetMaxSpeed()));
@@ -94,10 +94,16 @@ void MotorBase::Loop() {
 #endif
 
       _delayedMillis = 0;
-      if (_delayedDirection == moForward) {
-        forward(_delayedSpeed);
-      } else if (_delayedDirection == moBackward) {
-        backward(_delayedSpeed);
+      if (_delayedSpeed != 0)
+      {
+        if (_delayedDirection == moForward) {
+          forward(_delayedSpeed);
+        } else if (_delayedDirection == moBackward) {
+          backward(_delayedSpeed);
+        }
+      } else {
+        // Because of use action during delay time, no delayed start is necessary.
+        stop();
       }
 
       _delayedSpeed = 0;
@@ -164,6 +170,9 @@ void MotorBase::forward(int aSpeed) {
   }
 
   // Hardware shield is implemented in derived class of CMotorShield.
+#ifdef LOG_LOOP
+  GetLog()->printf("MO(%d):Fd Sp=%d", _id, aSpeed);
+#endif 
   _motorShield->forward(aSpeed);
 
   _currentDirection = moForward;
@@ -200,11 +209,11 @@ void MotorBase::backward(int aSpeed) {
     return;
   }
 
+  // Hardware shield is implemented in derived class of CMotorShield.
 #ifdef LOG_LOOP
   GetLog()->printf("MO(%d):Bk Sp=%d", _id, aSpeed);
 #endif
-
-  // Hardware shield is implemented in derived class of CMotorShield.
+  
   _motorShield->backward(abs(aSpeed));
 
   _currentDirection = moBackward;
@@ -220,15 +229,15 @@ void MotorBase::stop() {
     return;
   }
 
-#ifdef LOG_LOOP
-  GetLog()->printf("MO(%d):Sp Dr=%d Sp=%d", _id, _currentDirection, _currentSpeed);
-#endif
-
   // Hardware shield is implemented in derived class of CMotorShield.
   _motorShield->stop();
 
   _currentSpeed = 0;
   _currentDirection = moStop;
+
+#ifdef LOG_LOOP
+  GetLog()->printf("MO(%d):Sp Dm=%d", _id, _delayedMillis);
+#endif
 
   if (_delayedMillis > 0) {
     // Stop a delayed start
