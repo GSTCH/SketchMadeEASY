@@ -32,13 +32,20 @@ void setup()
   GetLog()->printf("AppInventor RemoteControl Test");
 #endif
 
+  //AppInventor* app = new AppInventor(channelRemoteInputs, SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
   //AppInventor* appInventor = new AppInventor(scHard);
-  RemoteJoystickAxis* xAxis = new RemoteJoystickAxis(-200, 124, false);
-  RemoteJoystickAxis* yAxis = new RemoteJoystickAxis(-119, 145, false);
-  RemoteInput* channelRemoteInputs[2]{ xAxis, yAxis };
-
-  //  AppInventor* app = new AppInventor(channelRemoteInputs, SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
-  AppInventor* app = new AppInventor(channelRemoteInputs, scHard3);
+  AppInventor* app = new AppInventor(scHard3);
+  
+  app->getControl(rcJoystick1X);
+  app->getControl(rcJoystick1Y);
+  app->getControl(rcJoystick2X);
+  app->getControl(rcJoystick2Y);
+  app->getControl(rcVrA);
+  app->getControl(rcVrB);
+  app->getControl(rcSwA);
+  app->getControl(rcSwB);
+  app->getControl(rcSwC);
+  app->getControl(rcSwD); 
 // ***))
 
   // Initialize control
