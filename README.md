@@ -1,10 +1,10 @@
-# Sketch made easy for Arduino
+# Sketch made EASY for Arduino
 
 This libary is an abstraction of an Arduino sketch on logic level. Instead of programming in bits and bytes, the control logic is configured by combining the classes. For this create objects of inputs, actions and combine them with relations and conditions. There are an amount of example to see how easy this library is to use.<BR>
 The library supports the remote control FlySky FS-i6X (up to 14 channels). The same functions are also available by an App (connected with bluetooth). The App has been developed with "MIT AppInventor". <BR>
 
 ## Getting started
-Sketches are no longer programmed with this library, but can be configured by combining different classes. How does it work? Basic idea is how an Arduino works: It combines inputs with actuators through logic. A sketch with ***Sketch made Easy*** is created in three steps:<BR>
+Sketches are no longer programmed with this library, but can be configured by combining different classes. How does it work? Basic idea is how an Arduino works: It combines inputs with actuators through logic. A sketch with ***Sketch made EASY*** is created in three steps:<BR>
 <ol>
 <li>Definition of the inputs</li>
 <li>Definition of the actuators (outputs)</li>
@@ -66,7 +66,7 @@ There are many examples. The example directories contains a schema as well. Here
 
 
 ## Workboard
-***Sketch made easy*** contains not only software. A construction kit of different modules makes it possible to put together an individual workboard. With the STL files, these can be produced using a 3D printer.<BR>
+***Sketch made EASY*** contains not only software. A construction kit of different modules makes it possible to put together an individual workboard. With the STL files, these can be produced using a 3D printer.<BR>
 <img src="https://github.com/GSTCH/SketchMadeEASY/blob/main/Resource/Images/Workboard/Uno+Breadboard.JPG" width="50%" height="50%" align="center">Workboard with Arduino Uno and Breadboard
 <img src="https://github.com/GSTCH/SketchMadeEASY/blob/main/Resource/Images/Workboard/Testboard.JPG" width="60%" height="60%" align="center">My test board<BR>
 
