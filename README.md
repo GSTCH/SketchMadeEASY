@@ -66,7 +66,10 @@ There are many examples. The example directories contains a schema as well. Here
 
 
 ## Workboard
-***Sketch made easy*** contains not only software. A construction kit of different modules makes it possible to put together an individual workboard. With the STL files, these can be produced using a 3D printer.  
+***Sketch made easy*** contains not only software. A construction kit of different modules makes it possible to put together an individual workboard. With the STL files, these can be produced using a 3D printer.<BR>
+<img src="https://github.com/GSTCH/SketchMadeEASY/blob/main/Resource/Images/Workboard/Uno+Breadboard.JPG" width="50%" height="50%" align="center">Workboard with Arduino Uno and Breadboard
+<img src="https://github.com/GSTCH/SketchMadeEASY/blob/main/Resource/Images/Workboard/Testboard.JPG" width="60%" height="60%" align="center">My test board<BR>
+
 
 ## Documentation
 See Wiki of this Repository.
