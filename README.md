@@ -39,52 +39,31 @@ There are many examples. The example directories contains a schema as well. Here
 ```
 
 ## Classes / Supported hardware
-### Inputs
-* Calculate
-* ConditionInput
-* DependentInput
-* DigitalInput
-* FixValue
-* InverterValue
-* JoystickAxis
-* LoopSwitch
-* MotorFlop
-* Switch2Position
-* Switch3Position
-* Timer
-* ToggleSwitch
-* UltrasonicRangefinder
-* VariableInput
-### Actuators (Output)
-* ActuatorCollection
-* Buzzer
-* DigitalOutput
-* EncodeModeI2C
-* EncoderMotorL298
-* EncoderMotorL9110
-* MotorI2C
-* MotorL298
-* MotorL9110
-* MotorServo360I2C
-* MotorServo360Pwm
-* MotorServo360T1
-* MotorServo360T2
-* MotorStepperRotate
-* MotorStepperRotateI2C
-* ServoI2C
-* ServoPwm
-* ServoStepperPosition
-* ServoStepperPositionI2C
-* ServoT1
-* ServoT2
-* VariableOutput
-### Conditions
-* CompareCondition
-* ElseCondition
-* LogicCondition
-### Relations
-* CrawlerSteering
-* Relation1to1
+|Inputs|Actuators|Logic|
+| ------------- | ------------- |------------- |
+|Calculate|ActuatorCollection|**Conditions**|
+|ConditionInput|Buzzer|CompareCondition|
+|DependentInput|DigitalOutput|ElseCondition|
+|DigitalInput|EncodeModeI2C|LogicCondition|
+|FixValue|EncoderMotorL298||
+|InverterValue|EncoderMotorL9110|**Relations**|
+|JoystickAxis|MotorI2C|CrawlerSteering|
+|LoopSwitch|MotorL298|Relation1to1|
+|MonoFlop|MotorL9110||
+|Switch2Position|MotorServo360I2C||
+|Switch3Position|MotorServo360Pwm||
+|Timer|MotorServo360T1||
+|ToggleSwitch|MotorServo360T2||
+|UltrasonicRangefinder|MotorStepperRotate||
+|VariableInput|MotorStepperRotateI2C||
+||ServoI2C||
+||ServoPwm||
+||ServoStepperPosition||
+||ServoStepperPositionI2C||
+||ServoT1||
+||ServoT2||
+||VariableOutput||
+
 
 ## Workboard
 ***Sketch made easy*** contains not only software. A construction kit of different modules makes it possible to put together an individual workboard. With the STL files, these can be produced using a 3D printer.  
