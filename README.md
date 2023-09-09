@@ -1,15 +1,21 @@
 # Sketch made easy for Arduino
 
-This libary is an abstraction of an Arduino sketch on logic level. Instead of programming in bits and bytes, the control logic is configured by combining the classes. For this create objects of inputs, actions and combine them with relations and conditions. There are an amount of example to see how easy this library is to use. 
-The library supports the remote control FlySky FS-i6X (up to 14 channels). The same functions are also available by an App (connected with bluetooth). The App has been developed with "MIT AppInventor". 
+This libary is an abstraction of an Arduino sketch on logic level. Instead of programming in bits and bytes, the control logic is configured by combining the classes. For this create objects of inputs, actions and combine them with relations and conditions. There are an amount of example to see how easy this library is to use.<BR>
+The library supports the remote control FlySky FS-i6X (up to 14 channels). The same functions are also available by an App (connected with bluetooth). The App has been developed with "MIT AppInventor". <BR>
 
 ## Getting started
-Sketches are no longer programmed with this library, but can be configured by combining different classes. How does it work? Basic idea is how an Arduino works: It combines inputs with actuators through logic. A sketch with ***Sketch made Easy*** is created in three steps:
-1). Definition of the inputs
-2). Definition of the actuators (outputs)
-3). Definition of logic: Through rules, input and actuator are set into relations.
+Sketches are no longer programmed with this library, but can be configured by combining different classes. How does it work? Basic idea is how an Arduino works: It combines inputs with actuators through logic. A sketch with ***Sketch made Easy*** is created in three steps:<BR>
+<ol>
+<li>Definition of the inputs</li>
+<li>Definition of the actuators (outputs)</li>
+<li>Definition of logic: </li>
+  <ul>
+    <li>Create a condition on the value of an input</li>
+    <li>Create a relation and define the value that an actor must have when the condition is true</li>    
+  </ul>
+</ol><BR>
+There are many examples. The example directories contains a schema as well. Here the code of a toggling LED (the most common hello world example with Arduino). Open  "File:/Examples/SketchMadeEasy/Examples/04-ToggleingLed" into Arduino IDE to see full code.<BR>
 
-There are many examples. The example directories contains a schema as well. Here the code of a toggling LED (the most common hello world example with Arduino). Open  "File:/Examples/SketchMadeEasy/Examples/04-ToggleingLed" into Arduino IDE to see full code.
 ```
   //((*** Initialize: Configure your sketch here....
 
@@ -31,6 +37,7 @@ There are many examples. The example directories contains a schema as well. Here
   Relation1to1* relationLedOff = new Relation1to1(conditionLedOff, led, FixValue::Off());
   // ***))
 ```
+
 ## Classes / Supported hardware
 ### Inputs
 * Calculate
