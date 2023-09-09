@@ -38,7 +38,7 @@ There are many examples. The example directories contains a schema as well. Here
   // ***))
 ```
 
-## Classes / Supported hardware
+## Supported hardware (Classes)
 |Inputs|Actuators|Logic|
 | ------------- | ------------- |------------- |
 |Calculate|ActuatorCollection|**Conditions**|
