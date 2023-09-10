@@ -10,8 +10,8 @@ Sketches are no longer programmed with this library, but can be configured by co
 <li>Definition of the actuators (outputs)</li>
 <li>Definition of logic: </li>
   <ul>
-    <li>Create a condition on the value of an input</li>
-    <li>Create a relation and define the value that an actor must have when the condition is true</li>    
+    <li>Define at which value of an input something should happen (condition)</li>
+    <li>Create a relation if the condition is true and specify the value of the actuator</li>    
   </ul>
 </ol><BR>
 There are many examples. The example directories contains a schema as well. Here the code of a toggling LED (the most common hello world example with Arduino). Open  "File:/Examples/SketchMadeEasy/Examples/04-ToggleingLed" into Arduino IDE to see full code.<BR>
