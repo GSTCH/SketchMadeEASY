@@ -72,4 +72,4 @@ There are many examples. The example directories contains a schema as well. Here
 
 
 ## Documentation
-See Wiki of this Repository.
+See [Wiki](https://github.com/GSTCH/SketchMadeEASY/wiki) of this Repository
