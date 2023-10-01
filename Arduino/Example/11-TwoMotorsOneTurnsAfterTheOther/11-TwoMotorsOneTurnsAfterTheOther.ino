@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 11-Tow motors, one turns after the other
+//* Example 11-Two motors, one turns after the other
 //*
 //* Two motors, one movement after the other. First toggles between limit switches.
 //* Second motor turns some seconds when the first motor is at a end position.
@@ -50,8 +50,8 @@
 // Parameter variable Input
 #define VARIABLE_INPUT_PIN A0
 // ToggleSwitch
-#define DIRECTION_PIN1 43  // NANO_DIRECTION_PIN1 5
-#define DIRECTION_PIN2 41  // NANO_DIRECTION_PIN2 6
+#define DIRECTION_PIN1 43
+#define DIRECTION_PIN2 41
 
 // Parameters Monoflop end switch
 #define MONOFLOP_LEFT_PIN 43
@@ -69,7 +69,7 @@ void setup() {
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
   //MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2);  
   MotorI2C* motorToogles = new MotorI2C(MOTOR_TOGGLE_NUMBER);    // Create toggeling motor
-  MotorI2C* motorTimed = new MotorI2C(MOTOR_TIMED_NUMBER);       // Create toggeling motor
+  MotorI2C* motorTimed = new MotorI2C(MOTOR_TIMED_NUMBER);       // Create timed motor
 
   //** Define Input
   // Main switch to start/stop all.
