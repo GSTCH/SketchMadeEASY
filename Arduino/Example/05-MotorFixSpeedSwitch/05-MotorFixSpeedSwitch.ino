@@ -34,7 +34,7 @@
 
 //*****************************************************************
 // Parameter Motor L298
-#define MOTOR_SPEEDPIN 11
+#define MOTOR_SPEEDPIN 10
 #define MOTOR_DIRECTIONPIN 12
 // Parameter Motor L9110
 #define MOTOR_PINA1 44
