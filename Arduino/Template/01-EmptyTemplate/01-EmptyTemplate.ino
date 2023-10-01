@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 00-EmptyTemplate
+//* Template 01-EmptyTemplate
 //*
 //* Template with all code, you've only to configure the logic 
 //*
