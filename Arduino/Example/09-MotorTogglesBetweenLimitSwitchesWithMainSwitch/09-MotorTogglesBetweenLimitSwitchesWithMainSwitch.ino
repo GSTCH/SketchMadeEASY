@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 08-Motor toggles between (two) limit switches
+//* Example 09-Motor toggles between (two) limit switches with main switch
 //*
 //* Motor with variable speed, toggles between two limit switches. Main switch to stop the motor.
 //*
@@ -24,6 +24,7 @@
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 // Parameter Motor L298
 #define MOTOR_SPEEDPIN 10
@@ -50,6 +51,8 @@ void setup()
   //** Create actuator:
   // Different motor shields are supported, some are comment. Change comment and chose your motor shield.
   //MotorL298* motor = new MotorL298(MOTOR_DIRECTIONPIN, MOTOR_SPEEDPIN);
+  //MotorL9110* motor = new MotorL9110(MOTOR_PINA1, MOTOR_PINB1);
+  //MotorL9110* motor = new MotorL9110(MOTOR_PINA2, MOTOR_PINB2); 
   MotorI2C* motor = new MotorI2C(MOTOR_NUMBER);
 
   //** Create input:

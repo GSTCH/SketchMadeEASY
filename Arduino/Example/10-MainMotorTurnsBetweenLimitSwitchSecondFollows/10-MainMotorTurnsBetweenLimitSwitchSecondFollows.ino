@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 10-Main Motor turns between limit switch, second follows
+//* Example 10-Main Motor turns between limit switches, second follows
 //*
 //* Two motors, one motor toggles between limit switches, the other
 //* follows and turn in same direction. Main switch to start/stop.
