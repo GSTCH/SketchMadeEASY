@@ -41,7 +41,7 @@ void setup()
   // e.g. Log via Serial0 and MotorServoT1 is not possible at the same time. Uncumment the line of your 
   // choice.
   // Servo needs a PWM ouput pin. 
-  //Servo360T1* servo360 = new Servo360T1(SERVO360_PIN);
+  //MotorServo360T1* servo360 = new MotorServo360T1(SERVO360_PIN);
   MotorServo360T2* servo360 = new MotorServo360T2(SERVO360_PIN);
   //MotorServo360Pwm* servo360 = new MotorServo360Pwm(SERVO360_PIN); //  has no INT conflict but work only with UNO R3 
 

@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 14-RemoteControl of a motor with FlySky FS-i6X-RemoteControl
+//* Example 15-RemoteControl of a motor with an App
 //*
 //* Hardware:
 //* - Motorshield to control motor

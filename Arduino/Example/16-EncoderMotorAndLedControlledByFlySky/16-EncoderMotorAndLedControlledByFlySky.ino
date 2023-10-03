@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 14-16-EncoderMotor and LED  controlled with a FlySky FS-i6X-RemoteControl
+//* Example 16-EncoderMotor and LED controlled by FlySky FS-i6X-RemoteControl
 //*
 //* Hardware:
 //* - Motorshield to control motor
@@ -29,6 +29,7 @@
 //*****************************************************************
 
 #include <Easy.h>
+
 //*****************************************************************
 // Parameter MotorShield L9110
 #define MOTOR_PINA1 44

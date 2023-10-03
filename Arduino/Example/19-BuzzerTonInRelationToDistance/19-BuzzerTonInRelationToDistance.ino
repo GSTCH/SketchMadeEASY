@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example19 - Buzzer ton in relation to distance
+//* Example 19 - Buzzer ton in relation to distance
 //*
 //* Buzzer tone, frequence in relation to distance
 //*

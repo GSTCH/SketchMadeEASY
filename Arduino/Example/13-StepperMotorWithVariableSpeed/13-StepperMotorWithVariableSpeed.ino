@@ -52,10 +52,6 @@
 // Potentiometer
 #define VARIABLE_INPUT_PIN A0
 
-#define SPEED1_RPM 30
-#define SPEED2_RPM 3
-#define STEPTIME_MSEC 2000
-
 void setup()
 {
   //((*** Initialize: Configure your sketch here....

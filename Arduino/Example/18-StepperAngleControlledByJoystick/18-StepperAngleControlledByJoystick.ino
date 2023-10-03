@@ -1,6 +1,8 @@
 //*****************************************************************
-//* Example18 - Stepper angle controlled by joystick
+//* Example 18 - Stepper angle controlled by joystick
 //*
+//* The stepper change the angle in relation to a joystick.
+//* 
 //* Hardware:
 //* - Stepper motor
 //* - Stepper motor shield (L298n oder L9110h)
