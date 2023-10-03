@@ -42,7 +42,7 @@
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
-  // Switch define the to use input
+  // Switch define the input to use 
   Switch3Position* modeSelectorSwitch = new Switch3Position(PIN_SWITCH_MODE1, PIN_SWITCH_MODE2);
 
   // DependentInput use the input in relation of the switch value.

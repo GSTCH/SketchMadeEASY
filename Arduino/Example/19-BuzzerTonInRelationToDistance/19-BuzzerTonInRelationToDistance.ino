@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Example 19 - Buzzer ton in relation to distance
+//* Example 19 - Buzzer tone in relation to distance
 //*
 //* Buzzer tone, frequence in relation to distance
 //*
@@ -16,7 +16,7 @@
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
-//* (C) written in 2023 by Hans RothenbÃ¼hler. All right reserved.
+//* (C) written in 2023 by Hans Rothenbühler. All right reserved.
 //*
 //* https://github.com/GSTCH/Easy
 //*
