@@ -1,15 +1,17 @@
 //*****************************************************************
 //* Class Monoflop - Header
 //*
-//* Defined duration of the signal. The duration of high and log can be configured
+//* Defined duration of the signal. The duration of high and low can be configured
 //* LowDelay and HighDelay has to be greather than debounce time.
-//* Values: 0=Low             - Normal state when nothing happens
-//*         1=LowTimerRuns    - Signal at pin detected, low delay running
-//*         2=LowTimerEnd     - Low delay ended (state is only during one loop)
-//*         3=High            - Next cycles after LowTimerEnd, starts HighDelay 
+//*
+//* Values: 0=Low             - Detect pin value change to low (one cycle)
+//*         1=LowTimerRuns    - Low timer runs
+//*         2=LowTimerEnd     - Low delay ended (value remain until pin value changes)
+//*
+//*         3=High            - Detect pin value change to high (one cycle)
 //*         4=High timer runs - High delay runs
-//*         5=High timer end  - High delay ended (state is only during one loop)
-//*                           - Impuls ended and the state machine goes back to Low.
+//*         5=High timer end  - High delay ended (value remain until pin value changes)
+//*
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -32,16 +34,19 @@
 #include "..\Common\Log.h"
 #include "..\Kernel\Input.h"
 
-enum MonoflopState { mfStateLow=0, mfStateLowTimerRun=1,mfStateLowTimerEnd=2, mfStateHigh=3, mfStateHighTimerRun=4, mfStateHighTimerEnd=5 };  
+enum MonoflopState { 
+       mfStateLow=0, mfStateLowTimerRun=1,mfStateLowTimerEnd=2, 
+       mfStateHigh=3, mfStateHighTimerRun=4, mfStateHighTimerEnd=5 };  
+
 
 class MonoFlop : public Input
 {
   private:
-	bool _autoStartup;
-	unsigned long _debounceTimeMSec; // ReadOnly
-    byte _switchPressed; // ReadyOnly
-	byte _switchNotPressed; // ReadyOnly 
-	ESwitchResistoreMode _switchResistoreMode; // ReadyOnly
+    bool _autoStartup; // Flag to start timer during startup (depending on pin value)
+    unsigned long _debounceTimeMSec; // ReadOnly
+    byte _switchPressed; // ReadyOnly, consider SwitchResistorMode
+    byte _switchNotPressed; // ReadyOnly, consider SwitchResistorMode
+    ESwitchResistoreMode _switchResistoreMode; // ReadyOnly
     unsigned long _monoflopEndTime;
     unsigned long _ignoreChangeMillis;
 

@@ -1,8 +1,8 @@
 //*****************************************************************
-//* Class LoopButton - Header
+//* Class LoopSwitch - Header
 //*
 //* A shift register control by a a signal (e.g. button): The value 
-//* iterate through a defined range (MIN...MAX). When pin is high
+//* iterate through a defined range (MIN...MAX). When pin goes to high
 //* the value increases by step width. When pin is low the value 
 //* is low as well.
 //*

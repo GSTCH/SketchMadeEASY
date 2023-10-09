@@ -32,6 +32,7 @@
 #include "..\Kernel\Input.h"
 #include "..\Common\Log.h"
 
+// Max distance in cm of auto map
 #ifndef EASY_MAX_DISTANCE
 #define EASY_MAX_DISTANCE 200
 #endif

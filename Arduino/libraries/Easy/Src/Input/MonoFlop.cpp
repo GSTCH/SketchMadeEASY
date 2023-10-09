@@ -116,6 +116,7 @@ void MonoFlop::Loop()
 
   unsigned long currentTime = millis();
 
+  // In last loop, the pin value changes, start timer.
   if (_currentValue == mfStateHigh)
   {
     _currentValue = mfStateHighTimerRun;
@@ -136,6 +137,7 @@ void MonoFlop::Loop()
     return;
   }
 
+  // Check if times was expired
   if (currentTime > _monoflopEndTime)
   {
     if (_currentValue == mfStateLowTimerRun)
@@ -156,6 +158,7 @@ void MonoFlop::Loop()
     }
   }
 
+  // Debounce
   if (_ignoreChangeMillis > currentTime)
   {
 #ifdef LOG_LOOP_DEBUG
@@ -164,26 +167,29 @@ void MonoFlop::Loop()
     return;
   }
 
-  _currentPinValue = digitalRead(_pin);
-  
+  // When autoStartup is enabled, the event starts depending on the pin value
+  // Logic is only active at first loop after start/reset.
+  _currentPinValue = digitalRead(_pin); 
   if (_currentPinValue==LOW && _autoStartup)
   {
-	  _currentValue = mfStateHigh;
+	  _currentValue = mfStateLow;
       _autoStartup = false;	   
 	  return;
   }
   else if (_currentPinValue==HIGH && _autoStartup)
   {
-	  _currentValue = mfStateHighTimerEnd;
+	  _currentValue = mfStateHigh;
       _autoStartup = false;	   
 	  return;
   }  
   
+  // Pin value changes, start debounce timer
   if (_currentPinValue != _lastPinValue)
   {
     _ignoreChangeMillis = currentTime + _debounceTimeMSec;
   }
 
+  // Init timer because old timer ended and pin value is oppsite
   if (_currentValue == mfStateLowTimerEnd && _currentPinValue == _switchPressed)
   {
     _currentValue = mfStateHigh;
