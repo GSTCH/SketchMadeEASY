@@ -46,7 +46,7 @@ There are many examples. The example directories contains a schema as well. Here
 |DependentInput|DigitalOutput|ElseCondition|
 |[DigitalInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-DigitalInput)|EncodeModeI2C|LogicCondition|
 |FixValue|EncoderMotorL298||
-|InverterValue|EncoderMotorL9110|**Relations**|
+|[Inverter](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Inverter)|EncoderMotorL9110|**Relations**|
 |IteratorValue|MotorI2C|CrawlerSteering|
 |JoystickAxis|MotorL298|Relation1to1|
 |[LoopSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LoopSwitch)|MotorL9110||
