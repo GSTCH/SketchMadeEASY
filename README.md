@@ -42,7 +42,7 @@ There are many examples. The example directories contains a schema as well. Here
 |Inputs|Actuators|Logic|
 | ------------- | ------------- |------------- |
 |Calculate|ActuatorCollection|**Conditions**|
-|ConditionInput|Buzzer|CompareCondition|
+|ConditionInput|Buzzer|[CompareCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-CompareCondition)|
 |DependentInput|DigitalOutput|ElseCondition|
 |[DigitalInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-DigitalInput)|EncodeModeI2C|LogicCondition|
 |[FixValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-FixValue)|EncoderMotorL298||
