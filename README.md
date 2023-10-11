@@ -47,7 +47,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[DigitalInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-DigitalInput)|EncodeModeI2C|[LogicCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LogicCondition)|
 |[FixValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-FixValue)|EncoderMotorL298||
 |[Inverter](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Inverter)|EncoderMotorL9110|**Relations**|
-|[IteratorValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-IteratorValue)|MotorI2C|CrawlerSteering|
+|[IteratorValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-IteratorValue)|[MotorI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorI2C)|CrawlerSteering|
 |[JoystickAxis](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-JoystickAxis)|MotorL298|[Relation1to1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Relation1to1)|
 |[LoopSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LoopSwitch)|MotorL9110||
 |[MonoFlop](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MonoFlop)|MotorServo360I2C|**RemoteControls**|
