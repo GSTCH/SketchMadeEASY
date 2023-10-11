@@ -62,7 +62,7 @@ There are many examples. The example directories contains a schema as well. Here
 ||ServoStepperPositionI2C||
 ||ServoT1||
 ||ServoT2||
-||VariableOutput||
+||[VariableOutput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableOutput)||
 
 
 ## Workboard
