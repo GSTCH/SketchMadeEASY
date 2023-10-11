@@ -43,7 +43,7 @@ There are many examples. The example directories contains a schema as well. Here
 | ------------- | ------------- |------------- |
 |Calculate|ActuatorCollection|**Conditions**|
 |ConditionInput|Buzzer|[CompareCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-CompareCondition)|
-|DependentInput|DigitalOutput|ElseCondition|
+|DependentInput|DigitalOutput|[ElseCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ElseCondition)|
 |[DigitalInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-DigitalInput)|EncodeModeI2C|[LogicCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LogicCondition)|
 |[FixValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-FixValue)|EncoderMotorL298||
 |[Inverter](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Inverter)|EncoderMotorL9110|**Relations**|
