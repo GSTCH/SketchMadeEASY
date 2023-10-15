@@ -85,9 +85,13 @@ class DigitalOutput : public Actuator
 #endif
       }
     }
+    
+    static const int High = 1;
+    static const int Low = 0;
 
     static const int Pos0=0;
     static const int Pos1=1;
+    
     static const int Off=0;
     static const int On=1;
 };

@@ -1,10 +1,10 @@
 //*****************************************************************
 //* Class JoystickAxis - Header
 //*
-//* Represent two joystichAxis. This is a variable (analog input) 
-//* with auto calibration during startup. Value=0 is the centre 
-//* position, value itself is +/-255. When moveing joystick, value changes from MINPOS 
-//* to MAXPOS.
+//* Represent a joystichAxis. This is a variable (analog input) 
+//* with auto calibration during startup in the middle. 
+//* Value=0 is the centre position, value itself is +/-255. 
+//* When moveing joystick, value changes from MINPOS to MAXPOS.
 //*****************************************************************
 //* Sketch made Easy for Arduino -  Arduino quick and easy
 //
@@ -25,6 +25,16 @@
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "..\Kernel\Input.h"
 
+#ifndef CONSIDERED_MIN_CHANGE 
+// To make not to much changes to the Actuators e.g. by toggleing +/-1
+#define CONSIDERED_MIN_CHANGE 5 
+#endif 
+
+#ifndef DEAD_ZONE_WIDTH
+// Increase the center to area of the 0 value
+#define DEAD_ZONE_WIDTH 20 
+#endif
+
 class JoystickAxis : public Input
 {
   protected:
@@ -34,18 +44,20 @@ class JoystickAxis : public Input
     int _centerPos; // ReadOnly   
     int _maxPos; // ReadOnly
     bool _switchDirection; // ReadOnly
+    int _deadZoneWidth; // ReadOnly
+    int _consideredMinChange; // ReadOnly
 	
     int _lastPos;
     int _currentPos;      
     
     unsigned long Calibrate();
-    void Init(int aAnalogPin, bool aSwitchDirection);
+    void Init(int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange);
 
   public:
 #ifdef CREATE_ID_MANUALLY    
-    JoystickAxis (int aId, int aAnalogPin, bool aSwitchDirection);
+    JoystickAxis (int aId, int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth = DEAD_ZONE_WIDTH, int aConsideredMinChange = CONSIDERED_MIN_CHANGE);
 #endif	
-    JoystickAxis (int aAnalogPin, bool aSwitchDirection);
+    JoystickAxis (int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth = DEAD_ZONE_WIDTH, int aConsideredMinChange = CONSIDERED_MIN_CHANGE);
     void Setup();
     void Loop();
 	
