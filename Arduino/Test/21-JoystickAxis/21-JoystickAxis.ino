@@ -32,7 +32,7 @@ void setup() {
   GetLog()->printf("JoystickAxis Test");
 #endif
   // Create input joystick axis
-  JoystickAxis* xAxis = new JoystickAxis(JOYSTICK_AXIS_PIN, JOYSTICK_AXIS_SWITCH_DIRECTION);
+  JoystickAxis* xAxis = new JoystickAxis(JOYSTICK_AXIS_PIN, JOYSTICK_AXIS_SWITCH_DIRECTION );
   // ***))
 
   // Initialize control
