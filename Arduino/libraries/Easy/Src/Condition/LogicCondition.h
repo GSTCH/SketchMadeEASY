@@ -1,7 +1,7 @@
 //*****************************************************************
 //* Class LogicCondition - Header
 //*
-//* Condition combines two compare condition wtih a logic operator.
+//* Condition combines two compare condition with a logic operator.
 //*****************************************************************
 //* Sketch made Easy for Arduino - Control with Arduino made quickly and easily
 //
