@@ -23,16 +23,6 @@
 
 #define IMPOSIBLE_VALUE_TO_INIT_JOYSTICKAXIS 9999
 
-#ifndef CONSIDERED_MIN_CHANGE 
-// To make not to much changes to the Actuators e.g. by toggleing +/-1
-#define CONSIDERED_MIN_CHANGE 5 
-#endif 
-
-#ifndef DEATH_ZONE_WIDTH
-// Increase the center to area of the 0 value
-#define DEATH_ZONE_WIDTH 20 
-#endif
-
 #ifndef CALIBRATION_LOOPS
 // Analog reads have some tolerance. To minimize this, the current position has 
 // been read multiple time to get an average (exact) centre position. 
@@ -51,20 +41,20 @@
 
 //*************************************
 #ifdef CREATE_ID_MANUALLY  
-JoystickAxis::JoystickAxis (int aId, int aAnalogPin, bool aSwitchDirection) : Input(aId, CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), 0, MAX_AXIS_VALUE)
+JoystickAxis::JoystickAxis (int aId, int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange) : Input(aId, CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), 0, MAX_AXIS_VALUE)
 {
-  Init(aAnalogPin, aSwitchDirection);
+  Init(aAnalogPin, aSwitchDirection, aDeadZoneWidth, aConsideredMinChange);
 }
 #endif
 
 //*************************************
-JoystickAxis::JoystickAxis (int aAnalogPin, bool aSwitchDirection) : Input(CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), 0, MAX_AXIS_VALUE)
+JoystickAxis::JoystickAxis (int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange) : Input(CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), 0, MAX_AXIS_VALUE)
 {
-  Init(aAnalogPin, aSwitchDirection);
+  Init(aAnalogPin, aSwitchDirection, aDeadZoneWidth, aConsideredMinChange);
 }
 
 //*************************************
-void JoystickAxis::Init(int aAnalogPin, bool aSwitchDirection)
+void JoystickAxis::Init(int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange)
 {
 #ifdef LOG_SETUP
   GetLog()->printf("JA(%d):C P=%d", _id, aAnalogPin );
@@ -74,6 +64,9 @@ void JoystickAxis::Init(int aAnalogPin, bool aSwitchDirection)
 
   _minPos = 0;
   _maxPos = ANALOG_PIN_RESOLUTION;
+  
+  _deadZoneWidth = aDeadZoneWidth;
+  _consideredMinChange = aConsideredMinChange;
 
   _currentValue = _lastValue = IMPOSIBLE_VALUE_TO_INIT_JOYSTICKAXIS;
   _currentPos = _lastPos = IMPOSIBLE_VALUE_TO_INIT_JOYSTICKAXIS;
@@ -90,17 +83,17 @@ void JoystickAxis::Loop()
 {
   _currentPos = analogRead(_analogPin);
 
-  if (abs(_currentPos - _lastPos) > CONSIDERED_MIN_CHANGE)
+  if (abs(_currentPos - _lastPos) > _consideredMinChange)
   {
 #ifdef LOG_LOOP_DEBUG
     GetLog()->printf("JA(%d):L Vl=%d", _id, _currentPos);
 #endif
 	  
-    if (abs(_currentPos - _centerPos) < DEATH_ZONE_WIDTH)
+    if (abs(_currentPos - _centerPos) < DEAD_ZONE_WIDTH)
     {
-	  _lastPos = _currentPos;
+	    _lastPos = _currentPos;
       _currentPos = _centerPos;
-	  _lastValue = _currentValue;
+	    _lastValue = _currentValue;
       _currentValue = 0;
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("JA(%d):L Mp1=0", _id );
@@ -109,32 +102,32 @@ void JoystickAxis::Loop()
     else if (_currentPos > _centerPos)
     {	
       _lastPos = _currentPos;
-	  _lastValue = _currentValue;
-	  int axisValue = _currentPos - _centerPos;	
-	  int axisRange = _maxPos - _centerPos;
-	  _currentValue = map(axisValue, 0, axisRange, 0, MAX_AXIS_VALUE );
-	  if (_switchDirection)
-	  {
-		_currentValue *= -1;
-	  }
+	    _lastValue = _currentValue;
+	    int axisValue = _currentPos - _centerPos;	
+	    int axisRange = _maxPos - _centerPos;
+	    _currentValue = map(axisValue, 0, axisRange, 0, MAX_AXIS_VALUE );
+	    if (_switchDirection)
+	    {
+		    _currentValue *= -1;
+	    }
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("JA(%d):L GT CVl=%d, AVl=%d [0, %d][0, %d]", _id, _currentValue, axisValue, axisRange, MAX_AXIS_VALUE);
 #endif
     }
     else if (_currentPos < _centerPos)
     {
-	  _lastPos = _currentPos;
-	  _lastValue = _currentValue;
-	  int axisValue = _centerPos - _currentPos;	
-	  int axisRange = _centerPos;
-	  _currentValue = -map(axisValue, 0, axisRange, 0, MAX_AXIS_VALUE );
-	  if (_switchDirection)
-	  {
-		_currentValue *= -1;
-	  }
+	    _lastPos = _currentPos;
+	    _lastValue = _currentValue;
+	    int axisValue = _centerPos - _currentPos;	
+	    int axisRange = _centerPos;
+	    _currentValue = -map(axisValue, 0, axisRange, 0, MAX_AXIS_VALUE );
+	    if (_switchDirection)
+	    {
+		    _currentValue *= -1;
+	    }
 	  	
 #ifdef LOG_LOOP_DEBUG
-        GetLog()->printf("JA(%d):L LT CVl=%d, AVl=%d [0, %d][0, %d]", _id, _currentValue, axisValue, axisRange, MAX_AXIS_VALUE);
+      GetLog()->printf("JA(%d):L LT CVl=%d, AVl=%d [0, %d][0, %d]", _id, _currentValue, axisValue, axisRange, MAX_AXIS_VALUE);
 #endif
     }
 

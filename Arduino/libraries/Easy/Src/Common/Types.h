@@ -62,8 +62,8 @@ enum EHardwareSerialMode { scHard,
                            scHard2,
                            scHard3 };
 
-enum ECycleMode { cmMin2Max_Min2Max,
-                  cmMin2Max2Min };
+enum ECycleMode { cmMin2Max_Min2Max = 0,
+                  cmMin2Max2Min = 1 };
 
 enum EInitializeMode { spNone = 0,
                        spForward = 1,

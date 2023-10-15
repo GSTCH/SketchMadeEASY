@@ -49,7 +49,7 @@
 #define MOTORc_I2C_NUMBER 3
 #define MOTORd_I2C_NUMBER 4
 // Parameter motor speed
-#define SPEED_MOTORa_PIN A15
+#define SPEED_MOTORa_PIN A10
 #define SPEED_MOTORb_PIN A14
 #define SPEED_MOTORc_PIN A13
 #define SPEED_MOTORd_PIN A12
