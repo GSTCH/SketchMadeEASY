@@ -60,8 +60,8 @@ There are many examples. The example directories contains a schema as well. Here
 ||ServoPwm||
 ||ServoStepperPosition||
 ||ServoStepperPositionI2C||
-||ServoT1||
-||ServoT2||
+||[ServoT1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT1)||
+||[ServoT2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT2)||
 ||[VariableOutput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableOutput)||
 
 
