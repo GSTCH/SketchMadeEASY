@@ -317,7 +317,9 @@ public:
   {
     // Hardware serial
     _bluetooth = new Bluetooth(aRxPin, aTxPin);
+#ifdef MULTI_REMOTECONTROL			    
     _communicationEnabled = true;
+#endif    
   }
 
   //*************************************
@@ -326,7 +328,9 @@ public:
   {
     // Hardware serial only
     _bluetooth = new Bluetooth(aHardwareSerialMode);
+#ifdef MULTI_REMOTECONTROL			    
     _communicationEnabled = true;
+#endif    
   }
 
   //*************************************
@@ -334,7 +338,9 @@ public:
     : RemoteControl(rtAppInventor) 
   {
     _bluetooth = new Bluetooth(aRxPin, aTxPin);
+#ifdef MULTI_REMOTECONTROL			    
     _communicationEnabled = true;
+#endif    
   }
 
   //*************************************
@@ -342,7 +348,9 @@ public:
     : RemoteControl(rtAppInventor) 
   {
     _bluetooth = new Bluetooth(aHardwareSerialMode);
+#ifdef MULTI_REMOTECONTROL			    
     _communicationEnabled = true;
+#endif    
   }
   
 //*************************************
@@ -350,7 +358,9 @@ public:
   AppInventor(EHardwareSerialMode aHardwareSerialMode, Condition* aConditionWhenEnabled)
     : RemoteControl(rtAppInventor) 
   {
+#ifdef MULTI_REMOTECONTROL			    
     _communicationEnabled = false;
+#endif    
      _enableCondition = aConditionWhenEnabled;
 	 
     _bluetooth = new Bluetooth(aHardwareSerialMode);
@@ -498,7 +508,13 @@ public:
 	}
 #endif	
 	  
-    if (_communicationEnabled) {
+#ifdef MULTI_REMOTECONTROL			
+  bool communicationEnabled = _communicationEnabled;
+#else
+  bool communicationEnabled = true;
+#endif 
+  
+    if (communicationEnabled) {
       if (_bluetooth != NULL) {
         _bluetooth->Loop();
       }
