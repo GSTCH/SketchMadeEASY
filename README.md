@@ -56,7 +56,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[Timer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Timer)|MotorServo360T2||
 |[ToggleSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ToggleSwitch)|MotorStepperRotate||
 |[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|MotorStepperRotateI2C||
-|[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|ServoI2C||
+|[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|[ServoI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoI2C)||
 ||ServoPwm||
 ||ServoStepperPosition||
 ||ServoStepperPositionI2C||
