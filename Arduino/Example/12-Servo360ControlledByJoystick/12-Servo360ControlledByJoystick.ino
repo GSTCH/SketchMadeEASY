@@ -30,6 +30,7 @@
 #include <Easy.h>
 
 //*****************************************************************
+#define SERVO360_NR 0
 #define SERVO360_PIN 10
 #define JOYSTICK_AXIS_PIN A10 // y=A9, x=A10
 
@@ -44,6 +45,7 @@ void setup()
   //MotorServo360T1* servo360 = new MotorServo360T1(SERVO360_PIN);
   MotorServo360T2* servo360 = new MotorServo360T2(SERVO360_PIN);
   //MotorServo360Pwm* servo360 = new MotorServo360Pwm(SERVO360_PIN); //  has no INT conflict but work only with UNO R3 
+  //MotorServo360I2C* servo360 = new MotorServo360I2C(SERVO360_NR);
 
   //** Define Input
   // joystickAxis is like a potentiometer but its value is from minus over 0 to plus.
