@@ -57,7 +57,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[ToggleSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ToggleSwitch)|MotorStepperRotate||
 |[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|MotorStepperRotateI2C||
 |[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|[ServoI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoI2C)||
-||ServoPwm||
+||[ServoPwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoPWM)||
 ||ServoStepperPosition||
 ||ServoStepperPositionI2C||
 ||[ServoT1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT1)||
