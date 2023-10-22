@@ -50,7 +50,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[IteratorValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-IteratorValue)|[MotorI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorI2C)|CrawlerSteering|
 |[JoystickAxis](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-JoystickAxis)|[MotorL298](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorL298)|[Relation1to1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Relation1to1)|
 |[LoopSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LoopSwitch)|[MotorL9110](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorL9110)||
-|[MonoFlop](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MonoFlop)|MotorServo360I2C|**RemoteControls**|
+|[MonoFlop](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MonoFlop)|[MotorServo360I2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360I2C)|**RemoteControls**|
 |[Switch2Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch2Position)|[MotorServo360Pwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360PWM)|AppInventor|
 |[Switch3Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch3Position)|[MotorServo360T1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T1)|FlySky|
 |[Timer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Timer)|[MotorServo360T2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T2)||
