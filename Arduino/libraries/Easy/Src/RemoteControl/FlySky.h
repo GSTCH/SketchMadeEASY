@@ -206,9 +206,13 @@ public:
         _ibusRC->begin(Serial);
 	      if (!enabledCommunication) {
 		      Serial.end();
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csDisabled;
+#endif          
 		    } else {          
+#ifdef MULTI_REMOTECONTROL        
           _communicationEnabled = csOn;
+#endif          
         }
         break;
 #ifdef __AVR_ATmega2560__
@@ -220,9 +224,13 @@ public:
         _ibusRC->begin(Serial1);
 		    if (!enabledCommunication) {
 		      Serial1.end();
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csDisabled;
+#endif          
 		    } else {
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csOn;
+#endif          
         }        
         break;
       case scHard2:
@@ -233,9 +241,13 @@ public:
         _ibusRC->begin(Serial2);
 		    if (!enabledCommunication) {
           Serial2.end();
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csDisabled;
+#endif          
 		    } else {
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csOn;
+#endif          
         }        
         break;
       case scHard3:
@@ -246,9 +258,13 @@ public:
         _ibusRC->begin(Serial3);
 		    if (!enabledCommunication) {
           Serial3.end();
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csDisabled;
+#endif          
         } else {
+#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csOn;
+#endif          
         }
         break;
 #endif  // __AVR_ATmega2560__
@@ -369,7 +385,13 @@ public:
     }
 #endif   
 
-    if (_ibusRC != NULL && _communicationEnabled==csOn) {
+#ifdef MULTI_REMOTECONTROL
+    bool communicationEnabled =  _communicationEnabled==csOn;
+#else
+    bool communicationEnabled =  true;
+#endif
+  
+    if (_ibusRC != NULL && communicationEnabled) {
       bool anyChanges = false;
 
       for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {

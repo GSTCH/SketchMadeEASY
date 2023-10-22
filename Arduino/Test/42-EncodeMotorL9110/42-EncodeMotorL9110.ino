@@ -19,10 +19,9 @@
 //* (at your option) any later version. 
 //*****************************************************************
 
-#define LOG 
-//#define LOG_LOOP
-//#define PLOT_ENCODERMOTOR
-//#define PLOT_ROTARYENCODER
+// Uncomment the defines #define PLOT_ENCODERMOTOR or #define PLOT_ROTARYENCODER 
+// ino the library file "Src\Kernel\BuildDefinition.h" to see plot into the Ardino IDE 
+
 #include <Easy.h>
 
 //*****************************************************************

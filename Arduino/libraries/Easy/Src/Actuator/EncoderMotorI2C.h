@@ -35,6 +35,12 @@ public:
     : EncoderMotorBase(aId, CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_I2C_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed) {
     _motorShield = new MotorShieldAdafruitV2(aMotorNr);
   }
+
+  //*************************************
+  EncoderMotorI2C(int aId, int aMotorNr, int aSensorAPin, int aSensorBPin, int aPPR, int aGearRatio, int aMaxSpeed, float aKP, float aKI, float aKD)
+    : EncoderMotorBase(aId, CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_I2C_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed, aKP, aKI, aKD) {
+    _motorShield = new MotorShieldAdafruitV2(aMotorNr);
+  }
 #endif
 
   //*************************************
@@ -42,6 +48,12 @@ public:
     : EncoderMotorBase(CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_I2C_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed) {
     _motorShield = new MotorShieldAdafruitV2(aMotorNr);
   }
+  
+  //*************************************
+  EncoderMotorI2C(int aMotorNr, int aSensorAPin, int aSensorBPin, int aPPR, int aGearRatio, int aMaxSpeed, float aKP, float aKI, float aKD)
+    : EncoderMotorBase(CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_I2C_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed, aKP, aKI, aKD) {
+    _motorShield = new MotorShieldAdafruitV2(aMotorNr);
+  }  
 };
 
 #endif
