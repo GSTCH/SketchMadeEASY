@@ -53,7 +53,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[MonoFlop](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MonoFlop)|MotorServo360I2C|**RemoteControls**|
 |[Switch2Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch2Position)|MotorServo360Pwm|AppInventor|
 |[Switch3Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch3Position)|MotorServo360T1|FlySky|
-|[Timer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Timer)|MotorServo360T2||
+|[Timer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Timer)|[MotorServo360T2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T2)||
 |[ToggleSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ToggleSwitch)|MotorStepperRotate||
 |[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|MotorStepperRotateI2C||
 |[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|[ServoI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoI2C)||
