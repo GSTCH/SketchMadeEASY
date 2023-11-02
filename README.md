@@ -52,7 +52,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[LoopSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LoopSwitch)|[MotorL9110](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorL9110)||
 |[MonoFlop](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MonoFlop)|[MotorServo360I2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360I2C)|**RemoteControls**|
 |[Switch2Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch2Position)|[MotorServo360Pwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360PWM)|AppInventor|
-|[Switch3Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch3Position)|[MotorServo360T1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T1)|FlySky|
+|[Switch3Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch3Position)|[MotorServo360T1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T1)|[FlySky](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-FylSky)|
 |[Timer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Timer)|[MotorServo360T2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T2)||
 |[ToggleSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ToggleSwitch)|MotorStepperRotate||
 |[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|MotorStepperRotateI2C||
