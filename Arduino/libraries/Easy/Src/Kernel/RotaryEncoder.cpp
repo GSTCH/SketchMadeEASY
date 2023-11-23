@@ -18,8 +18,6 @@
 #include "RotaryEncoder.h"
 #include "..\Common\Log.h"
 #include <arduino.h>
-#include <util/atomic.h>
-
 // Some defines to increase readablity of code
 #define MICROSECOND_IN_ONE_SECOND 1.0e6
 #define SECONDS_IN_ONE_MINUTE 60
@@ -139,9 +137,9 @@ void RotaryEncoder::Loop() {
   // read the position in an atomic block
   // to avoid potential misreads
   int pos = 0;
-  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-    pos = Pos_i[_interruptDataIdx];
-  }
+  noInterrupts();
+  pos = Pos_i[_interruptDataIdx];
+  interrupts();
 
   long currentTime = micros();
   DurationSinceLastLoop = 1.0 * (currentTime - _previousTime) / MICROSECOND_IN_ONE_SECOND;  // [sec]
@@ -153,8 +151,7 @@ void RotaryEncoder::Loop() {
     RotationalSpeed = 0;
   }
   // Compute the current speed
-  // Low-pass filter (25 Hz cutoff)
-  //FilteredRotationalSpeed = 0.854 * FilteredRotationalSpeed + 0.0728 * RotationalSpeed + 0.0728 * _previousRotationalSpeed;
+  // Low-pass filter
   FilteredRotationalSpeed = 0.85 * FilteredRotationalSpeed + 0.075 * RotationalSpeed + 0.075 * _previousRotationalSpeed;
 
 #ifdef LOG_LOOP_DEBUG

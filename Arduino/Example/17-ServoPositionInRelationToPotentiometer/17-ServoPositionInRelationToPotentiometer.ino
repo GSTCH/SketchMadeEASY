@@ -40,6 +40,7 @@
 //*****************************************************************
 // Parameter Servo
 #define SERVO_PIN 9
+#define SERVO_NUMBER 0
 #define SERVO_MIN_ANGLE 0
 #define SERVO_MAX_ANGLE 180
 // Parameter Potentiometer
@@ -53,6 +54,7 @@ void setup()
   ServoT2* servo = new ServoT2(SERVO_PIN, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
 //ServoPwm* servo = new ServoPwm(SERVO_PIN, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
 //ServoT1* servo = new ServoT1(SERVO_PIN, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
+//ServoI2C* servo = new ServoI2C(SERVO_NUMBER, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
 
   //** Define Input
   VariableInput* poti = new VariableInput(VARIABLE_INPUT_PIN);

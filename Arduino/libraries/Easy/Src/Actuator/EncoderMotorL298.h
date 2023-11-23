@@ -33,6 +33,12 @@ public:
     : EncoderMotorBase(aId, CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_L298_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed) {
     _motorShield = new MotorShieldL298(aDirectionPin, aSpeedPin);
   }
+  
+  //*************************************
+  EncoderMotorL298(int aId, int aDirectionPin, int aSpeedPin, int aSensorAPin, int aSensorBPin, int aPPR, int aGearRatio, int aMaxSpeed, float aKP, float aKI, float aKD )
+    : EncoderMotorBase(aId, CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_L298_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed, aKP, aKI, aKD) {
+    _motorShield = new MotorShieldL298(aDirectionPin, aSpeedPin);
+  } 
 #endif
 
   //*************************************
@@ -40,6 +46,12 @@ public:
     : EncoderMotorBase(CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_L298_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed) {
     _motorShield = new MotorShieldL298(aDirectionPin, aSpeedPin);
   }
+
+  //*************************************
+  EncoderMotorL298(int aDirectionPin, int aSpeedPin, int aSensorAPin, int aSensorBPin, int aPPR, int aGearRatio, int aMaxSpeed, float aKP, float aKI, float aKD)
+    : EncoderMotorBase(CreateElementId(EbtActuator, EkaEncoderMotor, ENCODERMOTOR_L298_INDEX), aSensorAPin, aSensorBPin, aPPR, aGearRatio, aMaxSpeed, aKP, aKI, aKD) {
+    _motorShield = new MotorShieldL298(aDirectionPin, aSpeedPin);
+  }  
 };
 
 #endif
