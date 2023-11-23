@@ -129,7 +129,7 @@ void Bluetooth::LoopSoftSerial() {
     _connected = false;
     _connectionChanged = true;
   }
-
+  
   if (_hc06->available() > 0) {
     // Buffer leeren.
     _inData[0] = '\0';
@@ -216,30 +216,29 @@ void Bluetooth::InitHardSerial() {
 
 //*************************************
 void Bluetooth::InitSoftSerial(int aRxPin, int aTxPin) {
-  GetLog()->enable(true);
-
-  if (_serialMode != smNone) {
-#ifdef LOG_SETUP
-    GetLog()->printf("BT:ISs ERROR! n init");
-#endif
-    return;
-  }
-
+  GetLog()->enable();
+  
   pinMode(aRxPin, INPUT);
   pinMode(aTxPin, OUTPUT);
+  _hc06 = new SoftwareSerial(aRxPin, aTxPin);  
 
 #ifdef LOG_SETUP
   GetLog()->printf("BT:ISs RX=%d, TX=%d", aRxPin, aTxPin);
 #endif
 
-  _hc06 = new SoftwareSerial(aRxPin, aTxPin);
-  _hc06->begin(9600);  //9600,19200,38400,57600
+  delay(50);
+  _hc06->begin(9600);  //9600,19200,38400,5760
+  while (!(*_hc06)) {}
 }
 
 //*************************************
 inline HardwareSerial* Bluetooth::GetHardwareSerial() {
   switch (_serialMode) {
     case smHard:
+#if defined(__AVR_ATmega328P__)
+      // Arduino Uno has only one HardSerial. Disable log to prevent conflicts.
+      GetLog()->disable();
+#endif  
       return &Serial;
       // Board specific condition compilation. Mega supports 4 serial. Infos look http://www.nongnu.org/avr-libc/user-manual/using_tools.html
 #ifdef __AVR_ATmega2560__

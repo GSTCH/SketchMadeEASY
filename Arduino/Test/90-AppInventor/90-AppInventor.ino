@@ -22,8 +22,8 @@
 #include <Easy.h>
 
 //*****************************************************************
-#define SOFTSERIAL_RXPIN 12
-#define SOFTSERIAL_TXPIN 13
+#define SOFTSERIAL_RXPIN 2
+#define SOFTSERIAL_TXPIN 3
 
 void setup()
 {
@@ -32,8 +32,8 @@ void setup()
   GetLog()->printf("AppInventor RemoteControl Test");
 #endif
 
-  //AppInventor* app = new AppInventor(channelRemoteInputs, SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
-  //AppInventor* appInventor = new AppInventor(scHard);
+  
+  //AppInventor* app = new AppInventor(SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
   AppInventor* app = new AppInventor(scHard3);
   
   app->getControl(rcJoystick1X);

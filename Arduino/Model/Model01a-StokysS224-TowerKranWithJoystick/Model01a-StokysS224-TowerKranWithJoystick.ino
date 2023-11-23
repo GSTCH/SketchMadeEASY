@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Model01 - Stokys S224 / Option a). Tower crane with Joystick
+//* Model01 - Stokys S224 / Option a). Tower crane with Joystick (Prototyp 2021)
 //*
 //* Stokys tower crane S224: 
 //* Winch by 360° servo and tower rotation by motor. 

@@ -56,7 +56,7 @@ void Log::println(const char* text) {
 
 //*************************************
 void Log::enable(int baurate) {
-  if (!_enabled) {	  
+  if (!_enabled) {
     _enabled = true;
     Serial.begin(baurate);	
 	_baudrate = baurate;

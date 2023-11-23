@@ -51,10 +51,8 @@ class AppInventor : public RemoteControl {
 private:
   Bluetooth* _bluetooth;
   char _commandBuffer[APPINVENTOR_COMMANDBUFFER_SIZE + 1];
-#ifdef MULTI_REMOTECONTROL
   Condition* _enableCondition = NULL;
   bool _communicationEnabled = false;
-#endif
 
   //*************************************
   inline int numberLen(int aNumber) {
@@ -346,7 +344,6 @@ public:
   }
   
 //*************************************
-#ifdef MULTI_REMOTECONTROL
   AppInventor(EHardwareSerialMode aHardwareSerialMode, Condition* aConditionWhenEnabled)
     : RemoteControl(rtAppInventor) 
   {
@@ -355,7 +352,6 @@ public:
 	 
     _bluetooth = new Bluetooth(aHardwareSerialMode);
   }
-#endif
 
   //*************************************
   RemoteInput* getControl(ERcControl aControl) {
@@ -461,25 +457,17 @@ public:
     RemoteControl::Setup();
 
     if (_bluetooth != NULL) {		
-#ifdef MULTI_REMOTECONTROL		
-      if (_enableCondition==NULL) {
-#endif	
-        _bluetooth->Setup();
-	      _bluetooth->Enable();
+      _bluetooth->Setup();
+	  _bluetooth->Enable();
       
 #ifdef LOG_SETUP_DEBUG        
       GetLog()->println("AI:S BT+");
-#endif		  
-      
-#ifdef MULTI_REMOTECONTROL				
-      }
-#endif	
+#endif
 	}
   }
 
   //*************************************
-  void Loop() {
-#ifdef MULTI_REMOTECONTROL	  
+  void Loop() {  
     if (_enableCondition!=NULL)
 	{
 		if (_enableCondition->Check() != _communicationEnabled)
@@ -487,16 +475,15 @@ public:
 			if (_enableCondition->Check() && !_communicationEnabled)
 			{
 			  _bluetooth->Enable();
-        _communicationEnabled = true;
+              _communicationEnabled = true;
 			}
 			else if (!_enableCondition->Check() && _communicationEnabled)
 			{
 			  _bluetooth->Disable();
-        _communicationEnabled = false;
+              _communicationEnabled = false;
 			}
 		}		
 	}
-#endif	
 	  
     if (_communicationEnabled) {
       if (_bluetooth != NULL) {
@@ -516,7 +503,6 @@ public:
 
       this->RemoteControl::Loop();
     }
-
   }
 };
 #endif

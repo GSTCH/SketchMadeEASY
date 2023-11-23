@@ -33,11 +33,11 @@
  */  
 
 //#ifndef LOG
-#define LOG 
+//#define LOG 
 //#endif
 
 //#ifndef LOG_LOOP
-#define LOG_LOOP
+//#define LOG_LOOP
 //#endif
 
 //#ifndef LOG_LOOP_DEBUG
@@ -45,7 +45,7 @@
 //#endif
 
 //#ifndef LOG_SETUP
-#define LOG_SETUP
+//#define LOG_SETUP
 //#endif
 
 //#ifndef LOG_SETUP_DEBUG
