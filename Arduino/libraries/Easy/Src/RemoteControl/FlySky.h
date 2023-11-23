@@ -221,7 +221,6 @@ public:
         GetLog()->println("FS:S HW1");
 #endif		
         pinMode(19, INPUT_PULLUP);  // fix Serial1
-        _ibusRC->begin(Serial1);
 		if (!enabledCommunication) {
 		  Serial1.end();
           _communicationEnabled = csDisabled;
@@ -242,7 +241,6 @@ public:
         GetLog()->println("FS:S HW2");
 #endif		
         pinMode(17, INPUT_PULLUP);  // fix Serial2
-        _ibusRC->begin(Serial2);
 		if (!enabledCommunication) {
           Serial2.end();
           _communicationEnabled = csDisabled;
@@ -263,7 +261,6 @@ public:
         GetLog()->println("FS:S HW3");
 #endif				
         pinMode(15, INPUT_PULLUP);  // fix Serial3
-        _ibusRC->begin(Serial3);
 		if (!enabledCommunication) {
           Serial3.end();
           _communicationEnabled = csDisabled;
