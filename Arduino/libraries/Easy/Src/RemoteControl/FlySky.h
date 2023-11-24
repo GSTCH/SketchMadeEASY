@@ -42,7 +42,7 @@
 #endif
   
 #ifndef ARDUINO_MAX_PWM_IN
-  #define ARDUINO_MAX_PWM_IN 1024
+  #define ARDUINO_MAX_PWM_IN 1023
 #endif
 
 
