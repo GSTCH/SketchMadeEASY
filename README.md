@@ -4,7 +4,7 @@ This libary is an abstraction of an Arduino sketch on logic level. Instead of pr
 The library supports the remote control FlySky FS-i6X (up to 14 channels). The same functions are also available by an App (connected with bluetooth). The App has been developed with "MIT AppInventor". <BR>
 
 ## Introduction Video
-[<img src="https://github.com/GSTCH/SketchMadeEASY/blob/Main/Resource/Images/GettingStarted/SketchMadeEasy_Introduction_Thumbnail.jpg" width="50%">](https://youtu.be/A_DhKYVhOv8 "Click to play video") 
+[<img src="https://github.com/GSTCH/SketchMadeEASY/blob/main/Resource/Images/GettingStarted/SketchMadeEasy_Introduction_Thumbnail.jpg" width="50%">](https://youtu.be/A_DhKYVhOv8 "Click to play video") 
 
 ## Getting started
 Sketches are no longer programmed with this library, but can be configured by combining different classes. How does it work? Basic idea is how an Arduino works: It combines inputs with actuators through logic. A sketch with ***Sketch made EASY*** is created in three steps:<BR>
