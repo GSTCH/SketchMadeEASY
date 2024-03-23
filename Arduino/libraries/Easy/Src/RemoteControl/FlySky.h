@@ -42,7 +42,7 @@
 #endif
   
 #ifndef ARDUINO_MAX_PWM_IN
-  #define ARDUINO_MAX_PWM_IN 1024
+  #define ARDUINO_MAX_PWM_IN 1023
 #endif
 
 
@@ -50,11 +50,9 @@ class FlySky : public RemoteControl {
 private:
   IBusBM* _ibusRC;
   EHardwareSerialMode _serialMode;  
-
-#ifdef MULTI_REMOTECONTROL		
+	
   Condition* _enableCondition = NULL;
   ERcCommunicationState _communicationEnabled = csOff;
-#endif
 
   inline void ConfigIBus(EHardwareSerialMode aHardwareSerialMode) {
     _serialMode = aHardwareSerialMode;
@@ -85,8 +83,7 @@ public:
     ConfigIBus(aHardwareSerialMode);
   }
   
-  //*************************************
-#ifdef MULTI_REMOTECONTROL		  
+  //*************************************		  
   FlySky(EHardwareSerialMode aHardwareSerialMode, Condition* aConditionWhenEnabled)
   : RemoteControl(rtFlySky) 
   {
@@ -95,7 +92,6 @@ public:
 
     ConfigIBus(aHardwareSerialMode);
   }
-#endif
 
   //*************************************
   RemoteInput* getControl(ERcControl aControl) {         
@@ -191,11 +187,7 @@ public:
 
   //*************************************
   void Setup() {
-#ifdef MULTI_REMOTECONTROL
-	  bool enabledCommunication = _enableCondition==NULL;
-#else	  
-	  bool enabledCommunication = true;
-#endif	  
+	bool enabledCommunication = _enableCondition==NULL;
 	  
 #ifdef LOG_SETUP_DEBUG
     GetLog()->println("FS:S");
@@ -203,16 +195,24 @@ public:
 
     switch (_serialMode) {
       case scHard:
-        _ibusRC->begin(Serial);
-	      if (!enabledCommunication) {
-		      Serial.end();
-#ifdef MULTI_REMOTECONTROL          
+	    // SerialMonitor (Log) and bluetooth have conflics at Nano and Uno. Mega has three additional hardware serial channels.
+        if (GetLog()->enabled()) {
+          GetLog()->disable();
+        }
+		
+	    if (!enabledCommunication) {
+		  Serial.end();
           _communicationEnabled = csDisabled;
-#endif          
-		    } else {          
-#ifdef MULTI_REMOTECONTROL        
+		} else {          
           _communicationEnabled = csOn;
-#endif          
+		  
+		  #ifdef ARDUINO_ARCH_ESP32
+            Serial.begin(115200, SERIAL_8N1, rxPin, txPin);
+          #else
+            Serial.begin(115200, SERIAL_8N1);
+          #endif
+		  
+		  _ibusRC->begin(Serial);
         }
         break;
 #ifdef __AVR_ATmega2560__
@@ -221,16 +221,19 @@ public:
         GetLog()->println("FS:S HW1");
 #endif		
         pinMode(19, INPUT_PULLUP);  // fix Serial1
-        _ibusRC->begin(Serial1);
-		    if (!enabledCommunication) {
-		      Serial1.end();
-#ifdef MULTI_REMOTECONTROL          
+		if (!enabledCommunication) {
+		  Serial1.end();
           _communicationEnabled = csDisabled;
-#endif          
-		    } else {
-#ifdef MULTI_REMOTECONTROL          
+		} else {
           _communicationEnabled = csOn;
-#endif          
+		  
+		  #ifdef ARDUINO_ARCH_ESP32
+            Serial1.begin(115200, SERIAL_8N1, rxPin, txPin);
+          #else
+            Serial1.begin(115200, SERIAL_8N1);
+          #endif
+		  
+		  _ibusRC->begin(Serial1);
         }        
         break;
       case scHard2:
@@ -238,16 +241,19 @@ public:
         GetLog()->println("FS:S HW2");
 #endif		
         pinMode(17, INPUT_PULLUP);  // fix Serial2
-        _ibusRC->begin(Serial2);
-		    if (!enabledCommunication) {
+		if (!enabledCommunication) {
           Serial2.end();
-#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csDisabled;
-#endif          
-		    } else {
-#ifdef MULTI_REMOTECONTROL          
+		} else {
           _communicationEnabled = csOn;
-#endif          
+		  
+		  #ifdef ARDUINO_ARCH_ESP32
+            Serial2.begin(115200, SERIAL_8N1, rxPin, txPin);
+          #else
+            Serial2.begin(115200, SERIAL_8N1);
+          #endif
+		  
+		  _ibusRC->begin(Serial2);
         }        
         break;
       case scHard3:
@@ -255,16 +261,19 @@ public:
         GetLog()->println("FS:S HW3");
 #endif				
         pinMode(15, INPUT_PULLUP);  // fix Serial3
-        _ibusRC->begin(Serial3);
-		    if (!enabledCommunication) {
+		if (!enabledCommunication) {
           Serial3.end();
-#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csDisabled;
-#endif          
         } else {
-#ifdef MULTI_REMOTECONTROL          
           _communicationEnabled = csOn;
-#endif          
+		  
+		  #ifdef ARDUINO_ARCH_ESP32
+            Serial3.begin(115200, SERIAL_8N1, rxPin, txPin);
+          #else
+            Serial3.begin(115200, SERIAL_8N1);
+          #endif
+		  
+		  _ibusRC->begin(Serial3);
         }
         break;
 #endif  // __AVR_ATmega2560__
@@ -293,12 +302,11 @@ public:
 #ifdef LOG_LOOP_DEBUG
     GetLog()->printf("FS:L");
 #endif
-
-#ifdef MULTI_REMOTECONTROL			  
+			  
     if (_enableCondition != NULL )
     {
       if (_enableCondition->Check() && _communicationEnabled==csDisabled)
-	    {
+	  {
 #ifdef LOG_LOOP
         GetLog()->printf("FS:L enable");
 #endif		  
@@ -334,9 +342,10 @@ public:
             break;
           #endif  // __AVR_ATmega2560__
         }
-		    _communicationEnabled = csOn;
-
-      } else if (!_enableCondition->Check() && _communicationEnabled==csOn) {
+		 _communicationEnabled = csOn;
+      } 
+	  else if (!_enableCondition->Check() && _communicationEnabled==csOn) 
+	  {
 #ifdef LOG_LOOP
         GetLog()->printf("FS:L disable");
 #endif		  		  
@@ -356,9 +365,10 @@ public:
             break;
           #endif  // __AVR_ATmega2560__
         }
-		    _communicationEnabled = csDisabled;
-	    }	else if (_enableCondition->Check() && _communicationEnabled==csOff)
-	    {
+		_communicationEnabled = csDisabled;
+	  }	
+      else if (_enableCondition->Check() && _communicationEnabled==csOff)
+	  {
 #ifdef LOG_LOOP
         GetLog()->printf("FS:L on");
 #endif		  
@@ -378,20 +388,11 @@ public:
             break;
           #endif  // __AVR_ATmega2560__
         }
-		    _communicationEnabled = csOn;
-
+		_communicationEnabled = csOn;
       } 
+    } 
 
-    }
-#endif   
-
-#ifdef MULTI_REMOTECONTROL
-    bool communicationEnabled =  _communicationEnabled==csOn;
-#else
-    bool communicationEnabled =  true;
-#endif
-  
-    if (_ibusRC != NULL && communicationEnabled) {
+    if (_ibusRC != NULL && _communicationEnabled==csOn) {
       bool anyChanges = false;
 
       for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {

@@ -51,8 +51,8 @@
 // Parameter Servo360
 #define SERVO360_PIN 9
 // Parameter bluetooth shield (Arduino Uno with Log) 
-#define SOFTSERIAL_RXPIN 12
-#define SOFTSERIAL_TXPIN 13
+#define SOFTSERIAL_RXPIN 5
+#define SOFTSERIAL_TXPIN 6
 
 void setup()
 {
