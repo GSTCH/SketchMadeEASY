@@ -4,6 +4,7 @@ This libary is an abstraction of an Arduino sketch on logic level. Instead of pr
 The library supports the remote control FlySky FS-i6X (up to 10 channels). The same functions are also available by an App (connected with bluetooth). The App has been developed with "MIT AppInventor". <BR>
 
 ## Introduction Video
+Click on the image to play the video<BR>
 [<img src="https://github.com/GSTCH/SketchMadeEASY/blob/main/Resource/Images/GettingStarted/SketchMadeEasy_Introduction_Thumbnail.jpg" width="50%">](https://youtu.be/A_DhKYVhOv8 "Click to play video") 
 
 ## Getting started
