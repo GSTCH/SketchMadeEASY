@@ -63,7 +63,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|[ServoI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoI2C)||
 ||[ServoPwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoPWM)||
 ||ServoStepperPosition||
-||ServoStepperPositionI2C||
+||[ServoStepperPositionI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoStepperPositionI2C)||
 ||[ServoT1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT1)||
 ||[ServoT2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT2)||
 ||[VariableOutput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableOutput)||
