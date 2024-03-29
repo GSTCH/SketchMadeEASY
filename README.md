@@ -58,8 +58,8 @@ There are many examples. The example directories contains a schema as well. Here
 |[Switch2Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch2Position)|[MotorServo360Pwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360PWM)|[AppInventor](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-AppInventor)|
 |[Switch3Position](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Switch3Position)|[MotorServo360T1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T1)|[FlySky](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-FylSky)|
 |[Timer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Timer)|[MotorServo360T2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Servo360T2)||
-|[ToggleSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ToggleSwitch)|MotorStepperRotate||
-|[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|MotorStepperRotateI2C||
+|[ToggleSwitch](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ToggleSwitch)|[MotorStepperRotate](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorStepperRotate)||
+|[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|[MotorStepperRotateI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-MotorStepperRotateI2C)||
 |[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|[ServoI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoI2C)||
 ||[ServoPwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoPWM)||
 ||[ServoStepperPosition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoStepperPosition)||
