@@ -58,24 +58,28 @@ class Buzzer : public Actuator
 
   public:
     //*************************************
+    // Beeps depending of input on same frequency, alternating in onDuration and offDuration but only a aNumberOfCycles times. Input correspond to on/off
     Buzzer(int aPin, int aFrequency, int aOnDuration, int aOffDuration, int aNumberOfCycles, int aBreakDuration) : Actuator(CreateElementId(EbtActuator, EkiAnalog, ANALOG_BUZZER_INDEX))
     {
       Init(aPin, aFrequency, aOnDuration, aOffDuration, aNumberOfCycles, aBreakDuration);
     }
 
     //*************************************
+    // Beeps depending of input on same frequency, alternating in onDuration and offDuration. Input correspond to on/off
     Buzzer(int aPin, int aFrequency, int aOnDuration, int aOffDuration) : Actuator(CreateElementId(EbtActuator, EkiAnalog, ANALOG_BUZZER_INDEX))
     {
       Init(aPin, aFrequency, aOnDuration, 0, 1, 0);
     }
 
     //*************************************
+    // Beeps depending of input on same frequency. Input correspond to on/off.
     Buzzer(int aPin, int aFrequency) : Actuator(CreateElementId(EbtActuator, EkiAnalog, ANALOG_BUZZER_INDEX))
     {
       Init(aPin, aFrequency, 0, 0, 1, 0);
     }
 
     //*************************************
+    // Maps input range to the frequency range from aMinFrequency...aMaxFrequency
     Buzzer(int aPin, int aMinFrequency, int aMaxFrequency) : Actuator(CreateElementId(EbtActuator, EkiAnalog, ANALOG_BUZZER_INDEX))
     {
       Init(aPin, aMinFrequency, 0, 0, 1, 0);

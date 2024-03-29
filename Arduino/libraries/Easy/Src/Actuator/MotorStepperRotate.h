@@ -28,15 +28,15 @@
 class MotorStepperRotate : public MotorBase {
 public:
   //*************************************
-  MotorStepperRotate(int aPin1, int aPin2, int aPin3, int aPin4, int aResolution, EMotorInterfaceType aMotorInterfaceType = miFull4Wire)
+  MotorStepperRotate(int aPin1, int aPin2, int aPin3, int aPin4, int aResolution, int aGearRatio, EMotorInterfaceType aMotorInterfaceType = miFull4Wire)
     : MotorBase(CreateElementId(EbtActuator, EkaMotor, MOTOR_STEPPERROTATE_INDEX)) {
-    _motorShield = new MotorShieldStepperRotate(aPin1, aPin2, aPin3, aPin4, aResolution, aMotorInterfaceType);
+    _motorShield = new MotorShieldStepperRotate(aPin1, aPin2, aPin3, aPin4, aResolution * aGearRatio, aMotorInterfaceType);
   }
 
   //*************************************
-  MotorStepperRotate(int aPin1, int aPin2, int aPin3, int aPin4, int aResolution, int aMaxCylcesPerSecond, EMotorInterfaceType aMotorInterfaceType = miFull4Wire)
+  MotorStepperRotate(int aPin1, int aPin2, int aPin3, int aPin4, int aResolution, int aGearRatio, int aMaxCylcesPerSecond, EMotorInterfaceType aMotorInterfaceType = miFull4Wire)
     : MotorBase(CreateElementId(EbtActuator, EkaMotor, MOTOR_STEPPERROTATE_INDEX)) {
-    _motorShield = new MotorShieldStepperRotate(aPin1, aPin2, aPin3, aPin4, aResolution, aMaxCylcesPerSecond, aMotorInterfaceType);
+    _motorShield = new MotorShieldStepperRotate(aPin1, aPin2, aPin3, aPin4, aResolution * aGearRatio, aMaxCylcesPerSecond, aMotorInterfaceType);
   }
 };
 #endif
