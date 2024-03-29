@@ -30,39 +30,46 @@
  * LOG_LOOP_DEBUG : Extended informations during operation, used to find bugs
  * LOG_SETUP      : Common information during startup
  * LOG_SETUP_DEBUG: Extended informations during startup, used to find bugs
+ * EASY_LOG_FLUSHEACHTIME : Flush the Log after each line. Make sure to see all log but slowdown execution.
  */  
 
-//#ifndef LOG
+#ifndef LOG
 //#define LOG 
-//#endif
+#endif
 
-//#ifndef LOG_LOOP
+#ifndef LOG_LOOP
 //#define LOG_LOOP
-//#endif
+#endif
 
-//#ifndef LOG_LOOP_DEBUG
+#ifndef LOG_LOOP_DEBUG
 //#define LOG_LOOP_DEBUG
-//#endif
+#endif
 
-//#ifndef LOG_SETUP
+#ifndef LOG_SETUP
 //#define LOG_SETUP
-//#endif
+#endif
 
-//#ifndef LOG_SETUP_DEBUG
+#ifndef LOG_SETUP_DEBUG
 //#define LOG_SETUP_DEBUG
-//#endif
+#endif
 
-//#ifndef EASY_LOG_FLUSHEACHTIME
+#ifndef EASY_LOG_FLUSHEACHTIME
 //#define EASY_LOG_FLUSHEACHTIME
-//#endif
+#endif
 
-//#ifndef PLOT_ENCODERMOTOR
+/*
+ * Shows Encder Motor Encoder into the SerialPlloer
+ */
+#ifndef PLOT_ENCODERMOTOR
 //#define PLOT_ENCODERMOTOR
-//#endif
+#endif
 
-//#ifndef PLOT_ROTARYENCODER
+/*
+ * Shows Rotary Encoder into the SerialPlloer
+ */
+#ifndef PLOT_ROTARYENCODER
 //#define PLOT_ROTARYENCODER
-//#endif
+#endif
 
 /*
  * Usually only one remote control is used. To save memory, only one 
@@ -86,7 +93,13 @@
 //#define CREATE_ID_MANUALLY
 #endif
 
-
+/*
+ * UltrasonicRangefinder has two modes:
+ * USE_NEWPING: Use NewPing library to measure the distance
+ * - : works with digital I/O and needs no library
+ */
+ #ifndef USE_NEWPING
 //#define USE_NEWPING
+#endif
 
 #endif

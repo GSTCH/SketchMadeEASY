@@ -54,16 +54,19 @@
 #define SOFTSERIAL_RXPIN 5
 #define SOFTSERIAL_TXPIN 6
 
+// Parameter Crawler Steering
+#define PIVOTWIDTH 10
+
 void setup()
 {
 
-  //AppInventor* appInventor = new AppInventor(scHard);
+  //AppInventor* remoteControl = new AppInventor(scHard);
   AppInventor* remoteControl = new AppInventor(SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
 
   MotorL298* motorLeft = new MotorL298(MOTOR_LEFT_MOTOR_DIRECTIONPIN, MOTOR_LEFT_SPEEDPIN);
   MotorL298* motorRight = new MotorL298(MOTOR_RIGHT_MOTOR_DIRECTIONPIN, MOTOR_RIGHT_SPEEDPIN);
-  
-  CrawlerSteering* steering = new CrawlerSteering(NULL, motorLeft, motorRight, remoteControl->getControl(rcJoystick1X), remoteControl->getControl(rcJoystick1Y));
+
+  CrawlerSteering* steering = new CrawlerSteering(NULL, motorLeft, motorRight, remoteControl->getControl(rcJoystick1X), remoteControl->getControl(rcJoystick1Y), PIVOTWIDTH);
 
   MotorServo360T2* servo360 = new MotorServo360T2(SERVO360_PIN);
   Relation1to1* relationServo = new Relation1to1(NULL, servo360, remoteControl->getControl(rcJoystick2Y));
