@@ -46,7 +46,7 @@ There are many examples. The example directories contains a schema as well. Here
 |Inputs|Actuators|Logic|
 | ------------- | ------------- |------------- |
 |[Calculate](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Calculate)|ActuatorCollection|**Conditions**|
-|ConditionInput|Buzzer|[CompareCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-CompareCondition)|
+|ConditionInput|[Buzzer](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-Buzzer)|[CompareCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-CompareCondition)|
 |DependentInput|[DigitalOutput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-DigitalOutput)|[ElseCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ElseCondition)|
 |[DigitalInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-DigitalInput)|[EncodeModeI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-EncoderMotorI2C)|[LogicCondition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-LogicCondition)|
 |[FixValue](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-FixValue)|[EncoderMotorL298](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-EncoderMotorL298)||
