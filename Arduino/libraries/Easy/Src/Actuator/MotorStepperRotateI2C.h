@@ -28,13 +28,14 @@ public:
   //*************************************
   //* Adafruit MotorShield V2:
   //* aStepperNr : Number of stepper on shield
-  //* aResolution : steps per revolution of the stepper motor (without gear) [PPS]
+  //* aResolution : steps per revolution of the stepper motor (without gear) [PPR]
+  //* aGearRatio : Gear ratio of the motor gear box
   //* aMaxCylcesPerSecond : Max frequency of the stepper motor [PPS]
   //* aStepStyle : Type of stepper motor signal (ssSingle, ssDouble, ssInterleave, ssMicrostep)
   //* aBusAdddress : I2C Address of the shield    
-  MotorStepperRotateI2C(int aStepperNr, int aResolution, int aMaxCylcesPerSecond, EStepStyle aStepStyle = ssSingle, int aBusAdddress = 0x60)
+  MotorStepperRotateI2C(int aStepperNr, int aResolution, int aGearRatio, int aMaxCylcesPerSecond, EStepStyle aStepStyle = ssSingle, int aBusAdddress = 0x60)
     : MotorBase(CreateElementId(EbtActuator, EkaMotor, MOTOR_STEPPERROTATEI2C_INDEX)) {
-    _motorShield = new MotorShieldStepperRotateI2C(aStepperNr, aResolution, aMaxCylcesPerSecond, aStepStyle, aBusAdddress);
+    _motorShield = new MotorShieldStepperRotateI2C(aStepperNr, aResolution * aGearRatio, aMaxCylcesPerSecond, aStepStyle, aBusAdddress);
   }
 };
 #endif

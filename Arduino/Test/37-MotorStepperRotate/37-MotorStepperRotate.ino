@@ -32,7 +32,6 @@
 // Stepper motor:  28BYJ-48
 #define STEPS_PER_ROTATION 32
 #define GEAR_RATIO 64
-#define STEPPER_RESOLUTION STEPS_PER_ROTATION * GEAR_RATIO
 
 #define MOTOR_SPEED_STEPWIDTH 2
 #define STEPWIDTH_MSEC 1500
@@ -45,7 +44,7 @@ void setup()
 #endif
 
   // Create actuator stepper motor 
-  MotorStepperRotate* motor = new MotorStepperRotate(STEPPER_PIN1, STEPPER_PIN3, STEPPER_PIN2, STEPPER_PIN4, STEPPER_RESOLUTION);
+  MotorStepperRotate* motor = new MotorStepperRotate(STEPPER_PIN1, STEPPER_PIN3, STEPPER_PIN2, STEPPER_PIN4, STEPS_PER_ROTATION, GEAR_RATIO);
 
   IteratorValue* iteratorValue = new IteratorValue(-motor->getMaxSpeed(), motor->getMaxSpeed(), MOTOR_SPEED_STEPWIDTH, STEPWIDTH_MSEC, cmMin2Max2Min);
   Relation1to1* relationServoOff = new Relation1to1(NULL, motor, iteratorValue);
