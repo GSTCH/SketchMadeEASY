@@ -62,7 +62,7 @@ There are many examples. The example directories contains a schema as well. Here
 |[UltrasonicRangefinder](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-UltrasonicRangefinder)|MotorStepperRotateI2C||
 |[VariableInput](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-VariableInput)|[ServoI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoI2C)||
 ||[ServoPwm](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoPWM)||
-||ServoStepperPosition||
+||[ServoStepperPosition](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoStepperPosition)||
 ||[ServoStepperPositionI2C](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoStepperPositionI2C)||
 ||[ServoT1](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT1)||
 ||[ServoT2](https://github.com/GSTCH/SketchMadeEASY/wiki/Class-ServoT2)||
