@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Class DifferentialSteering - Header
+//* Class CrawlerSteering - Header
 //*
 //* The steering of the two motors for a caterpillar vehicle.
 //* There are two movements:
