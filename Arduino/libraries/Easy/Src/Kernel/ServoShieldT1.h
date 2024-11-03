@@ -23,7 +23,11 @@
 #include "..\Common\Types.h"
 #include "..\Common\Log.h"
 #include "ServoShieldBase.h"
+#ifndef ARDUINO_ARCH_ESP32
 #include <Servo.h>
+#else
+#include <ESP32Servo.h>
+#endif
 #include <Arduino.h>
 
 class ServoShieldT1 : public ServoShieldBase {

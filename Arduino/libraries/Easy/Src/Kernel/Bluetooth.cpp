@@ -24,10 +24,12 @@
 #include "..\Common\Log.h"
 
 //*************************************
+#ifndef ARDUINO_ARCH_ESP32
 Bluetooth::Bluetooth(int aRxPin, int aTxPin) {
   _serialMode = smSoft;
   InitSoftSerial(aRxPin, aTxPin);
 }
+#endif
 
 //*************************************
 Bluetooth::Bluetooth(EHardwareSerialMode aHardwareSerialMode) {
@@ -35,31 +37,37 @@ Bluetooth::Bluetooth(EHardwareSerialMode aHardwareSerialMode) {
     case scHard:
       _serialMode = smHard;
       break;
+#if defined( __AVR_ATmega2560__) ||  defined(ARDUINO_ARCH_ESP32)      
     case scHard1:
       _serialMode = smHard1;
       break;
     case scHard2:
       _serialMode = smHard2;
       break;
+#endif      
+#if defined( __AVR_ATmega2560__)            
     case scHard3:
       _serialMode = smHard3;
       break;
+#endif      
   }
   InitHardSerial();
 }
 
 //*************************************
 void Bluetooth::Setup() {
-    _inData[0] = '\0';
+  _inData[0] = '\0';
 }
 
 //*************************************
 void Bluetooth::Loop() {
   switch (_serialMode) {
+#ifndef ARDUINO_ARCH_ESP32        
     case smSoft:
       LoopSoftSerial();
       break;
-    case smHard:
+#endif      
+    case smHard:    
     case smHard1:
     case smHard2:
     case smHard3:
@@ -77,19 +85,30 @@ void Bluetooth::Loop() {
 
 //*************************************
 void Bluetooth::LoopHardSerial() {
+  int amountOfBytesToReceive = GetHardwareSerial()->available();
+
 #ifdef LOG_LOOP_DEBUG
   GetLog()->printf("BT:LHs C=%d CC=%d DR=%d, St=%d, DA=%d", _connected, _connectionChanged, _dataReceived, *GetHardwareSerial(), GetHardwareSerial()->available());
 #endif
 
+#if !defined(ARDUINO_ARCH_RENESAS)      
   if ((*GetHardwareSerial()) && !_connected) {
+#ifdef LOG_LOOP
+    GetLog()->println("BT:LSs active");
+#endif
     _connected = true;
     _connectionChanged = true;
-  } else if (!(*GetHardwareSerial()) && _connected) {
+  }
+  else if (!(*GetHardwareSerial()) && _connected) {
+#ifdef LOG_LOOP
+    GetLog()->println("BT:LSs disabled");
+#endif
     _connected = false;
     _connectionChanged = true;
   }
+#endif  
 
-  if (GetHardwareSerial()->available() > 0) {
+  if (amountOfBytesToReceive > 0) {
     // Command always ends with a NewsLine.
     byte size = GetHardwareSerial()->readBytesUntil('\n', _inData, EASY_BLUETOOTH_INPUTBUFFER_SIZE);
 
@@ -99,7 +118,8 @@ void Bluetooth::LoopHardSerial() {
 #ifdef LOG_LOOP
       GetLog()->printf("BT:LHs Rcv %d [%s]", size, _inData);
 #endif
-    } else {
+    }
+    else {
       _inData[0] = '\0';
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("BT:LHs Rcv 0");
@@ -111,26 +131,32 @@ void Bluetooth::LoopHardSerial() {
 }
 
 //*************************************
+#if ! defined(ARDUINO_ARCH_ESP32) 
 void Bluetooth::LoopSoftSerial() {
+  int amountOfBytesToReceive = _hc06->available();
+
 #ifdef LOG_LOOP_DEBUG
-  GetLog()->printf("BT:LSs C=%d CC=%d DR=%d, DA=%d", _connected, _connectionChanged, _dataReceived, _hc06->available());
+  GetLog()->printf("BT:LSs DR=%d, DA=%d", _dataReceived, amountOfBytesRoReceive);
 #endif
 
+#if !defined(ARDUINO_ARCH_RENESAS)
   if ((*_hc06) && !_connected) {
 #ifdef LOG_LOOP
     GetLog()->println("BT:LSs active");
 #endif
     _connected = true;
     _connectionChanged = true;
-  } else if (!*_hc06 && _connected) {
+  }
+  else if (!*_hc06 && _connected) {
 #ifdef LOG_LOOP
     GetLog()->println("BT:LSs disabled");
 #endif
     _connected = false;
     _connectionChanged = true;
   }
-  
-  if (_hc06->available() > 0) {
+#endif
+
+  if (amountOfBytesToReceive > 0) {
     // Buffer leeren.
     _inData[0] = '\0';
 
@@ -143,7 +169,8 @@ void Bluetooth::LoopSoftSerial() {
 #ifdef LOG_LOOP
       GetLog()->printf("BT:LSs Rcv %d [%s]", size, _inData);
 #endif
-    } else {
+    }
+    else {
       _inData[0] = 0;
 #ifdef LOG_LOOP_DEBUG
       GetLog()->printf("BT:LSs Rcv 0");
@@ -153,12 +180,15 @@ void Bluetooth::LoopSoftSerial() {
     _dataReceived = size > 0;
   }
 }
+#endif
 
 //*************************************
 bool Bluetooth::SendMessage(const char* aMessage) {
   switch (_serialMode) {
+#ifndef ARDUINO_ARCH_ESP32    
     case smSoft:
       return SendMessageSoftwareSerial(aMessage);
+#endif      
     case smHard:
     case smHard1:
     case smHard2:
@@ -172,9 +202,11 @@ bool Bluetooth::SendMessage(const char* aMessage) {
 }
 
 //*************************************
+#ifndef ARDUINO_ARCH_ESP32    
 bool Bluetooth::SendMessageSoftwareSerial(const char* aMessage) {
   return _hc06->println(aMessage) > 0;
 }
+#endif  
 
 //*************************************
 bool Bluetooth::SendMessageHardwareSerial(const char* aMessage) {
@@ -215,12 +247,13 @@ void Bluetooth::InitHardSerial() {
 }
 
 //*************************************
+#ifndef ARDUINO_ARCH_ESP32    
 void Bluetooth::InitSoftSerial(int aRxPin, int aTxPin) {
   GetLog()->enable();
-  
+
   pinMode(aRxPin, INPUT);
   pinMode(aTxPin, OUTPUT);
-  _hc06 = new SoftwareSerial(aRxPin, aTxPin);  
+  _hc06 = new SoftwareSerial(aRxPin, aTxPin);
 
 #ifdef LOG_SETUP
   GetLog()->printf("BT:ISs RX=%d, TX=%d", aRxPin, aTxPin);
@@ -228,27 +261,34 @@ void Bluetooth::InitSoftSerial(int aRxPin, int aTxPin) {
 
   delay(50);
   _hc06->begin(9600);  //9600,19200,38400,5760
-  while (!(*_hc06)) {}
+  while (_hc06->available() > 0)
+  {
+    // Emtiing buffer
+    _hc06->read();
+  }
 }
+#endif
 
 //*************************************
 inline HardwareSerial* Bluetooth::GetHardwareSerial() {
   switch (_serialMode) {
     case smHard:
-#if defined(__AVR_ATmega328P__)
+#if !defined(__AVR_ATmega328P__) && !defined(ARDUINO_ARCH_ESP32)
       // Arduino Uno has only one HardSerial. Disable log to prevent conflicts.
       GetLog()->disable();
 #endif  
       return &Serial;
+#if defined(__AVR_ATmega2560__) || defined(ARDUINO_ARCH_ESP32)
       // Board specific condition compilation. Mega supports 4 serial. Infos look http://www.nongnu.org/avr-libc/user-manual/using_tools.html
-#ifdef __AVR_ATmega2560__
     case smHard1:
       return &Serial1;
+#endif      
+#ifdef __AVR_ATmega2560__      
     case smHard2:
       return &Serial2;
     case smHard3:
       return &Serial3;
-#endif  // __AVR_ATmega2560__
+#endif      
     default:
 #ifdef LOG_LOOP
       GetLog()->printf("BT:G Not supported mode");
@@ -258,12 +298,14 @@ inline HardwareSerial* Bluetooth::GetHardwareSerial() {
 }
 
 //*************************************
-void Bluetooth::Enable() 
+void Bluetooth::Enable()
 {
   switch (_serialMode) {
+#ifndef ARDUINO_ARCH_ESP32        
     case smSoft:
-      _hc06->begin(9600);
-	  break;
+      _hc06->begin(9600);      
+      break;
+#endif      
     case smHard:
     case smHard1:
     case smHard2:
@@ -271,23 +313,27 @@ void Bluetooth::Enable()
       GetHardwareSerial()->begin(9600);
     case smNone:
       // Please init!
-      break;      
+      break;
   }
 }
 
 //*************************************
-void Bluetooth::Disable() 
+void Bluetooth::Disable()
 {
   switch (_serialMode) {
+#ifndef ARDUINO_ARCH_ESP32        
     case smSoft:
-	  _hc06->end();
+#ifndef ARDUINO_ARCH_RENESAS
+      _hc06->end();
+#endif      
       break;
+#endif      
     case smHard:
     case smHard1:
     case smHard2:
     case smHard3:
       GetHardwareSerial()->end();
-	  break;
+      break;
     case smNone:
       // Please init!
       break;

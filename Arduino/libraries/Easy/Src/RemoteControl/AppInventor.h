@@ -309,6 +309,7 @@ protected:
   }
 
 public:
+#ifndef ARDUINO_ARCH_ESP32    
   //*************************************
   AppInventor(RemoteInput** aRemoteInputs, int aRxPin, int aTxPin)  // SoftSerial
     : RemoteControl(rtAppInventor, aRemoteInputs) 
@@ -321,21 +322,22 @@ public:
   }
 
   //*************************************
+  AppInventor(int aRxPin, int aTxPin)  // SoftSerial
+    : RemoteControl(rtAppInventor) 
+  {
+    _bluetooth = new Bluetooth(aRxPin, aTxPin);
+#ifdef MULTI_REMOTECONTROL			    
+    _communicationEnabled = true;
+#endif    
+  }
+#endif
+
+  //*************************************
   AppInventor(RemoteInput** aRemoteInputs, EHardwareSerialMode aHardwareSerialMode)
     : RemoteControl(rtAppInventor, aRemoteInputs) 
   {
     // Hardware serial only
     _bluetooth = new Bluetooth(aHardwareSerialMode);
-#ifdef MULTI_REMOTECONTROL			    
-    _communicationEnabled = true;
-#endif    
-  }
-
-  //*************************************
-  AppInventor(int aRxPin, int aTxPin)  // SoftSerial
-    : RemoteControl(rtAppInventor) 
-  {
-    _bluetooth = new Bluetooth(aRxPin, aTxPin);
 #ifdef MULTI_REMOTECONTROL			    
     _communicationEnabled = true;
 #endif    

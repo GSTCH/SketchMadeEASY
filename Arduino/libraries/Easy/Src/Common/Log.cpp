@@ -27,7 +27,7 @@ int Log::_baudrate = 0;
 char Log::_buffer[EASY_LOG_BUFFER_LEN];
 
 //*************************************
-int Log::printf(const char* format, ...) {
+void Log::printf(const char* format, ...) {
   if (_enabled) {
     // Log text eats up memory and should therefore be as short as possible.
     // The class therefore supports texts with a maximum length of EASY_LOG_BUFFER_LEN characters.

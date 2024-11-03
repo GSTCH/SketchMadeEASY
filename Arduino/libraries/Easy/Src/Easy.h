@@ -87,38 +87,51 @@
 #include "Actuator\DigitalOutput.h"
 #include "Actuator\VariableOutput.h"
 #include "Actuator\Buzzer.h"
-#include "Actuator\MotorI2C.h"
 #include "Actuator\MotorL298.h"
 #include "Actuator\MotorL9110.h"
+#ifndef ARDUINO_ARCH_RENESAS
+#include "Actuator\MotorI2C.h"
 #include "Actuator\MotorServo360I2C.h"
-#include "Actuator\MotorServo360Pwm.h"
 #include "Actuator\MotorServo360T1.h"
-#include "Actuator\MotorServo360T2.h"
-#include "Actuator\MotorStepperRotate.h"
 #include "Actuator\MotorStepperRotateI2C.h"
 #include "Actuator\EncoderMotorI2C.h"
+#endif
+#if ! defined(ARDUINO_ARCH_RENESAS) && !defined(ARDUINO_ARCH_ESP32)
+#include "Actuator\MotorServo360Pwm.h"
+#include "Actuator\MotorServo360T2.h"
+#endif
+#include "Actuator\MotorStepperRotate.h"
 #include "Actuator\EncoderMotorL298.h"
 #include "Actuator\EncoderMotorL9110.h"
+#ifndef ARDUINO_ARCH_RENESAS
 #include "Actuator\ServoI2C.h"
-#include "Actuator\ServoPwm.h"
 #include "Actuator\ServoStepperPosition.h"
 #include "Actuator\ServoStepperPositionI2C.h"
 #include "Actuator\ServoT1.h"
+#endif
+#if ! defined(ARDUINO_ARCH_RENESAS) && !defined(ARDUINO_ARCH_ESP32)
+#include "Actuator\ServoPwm.h"
 #include "Actuator\ServoT2.h"
+#endif
+
 // Logic actuator
 #include "Actuator\ActuatorCollection.h"
 
 // Relations
 #include "Relation\Relation1to1.h"
 #include "Relation\CrawlerSteering.h"
+#include "Relation\SignalCountingRelation.h"
 
 // Conditions
 #include "Condition\CompareCondition.h"
 #include "Condition\LogicCondition.h"
 #include "Condition\ElseCondition.h"
+#include "Condition\ManualCondition.h"
 
 //RemoteControl
+#ifndef ARDUINO_ARCH_RENESAS
 #include "RemoteControl\FlySky.h"
+#endif
 #include "RemoteControl\AppInventor.h"
 #include "RemoteControl\RemoteValue.h"
 #include "RemoteControl\RemoteJoystickAxis.h"

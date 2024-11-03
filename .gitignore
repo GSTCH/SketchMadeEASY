@@ -1,4 +1,6 @@
 /_Dev
 /Arduino/libraries/*
 !/Arduino/libraries/Easy/
+/Arduino/libraries/Easy/Src/.editorconfig
+/Arduino/libraries/Easy/Src/.vscode
 /Arduino/_ZipLibrary/

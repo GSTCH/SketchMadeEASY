@@ -30,92 +30,92 @@
 
 class Relation1to1 : public Relation
 {
-  private:
-    void init(Condition* aCondition, Actuator* aActuator, Input* aActionParameter)
-    {
+private:
+  void init(Condition* aCondition, Actuator* aActuator, Input* aActionParameter)
+  {
 #ifdef LOG_SETUP
-      GetLog()->printf("R1(%d):C AcId=%d", _id, aActuator->GetId());
+    GetLog()->printf("R1(%d):C AcId=%d", _id, aActuator->GetId());
 #endif
-      _itemCount = 1;
-      _actionItems = new ActuatorCollectionItem*[_itemCount];
-      _actionItems[0] = new ActuatorCollectionItem(aActuator, aActionParameter);
-    }
-  protected:
-    ActuatorCollectionItem** _actionItems = NULL;
-    int _itemCount = 0;
+    _itemCount = 1;
+    _actionItems = new ActuatorCollectionItem * [_itemCount];
+    _actionItems[0] = new ActuatorCollectionItem(aActuator, aActionParameter);
+  }
+protected:
+  ActuatorCollectionItem** _actionItems = NULL;
+  int _itemCount = 0;
 
-  public:
-    //*************************************
+public:
+  //*************************************
 #ifdef CREATE_ID_MANUALLY	
-    Relation1to1(int aId, Condition* aCondition, Actuator* aActuator, Input* aActionParameter)  : Relation(aId, CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
-    {
-      init(aCondition, aActuator, aActionParameter);
-    }
+  Relation1to1(int aId, Condition* aCondition, Actuator* aActuator, Input* aActionParameter) : Relation(aId, CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
+  {
+    init(aCondition, aActuator, aActionParameter);
+  }
 #endif
 
-    //*************************************
-    Relation1to1(Condition* aCondition, Actuator* aActuator, Input* aActionParameter)  : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
-    {
-      init(aCondition, aActuator, aActionParameter);
-    }
+  //*************************************
+  Relation1to1(Condition* aCondition, Actuator* aActuator, Input* aActionParameter) : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
+  {
+    init(aCondition, aActuator, aActionParameter);
+  }
 
-    //*************************************
-    Relation1to1(Condition* aCondition, ActuatorCollectionItem** aActionItems, int aItemCount)  : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
-    {
-      _itemCount = aItemCount;
-      _actionItems = aActionItems;
-    }
+  //*************************************
+  Relation1to1(Condition* aCondition, ActuatorCollectionItem** aActionItems, int aItemCount) : Relation(CreateElementId(EbtRelation, EkrCompare, COMPARE_1TO1_INDEX), aCondition)
+  {
+    _itemCount = aItemCount;
+    _actionItems = aActionItems;
+  }
 
-    //*************************************
-    virtual void Loop()
-    {
+  //*************************************
+  virtual void Loop()
+  {
 #ifdef LOG_LOOP_DEBUG
-      GetLog()->printf("R1(%d):L", _id);
+    GetLog()->printf("R1(%d):L", _id);
 #endif
 
 #ifdef LOG_LOOP
-      if (_condition != NULL)
+    if (_condition != NULL)
+    {
+      if (_condition->CheckChanged())
       {
-        if (_condition->CheckChanged() )
-        {
-          GetLog()->printf("R1(%d):L Ck=%d, CCk=%d", _id, _condition->Check(), _condition->CheckChanged());
-        }
-      }
-#endif
-
-      bool check =  _condition == NULL || _condition->Check();
-      bool actionParameterChanged = false;
-      for (int idx=0; idx<_itemCount; idx++)
-      {      
-#ifdef LOG_LOOP_DEBUG
-        if (_actionItems[idx]->ValueChanged())
-        {
-          GetLog()->printf("R1(%d):L VC[%d]=%d", _id, idx, _actionItems[idx]->ValueChanged());
-        }
-#endif              
-        actionParameterChanged |= _actionItems[idx]->ValueChanged();
-      }
-     
-      bool CheckWithoutCondition =  _condition == NULL && actionParameterChanged;
-      bool CheckWithCondition =  _condition != NULL && _condition->Check() && (_condition->CheckChanged() || actionParameterChanged);
-      if (CheckWithoutCondition || CheckWithCondition)
-      {
-#ifdef LOG_LOOP_DEBUG
-        if (CheckWithCondition)
-        {
-          GetLog()->printf("R1(%d):L Ck=%d, PCg=%d", _id, _condition->Check(), actionParameterChanged);
-        }
-        else
-        {
-          GetLog()->printf("R1(%d):L Call PCg=%d", _id, actionParameterChanged);
-        }
-#endif
-
-        for (int idx=0; idx<_itemCount; idx++)
-        {
-          _actionItems[idx]->Act();  
-        }       
+        GetLog()->printf("R1(%d):L Ck=%d, CCk=%d", _id, _condition->Check(), _condition->CheckChanged());
       }
     }
+#endif
+
+    bool check = _condition == NULL || _condition->Check();
+    bool actionParameterChanged = false;
+    for (int idx = 0; idx < _itemCount; idx++)
+    {
+#ifdef LOG_LOOP_DEBUG
+      if (_actionItems[idx]->ValueChanged())
+      {
+        GetLog()->printf("R1(%d):L VC[%d]=%d", _id, idx, _actionItems[idx]->ValueChanged());
+      }
+#endif              
+      actionParameterChanged |= _actionItems[idx]->ValueChanged();
+    }
+
+    bool CheckWithoutCondition = _condition == NULL && actionParameterChanged;
+    bool CheckWithCondition = _condition != NULL && _condition->Check() && (_condition->CheckChanged() || actionParameterChanged);
+    if (CheckWithoutCondition || CheckWithCondition)
+    {
+#ifdef LOG_LOOP_DEBUG
+      if (CheckWithCondition)
+      {
+        GetLog()->printf("R1(%d):L Ck=%d, PCg=%d", _id, _condition->Check(), actionParameterChanged);
+      }
+      else
+      {
+        GetLog()->printf("R1(%d):L Call PCg=%d", _id, actionParameterChanged);
+      }
+#endif
+
+      for (int idx = 0; idx < _itemCount; idx++)
+      {
+        _actionItems[idx]->Act();
+      }
+    }
+  }
 };
 #endif

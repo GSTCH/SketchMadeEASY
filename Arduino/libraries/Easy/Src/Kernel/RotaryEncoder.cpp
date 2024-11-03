@@ -47,10 +47,10 @@ void readEncoder(int aIndex) {
 
   if (b > 0) {
     // If B is high, increment forward
-    Pos_i[aIndex]++;
+    Pos_i[aIndex] = Pos_i[aIndex] + 1;
   } else {
     // Otherwise, increment backward
-    Pos_i[aIndex]--;
+    Pos_i[aIndex] = Pos_i[aIndex] - 1;
   }
 }
 

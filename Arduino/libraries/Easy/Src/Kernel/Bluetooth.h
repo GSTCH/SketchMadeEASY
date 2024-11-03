@@ -24,7 +24,9 @@
 
 // Libraries
 #include <HardwareSerial.h>
+#ifndef ARDUINO_ARCH_ESP32
 #include <SoftwareSerial.h>
+#endif
 
 // Internal consts and types
 #define EASY_BLUETOOTH_INPUTBUFFER_SIZE 150
@@ -38,26 +40,32 @@ private:
                      smHard1,
                      smHard2,
                      smHard3 };
-
+#ifndef ARDUINO_ARCH_ESP32
   SoftwareSerial* _hc06;
+#endif  
   ESerialMode _serialMode = smNone;
-  
+#ifndef ARDUINO_ARCH_RENESAS  
   bool _connected = false;
   bool _connectionChanged = false;
-
+#endif
   bool _dataReceived = false;
   char _inData[EASY_BLUETOOTH_INPUTBUFFER_SIZE + 1];
 
   inline void LoopHardSerial();
+  inline bool SendMessageHardwareSerial(const char* aMessage);
+  inline void InitHardSerial();
+
+  #ifndef ARDUINO_ARCH_ESP32    
   inline void LoopSoftSerial();
   inline bool SendMessageSoftwareSerial(const char* aMessage);
-  inline bool SendMessageHardwareSerial(const char* aMessage);
-
-  inline void InitHardSerial();
   inline void InitSoftSerial(int aRxPin, int aTxPin);
+  #endif
+
   inline HardwareSerial* GetHardwareSerial();
 public:
+#ifndef ARDUINO_ARCH_ESP32    
   Bluetooth(int aRxPin, int aTxPin);
+#endif  
   Bluetooth(EHardwareSerialMode aHardwareSerialMode);  
   void Setup();  
   void Loop();

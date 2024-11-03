@@ -85,7 +85,7 @@ void EncoderMotorBase::Loop() {
   }
 
   float controlspeed = _kp * difference + _ki * _eintegral - _kd * diverential;
-  int currentSpeed = (int)min(fabs(controlspeed), 255);
+  int currentSpeed = (int)min((int)fabs(controlspeed), 255);
   if (currentSpeed > 255) {
     currentSpeed = 255;
   }

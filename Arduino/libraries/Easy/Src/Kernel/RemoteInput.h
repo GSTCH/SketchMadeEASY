@@ -74,7 +74,7 @@ public:
   }
 
   //*************************************
-  int SetMapValue(int aValue, int aMinRange, int aMaxRange) {
+  void SetMapValue(int aValue, int aMinRange, int aMaxRange) {
     _lastValue = _currentValue;
     _currentValue = map(aValue, aMinRange, aMaxRange, _minValue, _maxValue);
 

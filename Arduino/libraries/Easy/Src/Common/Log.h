@@ -84,7 +84,7 @@ public:
   //* https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
   //* Note that the Arduino implementaton does not supports %f.
   //************
-  int printf(const char* format, ...);
+  void printf(const char* format, ...);
 
   //************
   //* Activate

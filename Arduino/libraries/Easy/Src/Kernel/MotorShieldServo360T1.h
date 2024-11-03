@@ -21,7 +21,12 @@
 
 #include "..\Common\BuildDefinition.h" // has to be the first 
 #include "MotorShieldBase.h"
+#ifndef ARDUINO_ARCH_ESP32
 #include <Servo.h>
+#else
+#include <ESP32Servo.h>
+#endif
+
 
 // A position cannot be specified for a 360 ° servo.
 // Depending on the pulse duration, it turns forwards, backwards or stands still.

@@ -44,7 +44,10 @@ protected:
   ERemoteControlType _remoteControlType;
 
   //*************************************
-  virtual bool DoSendMessage(const char* aMessage) {}
+  virtual bool DoSendMessage(const char* aMessage) 
+  {
+    return false;
+  }
 
 public:
   //*************************************

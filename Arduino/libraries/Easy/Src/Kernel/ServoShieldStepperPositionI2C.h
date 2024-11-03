@@ -159,7 +159,7 @@ public:
   //*************************************
   //* aRotationSpeed : [rotations per minute]
   void speed(int aRotationSpeed) {
-    _cycleSpeed = min(_maxCylcesPerSecond, aRotationSpeed * _resolution / 60.0);
+    _cycleSpeed = min(_maxCylcesPerSecond, (int)(aRotationSpeed * _resolution / 60.0));
 
 #ifdef LOG_LOOP_DEBUG
     GetLog()->printf("SPI:Sp V=%d, S=%d", aRotationSpeed, _cycleSpeed);
