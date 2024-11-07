@@ -135,3 +135,5 @@
 #include "RemoteControl\AppInventor.h"
 #include "RemoteControl\RemoteValue.h"
 #include "RemoteControl\RemoteJoystickAxis.h"
+#include "RemoteControl\Display.h"
+

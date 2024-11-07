@@ -48,7 +48,11 @@
 
 // Baudrates: 9600,19200,31250,38400,57600,74880,115200
 #ifndef EASY_LOG_BAUDRATE
-#define EASY_LOG_BAUDRATE 31250
+  #ifdef ARDUINO_ARCH_ESP32
+    #define EASY_LOG_BAUDRATE 115200
+  #else 
+    #define EASY_LOG_BAUDRATE 31250
+  #endif
 #endif
 
 //**********************

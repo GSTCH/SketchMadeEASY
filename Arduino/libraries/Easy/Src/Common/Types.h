@@ -55,7 +55,8 @@ enum EStepType { stSingle,
                  stMicrostepping };
 
 enum ERemoteControlType { rtAppInventor,
-                          rtFlySky };
+                          rtFlySky,
+                          rtDisplay };
 
 enum EHardwareSerialMode { scHard,
                            scHard1,
@@ -97,6 +98,12 @@ enum ERcCommunicationState {
   csOff = 0,
   csOn = 1,
   csDisabled = 2
+};
+
+enum EDisplayType { 
+  ttILI9341_24in = 1, 
+  ttILI9341_28in = 2, 
+  ttILI9341_35in = 3 
 };
 
 #endif
