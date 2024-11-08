@@ -1,5 +1,9 @@
 /_Dev
 /Arduino/libraries/*
+!/Arduino/libraries/lv_conf.h
+!/Arduino/libraries/TFT_eSPI
+/Arduino/libraries/TFT_eSPI/*
+!/Arduino/libraries/TFT_eSPI/User_Setup.h
 !/Arduino/libraries/Easy/
 /Arduino/libraries/Easy/Src/.editorconfig
 /Arduino/libraries/Easy/Src/.vscode

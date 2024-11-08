@@ -8,6 +8,151 @@
         "deepid": 49835166,
         "children": [
           {
+            "guid": "GUID75806401-703829S402813313",
+            "deepid": 349990486,
+            "dont_export": false,
+            "locked": false,
+            "properties": [
+              {
+                "nid": 10,
+                "strtype": "OBJECT/Name",
+                "strval": "Image1",
+                "InheritedType": 10
+              },
+              {
+                "nid": 20,
+                "strtype": "OBJECT/Layout",
+                "InheritedType": 1
+              },
+              {
+                "Flow": 0,
+                "Wrap": false,
+                "Reversed": false,
+                "MainAlignment": 0,
+                "CrossAlignment": 0,
+                "TrackAlignment": 0,
+                "LayoutType": 0,
+                "nid": 30,
+                "strtype": "OBJECT/Layout_type",
+                "strval": "No_layout",
+                "InheritedType": 13
+              },
+              {
+                "nid": 40,
+                "strtype": "OBJECT/Transform",
+                "InheritedType": 1
+              },
+              {
+                "nid": 50,
+                "flags": 17,
+                "strtype": "OBJECT/Position",
+                "intarray": [
+                  12,
+                  81
+                ],
+                "InheritedType": 7
+              },
+              {
+                "nid": 60,
+                "flags": 51,
+                "strtype": "OBJECT/Size",
+                "intarray": [
+                  151,
+                  35
+                ],
+                "InheritedType": 7
+              },
+              {
+                "nid": 70,
+                "strtype": "OBJECT/Align",
+                "strval": "CENTER",
+                "InheritedType": 3
+              },
+              {
+                "nid": 90,
+                "flags": 1048576,
+                "strtype": "OBJECT/Flags",
+                "InheritedType": 1
+              },
+              {
+                "nid": 110,
+                "strtype": "OBJECT/Clickable",
+                "strval": "False",
+                "InheritedType": 2
+              },
+              {
+                "nid": 150,
+                "strtype": "OBJECT/Adv_hittest",
+                "strval": "True",
+                "InheritedType": 2
+              },
+              {
+                "nid": 230,
+                "strtype": "OBJECT/Scrollable",
+                "strval": "False",
+                "InheritedType": 2
+              },
+              {
+                "nid": 300,
+                "strtype": "OBJECT/Scrollbar_mode",
+                "strval": "AUTO",
+                "InheritedType": 3
+              },
+              {
+                "nid": 310,
+                "strtype": "OBJECT/Scroll_direction",
+                "strval": "ALL",
+                "InheritedType": 3
+              },
+              {
+                "nid": 320,
+                "flags": 1048576,
+                "strtype": "OBJECT/States",
+                "InheritedType": 1
+              },
+              {
+                "nid": 1010,
+                "strtype": "IMAGE/Image",
+                "InheritedType": 1
+              },
+              {
+                "nid": 1020,
+                "strtype": "IMAGE/Asset",
+                "strval": "assets/ArduinoEasy_LogoPrint.png",
+                "InheritedType": 5
+              },
+              {
+                "nid": 1030,
+                "strtype": "IMAGE/Pivot",
+                "intarray": [
+                  0,
+                  0
+                ],
+                "InheritedType": 7
+              },
+              {
+                "nid": 1040,
+                "strtype": "IMAGE/Rotation",
+                "InheritedType": 6
+              },
+              {
+                "nid": 1050,
+                "strtype": "IMAGE/Scale",
+                "integer": 256,
+                "InheritedType": 6
+              },
+              {
+                "part": "lv.PART.MAIN",
+                "childs": [],
+                "nid": 1060,
+                "strtype": "IMAGE/Style_main",
+                "strval": "lv.PART.MAIN, Rectangle, Image, Transform",
+                "InheritedType": 11
+              }
+            ],
+            "saved_objtypeKey": "IMAGE"
+          },
+          {
             "guid": "GUID35461485-862673S58733309",
             "deepid": -921922415,
             "children": [
@@ -43,7 +188,6 @@
                   },
                   {
                     "nid": 40,
-                    "flags": 1048576,
                     "strtype": "OBJECT/Transform",
                     "InheritedType": 1
                   },
@@ -52,8 +196,8 @@
                     "flags": 17,
                     "strtype": "OBJECT/Position",
                     "intarray": [
-                      5,
-                      -1
+                      0,
+                      0
                     ],
                     "InheritedType": 7
                   },
@@ -240,8 +384,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  0,
-                  -46
+                  4,
+                  -56
                 ],
                 "InheritedType": 7
               },
@@ -355,7 +499,7 @@
                       {
                         "nid": 1000260,
                         "strtype": "CALL FUNCTION/Function_name",
-                        "strval": "ButtonEin_Clicked",
+                        "strval": "ButtonOn_Clicked",
                         "InheritedType": 10
                       },
                       {
@@ -417,7 +561,7 @@
                     "flags": 17,
                     "strtype": "OBJECT/Position",
                     "intarray": [
-                      2,
+                      0,
                       1
                     ],
                     "InheritedType": 7
@@ -500,8 +644,7 @@
                     "InheritedType": 11
                   }
                 ],
-                "saved_objtypeKey": "LABEL",
-                "tree_closed": true
+                "saved_objtypeKey": "LABEL"
               }
             ],
             "dont_export": false,
@@ -541,8 +684,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  0,
-                  35
+                  4,
+                  13
                 ],
                 "InheritedType": 7
               },
@@ -656,7 +799,7 @@
                       {
                         "nid": 1000270,
                         "strtype": "CALL FUNCTION/Function_name",
-                        "strval": "ButtonAus_Clicked",
+                        "strval": "ButtonOff_Clicked",
                         "InheritedType": 10
                       },
                       {
@@ -809,10 +952,10 @@
     "theme_dark": false,
     "theme_color1": 5,
     "theme_color2": 0,
-    "uiExportFolderPath": "D:\\Daten\\Hans\\Projekte\\GitHub\\SketchMadeEasy\\Arduino\\Test\\94-Display\\export\\ui",
-    "projectExportFolderPath": "D:\\Daten\\Hans\\Projekte\\GitHub\\SketchMadeEasy\\Arduino\\Test\\94-Display\\export",
+    "uiExportFolderPath": "D:\\Daten\\Hans\\Projekte\\GitHub\\SketchMadeEasy\\Arduino\\Test\\94-Display\\Export\\ui",
+    "projectExportFolderPath": "D:\\Daten\\Hans\\Projekte\\GitHub\\SketchMadeEasy\\Arduino\\Test\\94-Display\\Export",
     "custom_variable_prefix": "uic",
-    "backup_cnt": 9,
+    "backup_cnt": 12,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "C_FILE",

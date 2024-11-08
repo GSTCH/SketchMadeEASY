@@ -69,13 +69,13 @@ void loop() {
 //*****************************************************************
 // ui_events.c
 //*****************************************************************
-void ButtonEin_Clicked(lv_event_t * e)
+void ButtonOn_Clicked(lv_event_t * e)
 {
 	// Your code here
   Switch.SetValue(FIXVALUE_HIGH);
 }
 
-void ButtonAus_Clicked(lv_event_t * e)
+void ButtonOff_Clicked(lv_event_t * e)
 {
 	// Your code here
   Switch.SetValue(FIXVALUE_LOW);
