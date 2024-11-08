@@ -17,12 +17,15 @@
 //* (at your option) any later version. 
 //*****************************************************************
 
-#define LOG 
-#define LOG_LOOP
-#include <Easy.h>
 #include "ui.h"
+#define LOG 
+#include <Easy.h>
 
 //*****************************************************************
+#define LED_PIN 32
+
+RemoteValue Switch(FIXVALUE_LOW, FIXVALUE_HIGH);
+
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
@@ -30,10 +33,17 @@ void setup()
   GetLog()->printf("Display Test");
 #endif
 
+  // Prepare
   Display* display = new Display(ttILI9341_24in);
-  
-  pinMode(32, OUTPUT);
 
+  DigitalOutput* led = new DigitalOutput(LED_PIN);
+
+ // Configure Logic 
+  CompareCondition* conditionSwitchOff = new CompareCondition(&Switch, OpEQ, FIXVALUE_HIGH);
+  Relation1to1* switchOffRelation = new Relation1to1(conditionSwitchOff, led, FixValue::High());
+
+  CompareCondition* conditionSwitchOn = new CompareCondition(&Switch, OpEQ, FIXVALUE_LOW);
+  Relation1to1* switchOnRelation = new Relation1to1(conditionSwitchOn, led, FixValue::Low());
 //... ***))
 
   // Initialize control
@@ -54,4 +64,19 @@ void loop() {
   ControlManagerFactory::GetControlManager()->Loop();
 
   delay(5);
+}
+
+//*****************************************************************
+// ui_events.c
+//*****************************************************************
+void ButtonEin_Clicked(lv_event_t * e)
+{
+	// Your code here
+  Switch.SetValue(FIXVALUE_HIGH);
+}
+
+void ButtonAus_Clicked(lv_event_t * e)
+{
+	// Your code here
+  Switch.SetValue(FIXVALUE_LOW);
 }

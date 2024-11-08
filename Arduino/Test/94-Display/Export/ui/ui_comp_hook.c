@@ -3,14 +3,3 @@
 // LVGL version: 8.3.11
 // Project name: SquareLine_Project
 
-#include "ui.h"
-
-void ButtonEin_Clicked(lv_event_t * e)
-{
-	// Your code here
-}
-
-void ButtonAus_Clicked(lv_event_t * e)
-{
-	// Your code here
-}
