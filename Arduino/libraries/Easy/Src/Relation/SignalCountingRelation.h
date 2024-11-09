@@ -59,6 +59,9 @@ private:
 
 public:
   //*************************************   
+  static const int DownCounterActive = 1;
+  static const int ReadyToStart = 0;
+
   FixValue* Active = NULL;
   
  #ifdef CREATE_ID_MANUALLY   
@@ -81,6 +84,7 @@ public:
       if (_startCondition->Check())
       {
         _iterationActive = true;
+
         Active->SetValue(DownCounterActive);
         _downCounter = _amountOfSignal->Value();
         
@@ -96,6 +100,7 @@ public:
       else
       {
         // Return an try next time, if start condition is true.
+        SetRelationState(false);
         return; 
       }
     }
@@ -105,6 +110,7 @@ public:
       if (time <_ignoreInputChange)
       {
         // Waiting time until signal change is considered again, still active        
+        SetRelationState(_iterationActive);
         return;
       }      
       
@@ -138,9 +144,8 @@ public:
 #ifdef LOG_LOOP_DEBUG
     GetLog()->printf("SCR(%d):L V=%d", _id, _downCounter );
 #endif
-  }
-  
-  static const int DownCounterActive = 1;
-  static const int ReadyToStart = 0;
+
+    SetRelationState(_iterationActive);
+  } 
 };
 #endif

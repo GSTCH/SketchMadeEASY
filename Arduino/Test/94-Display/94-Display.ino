@@ -1,5 +1,5 @@
 //*****************************************************************
-//* Test FlySky FS-i6X-RemoteControl (with setting to 14 channel) 
+//* Test Display ILI941 with Touch to enable/disable a LED
 //*
 //* Activate Log into ".\Common\BuildDefintion.h"
 //*  --> uncomment "#define LOG" and "#define LOG_LOOP".

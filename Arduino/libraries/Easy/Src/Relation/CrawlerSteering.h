@@ -211,6 +211,8 @@ class CrawlerSteering : public Relation
         
         _actuatorLeft->Act(_actuatorInputLeft);
         _actuatorRight->Act(_actuatorInputRight);       
+
+        SetRelationState(!stop);
       }
     }
 };

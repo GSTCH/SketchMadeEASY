@@ -83,17 +83,16 @@ public:
     }
 #endif
 
-    bool check = _condition == NULL || _condition->Check();
     bool actionParameterChanged = false;
     for (int idx = 0; idx < _itemCount; idx++)
     {
 #ifdef LOG_LOOP_DEBUG
-      if (_actionItems[idx]->ValueChanged())
+      if (_actionItems!=NULL && _actionItems[idx]->ValueChanged())
       {
         GetLog()->printf("R1(%d):L VC[%d]=%d", _id, idx, _actionItems[idx]->ValueChanged());
       }
 #endif              
-      actionParameterChanged |= _actionItems[idx]->ValueChanged();
+      actionParameterChanged |= (_actionItems!= NULL && _actionItems[idx]->ValueChanged());
     }
 
     bool CheckWithoutCondition = _condition == NULL && actionParameterChanged;
@@ -113,8 +112,17 @@ public:
 
       for (int idx = 0; idx < _itemCount; idx++)
       {
-        _actionItems[idx]->Act();
+        if (_actionItems!=NULL)
+        { 
+          _actionItems[idx]->Act();
+        }
       }
+
+      SetRelationState(true);
+    }
+    else
+    {
+      SetRelationState(false);
     }
   }
 };

@@ -135,5 +135,7 @@
 #include "RemoteControl\AppInventor.h"
 #include "RemoteControl\RemoteValue.h"
 #include "RemoteControl\RemoteJoystickAxis.h"
+#ifdef ARDUINO_ARCH_ESP32
 #include "RemoteControl\Display.h"
+#endif
 

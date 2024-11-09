@@ -21,8 +21,9 @@
 //* (at your option) any later version.
 //*****************************************************************
 
-#include "Display.h"
+#ifdef ARDUINO_ARCH_ESP32
 
+#include "Display.h"
 
 //************************************* C Code
 
@@ -162,3 +163,5 @@ void Display::Loop()
 {
   lv_timer_handler();
 }
+
+#endif
