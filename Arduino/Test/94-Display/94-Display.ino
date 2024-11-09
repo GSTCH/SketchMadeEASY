@@ -18,6 +18,7 @@
 //*****************************************************************
 
 #include "ui.h"
+#include <lvgl.h>
 #define LOG 
 #include <Easy.h>
 
@@ -51,6 +52,9 @@ void setup()
 
   // Call the init method of the SquarelLine Studio 
   ui_init();
+
+  // Prepare screen
+  lv_obj_add_state( ui_ButtonOff, LV_STATE_DISABLED );
 }
 
 //*****************************************************************
@@ -71,12 +75,20 @@ void loop() {
 //*****************************************************************
 void ButtonOn_Clicked(lv_event_t * e)
 {
-	// Your code here
+	// Switch lamp on 
   Switch.SetValue(FIXVALUE_HIGH);
+
+  // Enable/disable buttons
+  lv_obj_add_state( ui_ButtonOn, LV_STATE_DISABLED );
+  lv_obj_clear_state( ui_ButtonOff, LV_STATE_DISABLED );
 }
 
 void ButtonOff_Clicked(lv_event_t * e)
 {
-	// Your code here
+	// Switch lamp off
   Switch.SetValue(FIXVALUE_LOW);
+
+  // Enable/disable buttons
+  lv_obj_clear_state( ui_ButtonOn, LV_STATE_DISABLED );
+  lv_obj_add_state( ui_ButtonOff, LV_STATE_DISABLED );
 }
