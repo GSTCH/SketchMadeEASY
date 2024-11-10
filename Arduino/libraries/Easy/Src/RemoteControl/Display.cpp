@@ -78,11 +78,11 @@ Display::Display(EDisplayType aDisplayType) : RemoteControl(rtDisplay)
     _screenWidth = 320;
     _screenHeight = 240;
     _colorDepth = 16;
-    _calData[0] = 208;
-    _calData[1] = 3520;
-    _calData[2] = 380;
-    _calData[3] = 3373;
-    _calData[4] = 1;
+    _calData[0] = 476;
+    _calData[1] = 3469;
+    _calData[2] = 326;
+    _calData[3] = 3555;
+    _calData[4] = 3;
     break;
   case ttILI9341_28in:
     _screenWidth = 320;
