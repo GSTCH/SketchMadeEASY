@@ -4,7 +4,3 @@
 // Project name: TestDisplay
 
 #include "ui.h"
-
-//*******************
-//* Methods moved to INO Project
-//*******************

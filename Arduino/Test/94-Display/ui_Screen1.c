@@ -23,8 +23,8 @@ void ui_Screen1_screen_init(void)
     ui_ButtonOn = lv_btn_create(ui_Screen1);
     lv_obj_set_width(ui_ButtonOn, 100);
     lv_obj_set_height(ui_ButtonOn, 50);
-    lv_obj_set_x(ui_ButtonOn, 4);
-    lv_obj_set_y(ui_ButtonOn, -56);
+    lv_obj_set_x(ui_ButtonOn, -74);
+    lv_obj_set_y(ui_ButtonOn, -47);
     lv_obj_set_align(ui_ButtonOn, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_ButtonOn, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ButtonOn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -38,8 +38,8 @@ void ui_Screen1_screen_init(void)
     ui_ButtonOff = lv_btn_create(ui_Screen1);
     lv_obj_set_width(ui_ButtonOff, 100);
     lv_obj_set_height(ui_ButtonOff, 50);
-    lv_obj_set_x(ui_ButtonOff, 4);
-    lv_obj_set_y(ui_ButtonOff, 13);
+    lv_obj_set_x(ui_ButtonOff, 74);
+    lv_obj_set_y(ui_ButtonOff, -47);
     lv_obj_set_align(ui_ButtonOff, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_ButtonOff, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ButtonOff, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
