@@ -1,0 +1,16 @@
+{
+  "codename": "SanSerif15",
+  "ttf_path": "/assets/micross.ttf",
+  "bin_path": "/assets\\ui_font_SanSerif15.bin",
+  "c_path": "/assets\\ui_font_SanSerif15.c",
+  "cfg_path": "/assets\\ui_font_SanSerif15.fcfg",
+  "size": 17,
+  "bpp": 2,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "äöüÄÖÜ",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}
