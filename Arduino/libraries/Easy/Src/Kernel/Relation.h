@@ -30,7 +30,7 @@ using RelationStateChangedEvent = void (*)(const bool);
 class Relation : public Element {
 private:
   //*************************************
-  RelationStateChangedEvent _relationStateChangedEvent;
+  RelationStateChangedEvent _relationStateChangedEvent = NULL;
   bool _relationState = false;
 
   void init(Condition* aCondition) {
