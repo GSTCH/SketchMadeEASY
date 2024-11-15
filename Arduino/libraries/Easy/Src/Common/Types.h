@@ -81,6 +81,9 @@ enum ESwitchResistoreMode {
   smPullDownInternal = 0,
   smPullDownExternal = 1,
   smPullUpExternal = 2,
+#ifdef ARDUINO_ARCH_ESP32
+  smPullUpInternal = 3,
+#endif  
 };
 
 enum ERcControl { rcJoystick1X = 0, // JobstickAxis1X

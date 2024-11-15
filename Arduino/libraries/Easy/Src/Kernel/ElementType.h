@@ -39,6 +39,7 @@
 // Indexes for EkiVirtual
 #define VIRTUAL_JOYSTICKAXIS_INDEX 1
 #define VIRTUAL_VALUE_INDEX 2
+#define VIRTUAL_REMOTEMONOFLOP_INDEX 3
 
 // Indexes for EkiHelper
 #define INHELPER_FIXVALUE_INDEX 1

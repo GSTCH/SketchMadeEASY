@@ -91,7 +91,7 @@ void ui_StartGameScreen_screen_init(void)
     lv_obj_set_x(ui_LabelInstructions, 0);
     lv_obj_set_y(ui_LabelInstructions, 1);
     lv_obj_set_align(ui_LabelInstructions, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelInstructions, "Gewünschte Anzahl Bälle ins Magazine \nlegen und Spiel starten. Warnung:");
+    lv_label_set_text(ui_LabelInstructions, "Gewünschte Anzahl Bälle ins Magazine \nlegen und Spiel starten. Achtung:");
 
     lv_obj_add_event_cb(ui_ButtonChangeBallAmount, ui_event_ButtonChangeBallAmount, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonPlay, ui_event_ButtonPlay, LV_EVENT_ALL, NULL);

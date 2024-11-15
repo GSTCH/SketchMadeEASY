@@ -47,7 +47,11 @@ void Switch2Position::Init(int aPosition1Pin, ESwitchResistoreMode aSwitchResist
   _switchResistoreMode = aSwitchResistoreMode;
   _debounceTime = aDebounceTime;
 
-  if (_switchResistoreMode == smPullUpExternal) {
+#ifdef ARDUINO_ARCH_ESP32
+  if (_switchResistoreMode == smPullUpExternal ||_switchResistoreMode ==smPullUpInternal) {
+#else 
+  if (_switchResistoreMode == smPullUpExternal ) {  
+ #endif
     //PullUp
     switchValue[Pos0] = HIGH;
   } else {
@@ -61,15 +65,26 @@ void Switch2Position::Init(int aPosition1Pin, ESwitchResistoreMode aSwitchResist
 
 //*************************************
 void Switch2Position::Setup() {
-  if (_switchResistoreMode == smPullDownInternal) {
-    // Set internal PullUp mode to the pins
-    pinMode(_position1Pin, INPUT_PULLUP);
-
-    // turn on pullup resistors
-    digitalWrite(_position1Pin, HIGH);
-  } else {
-    // Set external mode to the pins
-    pinMode(_position1Pin, INPUT);
+  switch(_switchResistoreMode)
+  {
+    // Set mode to the pin
+    case smPullDownInternal:
+      pinMode(_position1Pin, INPUT_PULLUP);
+      // turn on pullup resistors
+      digitalWrite(_position1Pin, HIGH);
+      break;
+    case smPullDownExternal:
+      pinMode(_position1Pin, INPUT);
+      digitalWrite(_position1Pin, HIGH);
+      break;
+    case smPullUpExternal:
+      pinMode(_position1Pin, INPUT);
+      break;
+#ifdef ARDUINO_ARCH_ESP32
+    case smPullUpInternal:
+      pinMode(_position1Pin, INPUT_PULLDOWN);
+      break;
+#endif    
   }
 }
 
