@@ -83,6 +83,7 @@ void Switch2Position::Setup() {
 #ifdef ARDUINO_ARCH_ESP32
     case smPullUpInternal:
       pinMode(_position1Pin, INPUT_PULLDOWN);
+      digitalWrite(_position1Pin, LOW);
       break;
 #endif    
   }
