@@ -25,20 +25,20 @@ There are many examples. The example directories contains a schema as well. Here
 
   //** Create input:
   // Input changes value periodically and toggles between High and Low.
-  Timer* timer = new Timer(TIMER_INTERVAL_MSEC, true);
+  Input* timer = new Timer(TIMER_INTERVAL_MSEC, true);
 
   //** Create actuator. 
   // A DigitalOutput knows the value On and Off.
-  DigitalOutput* led = new DigitalOutput(LED_PIN);
+  Actuator* led = new DigitalOutput(LED_PIN);
 
   //** Define logic with conditions and relations
   // Define relation when timer value changes to High
-  CompareCondition* conditionLedOn = new CompareCondition(timer, OpEQ, Timer::High);
-  Relation1to1* relationLedOn = new Relation1to1(conditionLedOn, led, FixValue::On());
+  Condition* conditionLedOn = new CompareCondition(timer, OpEQ, Timer::High);
+  Relation* relationLedOn = new Relation1to1(conditionLedOn, led, FixValue::On());
 
   // Define relation when timer value changes to Low
-  CompareCondition* conditionLedOff = new CompareCondition(timer, OpEQ, Timer::Low);
-  Relation1to1* relationLedOff = new Relation1to1(conditionLedOff, led, FixValue::Off());
+  Condition* conditionLedOff = new CompareCondition(timer, OpEQ, Timer::Low);
+  Relation* relationLedOff = new Relation1to1(conditionLedOff, led, FixValue::Off());
   // ***))
 ```
 
