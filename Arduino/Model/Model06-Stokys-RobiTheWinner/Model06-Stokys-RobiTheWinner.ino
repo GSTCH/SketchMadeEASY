@@ -39,8 +39,9 @@ int32_t TotalAmountOfBalls = DEFAULT_BALLS;
 int32_t RestBallInGame= DEFAULT_BALLS;
 
 RemoteMonoFlop start(START_IMPULS_DURATION_MILLI);
+RemoteValue ballsToPlay(0, BALLS_PER_ROUND);
 
-
+//*****************************************************************
 void setup()
 {
   //((*** Initialize: Configure your sketch here....
@@ -52,7 +53,6 @@ void setup()
   Display* display = new Display(ttILI9341_24in);
 
    // Configure Logic 
-   Input* amountOfSignal = new FixValue(BALLS_PER_ROUND);
    VariableOutput* ballOutput = new VariableOutput(BALLOUTPUT_MOTOR_PIN);
 
    Input* ballCounter = new Switch2Position(BALLOUTPUT_MOTOR_LIMIT_SWITCH_PIN, smPullDownExternal);
@@ -60,7 +60,7 @@ void setup()
 
   Condition* startCondition = new CompareCondition(&start, OpEQ, Switch2Position::On);
 
-  Relation* ballOutRelation = new SignalCountingRelation(startCondition, countCondition, amountOfSignal, ballOutput, WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC);
+  Relation* ballOutRelation = new SignalCountingRelation(startCondition, countCondition, &ballsToPlay, ballOutput, WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC);
   ballOutRelation->RegisterStateChangedEvent(ChangeBallOutRelationHighStateEventHandler);
 //... ***))
 
@@ -125,7 +125,7 @@ void ChangeBallOutRelationHighStateEventHandler(bool aState)
     else
     {
       lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
-      lv_obj_add_state( ui_ButtonThreeBall, LV_STATE_DISABLED );          
+      lv_obj_add_state(ui_ButtonThreeBall, LV_STATE_DISABLED );          
     }
 
     lv_obj_add_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
@@ -159,6 +159,7 @@ void PlayMove(int aPlayerAmountOfBall)
     switch (RestBallInGame) {
       case 1:
         lv_obj_add_state( ui_ButtonTwoBall, LV_STATE_DISABLED );
+        ballsToPlay.SetValue(RestBallInGame);
       case 2:
         lv_obj_add_state( ui_ButtonThreeBall, LV_STATE_DISABLED );
     }
@@ -171,6 +172,7 @@ void PlayMove(int aPlayerAmountOfBall)
 
     // Last move
     RestBallInGame -= aPlayerAmountOfBall;    
+
     lv_label_set_text_fmt (ui_LabelRobiBallAmount, "%d", RestBallInGame - aPlayerAmountOfBall); // REST - Players choice
     lv_obj_clear_flag(ui_ButtonGameEnd, LV_OBJ_FLAG_HIDDEN);
 
@@ -178,18 +180,20 @@ void PlayMove(int aPlayerAmountOfBall)
   }
 
 #ifdef LOG_LOOP
-  GetLog()->println("Play: Start");
+  GetLog()->println("Play: balls");
 #endif
 
   start.SetValue(1);
 }
 
+//*****************************************************************
 void ButtonSettingsOkayClicked(lv_event_t * e)
 {
   int32_t value = lv_slider_get_value(ui_SliderBallAmount);
   TotalAmountOfBalls = value;
 }
 
+//*****************************************************************
 void ButtonStartGameClicked(lv_event_t * e)
 {
 #ifdef LOG_LOOP
@@ -197,16 +201,28 @@ void ButtonStartGameClicked(lv_event_t * e)
 #endif
 
   RestBallInGame = TotalAmountOfBalls;
+  ballsToPlay.SetValue(BALLS_PER_ROUND);
   lv_label_set_text_fmt (ui_LabelRemainingInGame, "%d", RestBallInGame);
 
-  // Because screen was created, no enable of any buttons is necessary. 
+  // screen has still last settings, enable/disable and show/hide buttons and labels.
 
   // At begin Robis choice is hidden.
+  lv_obj_add_flag(ui_ButtonGameEnd, LV_OBJ_FLAG_HIDDEN);
+  
   lv_obj_add_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
 
+  lv_obj_clear_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_clear_state( ui_ButtonOneBall, LV_STATE_DISABLED );          
+
+  lv_obj_clear_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_clear_state( ui_ButtonTwoBall, LV_STATE_DISABLED );          
+
+  lv_obj_clear_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_clear_state( ui_ButtonThreeBall, LV_STATE_DISABLED );          
 }
 
+//*****************************************************************
 void ButtonTakeOneClicked(lv_event_t * e)
 {  
   // Hide not seleted button
@@ -216,6 +232,7 @@ void ButtonTakeOneClicked(lv_event_t * e)
   PlayMove(1);
 }
 
+//*****************************************************************
 void ButtonTakeTwoClicked(lv_event_t * e)
 {
   // Hide not seleted button
@@ -224,6 +241,7 @@ void ButtonTakeTwoClicked(lv_event_t * e)
   PlayMove(2);
 }
 
+//*****************************************************************
 void ButtonTakeThreeClicked(lv_event_t * e)
 {
   // Hide not seleted button
@@ -233,11 +251,13 @@ void ButtonTakeThreeClicked(lv_event_t * e)
   PlayMove(3);
 }
 
+//*****************************************************************
 void ButtonGameFinshedClick(lv_event_t * e)
 {
 	// Your code here  
 }
 
+//*****************************************************************
 void ButtonOpenSettingClicked(lv_event_t * e)
 {
 	lv_slider_set_value(ui_SliderBallAmount, TotalAmountOfBalls, LV_ANIM_OFF);
