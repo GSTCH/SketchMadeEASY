@@ -17,6 +17,9 @@ void ButtonTakeOneClicked(lv_event_t * e);
 void ButtonTakeTwoClicked(lv_event_t * e);
 void ButtonTakeThreeClicked(lv_event_t * e);
 void ButtonGameFinshedClick(lv_event_t * e);
+void StartBallOutputClicked(lv_event_t * e);
+void BallLiftStartClicked(lv_event_t * e);
+void BallLiftStopClicked(lv_event_t * e);
 
 #ifdef __cplusplus
 } /*extern "C"*/

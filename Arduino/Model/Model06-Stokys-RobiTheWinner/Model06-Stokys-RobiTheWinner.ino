@@ -35,11 +35,15 @@
 #define START_IMPULS_DURATION_MILLI 500
 #define WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC 1000
 
+#define BALLLIFT_MOTOR_PIN 25
+#define ENDPOSITION_LIMITSWITCH_PIN 35
+
 int32_t TotalAmountOfBalls = DEFAULT_BALLS;
 int32_t RestBallInGame= DEFAULT_BALLS;
 
 RemoteMonoFlop start(START_IMPULS_DURATION_MILLI);
 RemoteValue ballsToPlay(0, BALLS_PER_ROUND);
+RemoteValue ballTransportStart(0,1);
 
 //*****************************************************************
 void setup()
@@ -49,19 +53,27 @@ void setup()
   GetLog()->printf("Display Test");
 #endif
 
-  // Prepare
+  //* Prepare (touch) display
   Display* display = new Display(ttILI9341_24in);
 
-   // Configure Logic 
-   VariableOutput* ballOutput = new VariableOutput(BALLOUTPUT_MOTOR_PIN);
+  //* Configure Logic of ball eject
+  VariableOutput* ballOutput = new VariableOutput(BALLOUTPUT_MOTOR_PIN);
+  Input* ballCounter = new Switch2Position(BALLOUTPUT_MOTOR_LIMIT_SWITCH_PIN, smPullDownExternal);
 
-   Input* ballCounter = new Switch2Position(BALLOUTPUT_MOTOR_LIMIT_SWITCH_PIN, smPullDownExternal);
-   Condition* countCondition = new CompareCondition( ballCounter, OpEQ, Switch2Position::On);
-
+  Condition* countCondition = new CompareCondition( ballCounter, OpEQ, Switch2Position::On);
   Condition* startCondition = new CompareCondition(&start, OpEQ, Switch2Position::On);
 
   Relation* ballOutRelation = new SignalCountingRelation(startCondition, countCondition, &ballsToPlay, ballOutput, WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC);
   ballOutRelation->RegisterStateChangedEvent(ChangeBallOutRelationHighStateEventHandler);
+
+  //* Configure ball Lift
+  VariableOutput* ballLift = new VariableOutput(BALLLIFT_MOTOR_PIN); 
+  Input* stopPositionBallLift = new Switch2Position(ENDPOSITION_LIMITSWITCH_PIN, smPullDownExternal);
+
+  Condition* ballLiftRunCondition = new CompareCondition( &ballTransportStart, OpEQ, RemoteValue::Pos1);
+  Condition* endPositionReachedCondition = new CompareCondition( stopPositionBallLift, OpEQ, Switch2Position::High);
+
+  Relation* ballLiftRelation = new ConditionEndedRelation( ballLiftRunCondition, endPositionReachedCondition, ballLift, FixValue::On(), FixValue::Off());
 //... ***))
 
   // Initialize control
@@ -262,4 +274,23 @@ void ButtonOpenSettingClicked(lv_event_t * e)
 {
 	lv_slider_set_value(ui_SliderBallAmount, TotalAmountOfBalls, LV_ANIM_OFF);
   lv_slider_set_range(ui_SliderBallAmount, MIN_BALLS, MAX_BALLS);
+}
+
+//*****************************************************************
+void StartBallOutputClicked(lv_event_t * e)
+{
+  ballsToPlay.SetValue(lv_spinbox_get_value(ui_SpinBoxTestBallAmount));
+  start.SetValue(1);
+}
+
+//*****************************************************************
+void BallLiftStartClicked(lv_event_t * e)
+{
+	ballTransportStart.SetValue(1);
+}
+
+//*****************************************************************
+void BallLiftStopClicked(lv_event_t * e)
+{
+	ballTransportStart.SetValue(0);
 }

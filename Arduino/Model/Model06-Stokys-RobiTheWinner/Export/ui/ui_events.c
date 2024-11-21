@@ -39,3 +39,18 @@ void ButtonGameFinshedClick(lv_event_t * e)
 {
 	// Your code here
 }
+
+void StartBallOutputClicked(lv_event_t * e)
+{
+	// Your code here
+}
+
+void BallLiftStartClicked(lv_event_t * e)
+{
+	// Your code here
+}
+
+void BallLiftStopClicked(lv_event_t * e)
+{
+	// Your code here
+}

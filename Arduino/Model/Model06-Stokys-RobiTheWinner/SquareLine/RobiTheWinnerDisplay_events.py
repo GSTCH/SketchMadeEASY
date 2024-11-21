@@ -34,3 +34,19 @@ def ButtonGameFinshedClick(event_struct):
 def ButtonOpenSettingClicked(event_struct):
     return
 
+
+def ButtonStartBallOutput(event_struct):
+    return
+
+
+def StartBallOutputClicked(event_struct):
+    return
+
+
+def BallLiftStartClicked(event_struct):
+    return
+
+
+def BallLiftStopClicked(event_struct):
+    return
+

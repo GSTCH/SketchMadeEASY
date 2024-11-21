@@ -125,12 +125,13 @@ void ui_PlayScreen_screen_init(void)
     lv_obj_set_width(ui_Image3, LV_SIZE_CONTENT);   /// 76
     lv_obj_set_height(ui_Image3, LV_SIZE_CONTENT);    /// 18
     lv_obj_set_align(ui_Image3, LV_ALIGN_BOTTOM_RIGHT);
-    lv_obj_add_flag(ui_Image3, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_add_flag(ui_Image3, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_Image3, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
     lv_obj_add_event_cb(ui_ButtonOneBall, ui_event_ButtonOneBall, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonTwoBall, ui_event_ButtonTwoBall, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonThreeBall, ui_event_ButtonThreeBall, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonGameEnd, ui_event_ButtonGameEnd, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_Image3, ui_event_Image3, LV_EVENT_ALL, NULL);
 
 }

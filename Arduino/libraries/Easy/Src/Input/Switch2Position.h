@@ -57,6 +57,8 @@ class Switch2Position : public Input
     static const int Pos0 = 0;
     static const int On = 1;
     static const int Off = 0;
+    static const int High = 1;
+    static const int Low  = 0;
 };
 
 #endif

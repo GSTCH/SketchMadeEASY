@@ -35,7 +35,6 @@ private:
     _intervalMSec = aIntervalMSec;
   }
 
-protected:
   unsigned long _intervalMSec;
   unsigned long _lastStateChangeMilli;
   
@@ -53,6 +52,12 @@ public:
     : RemoteInput(CreateElementId(EbtInput, EkiVirtual, VIRTUAL_REMOTEMONOFLOP_INDEX), 0, !0) {
     init(aIntervalMSec);
   }
+
+//*************************************
+  RemoteMonoFlop(unsigned long aIntervalMSec, int aMaxValue)
+    : RemoteInput(CreateElementId(EbtInput, EkiVirtual, VIRTUAL_REMOTEMONOFLOP_INDEX), 0, aMaxValue) {
+    init(aIntervalMSec);
+  }  
 
   //*************************************
   void Setup() {
@@ -76,7 +81,7 @@ public:
   void Loop() {
     _lastValue = _currentValue;
     
-    if (_lastStateChangeMilli==0)
+    if (_lastStateChangeMilli==Low)
     {
       return;
     }
@@ -87,8 +92,8 @@ public:
 #ifdef LOG_LOOP
       GetLog()->printf("RM(%d):C End", _id);
 #endif      
-      _currentValue = 0;
-      _lastStateChangeMilli = 0;
+      _currentValue = Low;
+      _lastStateChangeMilli = Low;
     }
   }
 

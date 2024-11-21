@@ -33,6 +33,8 @@ private:
   Condition* _countCondition= NULL;
   Input* _amountOfSignal = NULL;
   Actuator* _actuator= NULL;
+  Input* _actuatorParameterTrue = NULL;
+  Input* _actuatorParameterFalse = NULL;
   int _waitUntilAcceptNextInputMSec; // ReadyOnly  
   ManualCondition* _state;
    
@@ -41,15 +43,17 @@ private:
   int _downCounter = 0;
 
   //*************************************
-  void init(Condition* aStartCondition, Input* aAmountOfSignal, Condition* aCountCondition, Actuator* aActuator, int aWaitUntilAcceptNextInputMSec)
+  void init(Condition* aStartCondition, Input* aAmountOfSignal, Condition* aCountCondition, Actuator* aActuator, Input* aActuatorParameterTrue, Input* aActuatorParameterFalse, int aWaitUntilAcceptNextInputMSec)
   {
 #ifdef LOG_SETUP_DEBUG
-    GetLog()->printf("SCR(%d):C SC=%d, Cn=%d, ActId=%d, Am=%d, %d)", _id, aStartCondition->GetId(), aCountCondition->GetId(), aActuator->GetId(), aAmountOfSignal->GetId(), aWaitUntilAcceptNextInputMSec);
+    GetLog()->printf("SCR(%d):C SC=%d, Cn=%d, ActId=%d, Am=%d, t=%d)", _id, aStartCondition->GetId(), aCountCondition->GetId(), aActuator->GetId(), aAmountOfSignal->GetId(), aWaitUntilAcceptNextInputMSec);
 #endif
     _startCondition = aStartCondition;
     _countCondition = aCountCondition;    
     _amountOfSignal = aAmountOfSignal;
     _actuator = aActuator;   
+    _actuatorParameterTrue = aActuatorParameterTrue;
+    _actuatorParameterFalse = aActuatorParameterFalse;
     _waitUntilAcceptNextInputMSec = aWaitUntilAcceptNextInputMSec;        
     
     Active = new FixValue(ReadyToStart, ReadyToStart, DownCounterActive);
@@ -65,17 +69,22 @@ public:
   FixValue* Active = NULL;
   
  #ifdef CREATE_ID_MANUALLY   
-  SignalCountingRelation(int aId, Condition* aStartCondition, Condition* aCountCondition, Input* aAmountOfSignal, Actuator* aActuator, int aWaitUntilAcceptNextInputMSec) : Relation(aId, CreateElementId(EbtRelation, EkrLogic, SIGNALCOUNTINGRELATION_INDEX), new ManualCondition())
+  SignalCountingRelation(int aId, Condition* aStartCondition, Condition* aCountCondition, Input* aAmountOfSignal, Actuator* aActuator, Input* aActuatorParameterTrue, Input* aActuatorParameterFalse, int aWaitUntilAcceptNextInputMSec) : Relation(aId, CreateElementId(EbtRelation, EkrLogic, SIGNALCOUNTINGRELATION_INDEX), NULL)
   {
-    init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, aWaitUntilAcceptNextInputMSec);
+    init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, aActuatorParameterTrue, aActuatorParameterFalse, aWaitUntilAcceptNextInputMSec);
   } 
 #endif
 
   //*************************************
+  SignalCountingRelation(Condition* aStartCondition, Condition* aCountCondition, Input* aAmountOfSignal, Actuator* aActuator, Input* aActuatorParameterTrue, Input* aActuatorParameterFalse, int aWaitUntilAcceptNextInputMSec) : Relation(CreateElementId(EbtRelation, EkrLogic, SIGNALCOUNTINGRELATION_INDEX), NULL)
+  {
+    init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, aActuatorParameterTrue, aActuatorParameterFalse, aWaitUntilAcceptNextInputMSec);
+  }   
+
   SignalCountingRelation(Condition* aStartCondition, Condition* aCountCondition, Input* aAmountOfSignal, Actuator* aActuator, int aWaitUntilAcceptNextInputMSec) : Relation(CreateElementId(EbtRelation, EkrLogic, SIGNALCOUNTINGRELATION_INDEX), NULL)
   {
-    init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, aWaitUntilAcceptNextInputMSec);
-  }   
+    init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, FixValue::On(), FixValue::Off(), aWaitUntilAcceptNextInputMSec);
+  }     
 
   //*************************************
   void Loop() {    
@@ -93,7 +102,7 @@ public:
 #endif
         
         _state->SetCondition(true);       
-        _actuator->Act(FixValue::On());
+        _actuator->Act(_actuatorParameterTrue);
         
         _ignoreInputChange = millis() + _waitUntilAcceptNextInputMSec;
       }
@@ -128,7 +137,7 @@ public:
           _ignoreInputChange = 0;
 
           _state->SetCondition(false);  
-          _actuator->Act(FixValue::Off());                   
+          _actuator->Act(_actuatorParameterFalse);
         }  
         else
         {

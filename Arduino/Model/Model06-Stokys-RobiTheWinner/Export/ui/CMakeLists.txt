@@ -1,6 +1,7 @@
 SET(SOURCES ui_StartGameScreen.c
     ui_SettingScreen.c
     ui_PlayScreen.c
+    ui_TestScreen.c
     ui.c
     ui_comp_hook.c
     ui_helpers.c

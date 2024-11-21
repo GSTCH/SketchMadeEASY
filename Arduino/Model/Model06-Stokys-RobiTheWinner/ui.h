@@ -19,6 +19,7 @@ extern "C" {
 // SCREEN: ui_StartGameScreen
 void ui_StartGameScreen_screen_init(void);
 extern lv_obj_t * ui_StartGameScreen;
+void ui_event_Image2(lv_event_t * e);
 extern lv_obj_t * ui_Image2;
 extern lv_obj_t * ui_LabelBallsToPlay;
 extern lv_obj_t * ui_LabelTextBallsToPlay;
@@ -72,7 +73,32 @@ extern lv_obj_t * ui_LabelRemainingInGame;
 void ui_event_ButtonGameEnd(lv_event_t * e);
 extern lv_obj_t * ui_ButtonGameEnd;
 extern lv_obj_t * ui_Label26;
+void ui_event_Image3(lv_event_t * e);
 extern lv_obj_t * ui_Image3;
+// CUSTOM VARIABLES
+
+// SCREEN: ui_TestScreen
+void ui_TestScreen_screen_init(void);
+extern lv_obj_t * ui_TestScreen;
+void ui_event_Image5(lv_event_t * e);
+extern lv_obj_t * ui_Image5;
+extern lv_obj_t * ui_Container1;
+extern lv_obj_t * ui_SpinBoxTestBallAmount;
+void ui_event_ButtonTestBallAmountDec(lv_event_t * e);
+extern lv_obj_t * ui_ButtonTestBallAmountDec;
+extern lv_obj_t * ui_LabelTestBallAmountDec;
+void ui_event_ButtonTestBallAmountInc(lv_event_t * e);
+extern lv_obj_t * ui_ButtonTestBallAmountInc;
+extern lv_obj_t * ui_LabelTestBallAmountInc;
+void ui_event_ButtonStartBallOutput(lv_event_t * e);
+extern lv_obj_t * ui_ButtonStartBallOutput;
+extern lv_obj_t * ui_LabelStartBallOutput;
+void ui_event_ButtonStartBallLift(lv_event_t * e);
+extern lv_obj_t * ui_ButtonStartBallLift;
+extern lv_obj_t * ui_LabelStartBallLift;
+void ui_event_ButtonStopBallLift(lv_event_t * e);
+extern lv_obj_t * ui_ButtonStopBallLift;
+extern lv_obj_t * ui_LabelStopBallLift;
 // CUSTOM VARIABLES
 
 // EVENTS

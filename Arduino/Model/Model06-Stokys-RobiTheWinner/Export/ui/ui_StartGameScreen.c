@@ -16,7 +16,7 @@ void ui_StartGameScreen_screen_init(void)
     lv_obj_set_width(ui_Image2, LV_SIZE_CONTENT);   /// 76
     lv_obj_set_height(ui_Image2, LV_SIZE_CONTENT);    /// 18
     lv_obj_set_align(ui_Image2, LV_ALIGN_BOTTOM_RIGHT);
-    lv_obj_add_flag(ui_Image2, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_add_flag(ui_Image2, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_Image2, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
     ui_LabelBallsToPlay = lv_label_create(ui_StartGameScreen);
@@ -93,6 +93,7 @@ void ui_StartGameScreen_screen_init(void)
     lv_obj_set_align(ui_LabelInstructions, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelInstructions, "Gewünschte Anzahl Bälle ins Magazine \nlegen und Spiel starten. Achtung:");
 
+    lv_obj_add_event_cb(ui_Image2, ui_event_Image2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonChangeBallAmount, ui_event_ButtonChangeBallAmount, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonPlay, ui_event_ButtonPlay, LV_EVENT_ALL, NULL);
 

@@ -121,6 +121,7 @@
 #include "Relation\Relation1to1.h"
 #include "Relation\CrawlerSteering.h"
 #include "Relation\SignalCountingRelation.h"
+#include "Relation\ConditionEndedRelation.h"
 
 // Conditions
 #include "Condition\CompareCondition.h"

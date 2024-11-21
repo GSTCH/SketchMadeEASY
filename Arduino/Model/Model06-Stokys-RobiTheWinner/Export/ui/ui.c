@@ -12,6 +12,7 @@
 // SCREEN: ui_StartGameScreen
 void ui_StartGameScreen_screen_init(void);
 lv_obj_t * ui_StartGameScreen;
+void ui_event_Image2(lv_event_t * e);
 lv_obj_t * ui_Image2;
 lv_obj_t * ui_LabelBallsToPlay;
 lv_obj_t * ui_LabelTextBallsToPlay;
@@ -67,7 +68,33 @@ lv_obj_t * ui_LabelRemainingInGame;
 void ui_event_ButtonGameEnd(lv_event_t * e);
 lv_obj_t * ui_ButtonGameEnd;
 lv_obj_t * ui_Label26;
+void ui_event_Image3(lv_event_t * e);
 lv_obj_t * ui_Image3;
+// CUSTOM VARIABLES
+
+
+// SCREEN: ui_TestScreen
+void ui_TestScreen_screen_init(void);
+lv_obj_t * ui_TestScreen;
+void ui_event_Image5(lv_event_t * e);
+lv_obj_t * ui_Image5;
+lv_obj_t * ui_Container1;
+lv_obj_t * ui_SpinBoxTestBallAmount;
+void ui_event_ButtonTestBallAmountDec(lv_event_t * e);
+lv_obj_t * ui_ButtonTestBallAmountDec;
+lv_obj_t * ui_LabelTestBallAmountDec;
+void ui_event_ButtonTestBallAmountInc(lv_event_t * e);
+lv_obj_t * ui_ButtonTestBallAmountInc;
+lv_obj_t * ui_LabelTestBallAmountInc;
+void ui_event_ButtonStartBallOutput(lv_event_t * e);
+lv_obj_t * ui_ButtonStartBallOutput;
+lv_obj_t * ui_LabelStartBallOutput;
+void ui_event_ButtonStartBallLift(lv_event_t * e);
+lv_obj_t * ui_ButtonStartBallLift;
+lv_obj_t * ui_LabelStartBallLift;
+void ui_event_ButtonStopBallLift(lv_event_t * e);
+lv_obj_t * ui_ButtonStopBallLift;
+lv_obj_t * ui_LabelStopBallLift;
 // CUSTOM VARIABLES
 
 // EVENTS
@@ -86,6 +113,17 @@ lv_obj_t * ui____initial_actions0;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_Image2(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_TestScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_TestScreen_screen_init);
+        _ui_screen_change(&ui_TestScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_TestScreen_screen_init);
+        _ui_screen_delete(&ui_StartGameScreen);
+    }
+}
+
 void ui_event_ButtonChangeBallAmount(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -192,6 +230,75 @@ void ui_event_ButtonGameEnd(lv_event_t * e)
     }
 }
 
+void ui_event_Image3(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
+        _ui_screen_delete(&ui_PlayScreen);
+    }
+}
+
+void ui_event_Image5(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
+        _ui_screen_delete(&ui_TestScreen);
+    }
+}
+
+void ui_event_ButtonTestBallAmountDec(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_spinbox_step(ui_SpinBoxTestBallAmount, -1);
+    }
+}
+
+void ui_event_ButtonTestBallAmountInc(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_spinbox_step(ui_SpinBoxTestBallAmount, 1);
+    }
+}
+
+void ui_event_ButtonStartBallOutput(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        StartBallOutputClicked(e);
+    }
+}
+
+void ui_event_ButtonStartBallLift(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_ButtonStartBallLift, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_ButtonStopBallLift, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        BallLiftStartClicked(e);
+    }
+}
+
+void ui_event_ButtonStopBallLift(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_ButtonStartBallLift, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_ButtonStopBallLift, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        BallLiftStopClicked(e);
+    }
+}
+
 ///////////////////// SCREENS ////////////////////
 
 void ui_init(void)
@@ -203,6 +310,7 @@ void ui_init(void)
     ui_StartGameScreen_screen_init();
     ui_SettingScreen_screen_init();
     ui_PlayScreen_screen_init();
+    ui_TestScreen_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_StartGameScreen);
 }

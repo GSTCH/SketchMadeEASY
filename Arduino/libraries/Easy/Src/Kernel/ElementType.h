@@ -24,6 +24,7 @@
 #include "..\Common\Log.h"
 
 
+//*** EbtInput
 // Indexes for EkiDigital
 #define DIGITAL_INPUT_INDEX 1
 #define DIGITAL_SWITCH2POSITION_INDEX 2
@@ -55,7 +56,7 @@
 // Indexes of EkiSensor
 #define SENSOR_ULTRASONICRANGEFINDER_INDEX 1
 
-
+//*** EbtActuator
 // Indexes for EkoDigital
 #define DIGITAL_OUTPUT_INDEX 1
 #define DIGITAL_JOYSTICK_CALIBRATE 2
@@ -91,16 +92,21 @@
 // Indexes of EkoHelper
 #define OUTHELPER_ACTUATORCOLLECTION_INDEX 1
 
-// Indexes of EkcCondition
+//*** EbtCondition
+// Indexes of EkrCompare
 #define CONDITION_COMPARE_INDEX 1
+// Indexes of EkrLogic
 #define CONDITION_LOGIC_INDEX 2
 #define CONDITION_ELSE_INDEX 3
 #define CONDITION_MANUAL_INDEX 4
 
-// Indexes of EkrRelations
+//*** EbtRelation
+// Indexes of EkrCompare
 #define COMPARE_1TO1_INDEX 1
+// Index of EkrCompare
 #define DIFFERENTIAL_STEARING_INDEX 2
 #define SIGNALCOUNTINGRELATION_INDEX 3
+#define CONDITION_ENDED_RELATION 4
 
 enum EElementBaseType  {
   EbtInput = 0,
