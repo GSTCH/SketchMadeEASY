@@ -79,12 +79,12 @@ public:
   SignalCountingRelation(Condition* aStartCondition, Condition* aCountCondition, Input* aAmountOfSignal, Actuator* aActuator, Input* aActuatorParameterTrue, Input* aActuatorParameterFalse, int aWaitUntilAcceptNextInputMSec) : Relation(CreateElementId(EbtRelation, EkrLogic, SIGNALCOUNTINGRELATION_INDEX), NULL)
   {
     init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, aActuatorParameterTrue, aActuatorParameterFalse, aWaitUntilAcceptNextInputMSec);
-  }   
+  }
 
   SignalCountingRelation(Condition* aStartCondition, Condition* aCountCondition, Input* aAmountOfSignal, Actuator* aActuator, int aWaitUntilAcceptNextInputMSec) : Relation(CreateElementId(EbtRelation, EkrLogic, SIGNALCOUNTINGRELATION_INDEX), NULL)
   {
     init(aStartCondition, aAmountOfSignal, aCountCondition, aActuator, FixValue::On(), FixValue::Off(), aWaitUntilAcceptNextInputMSec);
-  }     
+  }
 
   //*************************************
   void Loop() {    
@@ -121,7 +121,7 @@ public:
         // Waiting time until signal change is considered again, still active        
         SetRelationState(_iterationActive);
         return;
-      }      
+      }
       
       if (_countCondition->CheckChanged() && _countCondition->Check())
       {
@@ -138,7 +138,7 @@ public:
 
           _state->SetCondition(false);  
           _actuator->Act(_actuatorParameterFalse);
-        }  
+        }
         else
         {
 #ifdef LOG_LOOP
@@ -147,7 +147,7 @@ public:
           
           _ignoreInputChange = millis() + _waitUntilAcceptNextInputMSec;          
         }
-      }      
+      }
     }
     
 #ifdef LOG_LOOP_DEBUG
@@ -155,6 +155,6 @@ public:
 #endif
 
     SetRelationState(_iterationActive);
-  } 
+  }
 };
 #endif

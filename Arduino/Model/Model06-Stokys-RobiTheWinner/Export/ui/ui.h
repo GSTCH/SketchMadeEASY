@@ -38,19 +38,20 @@ extern lv_obj_t * ui_LabelInstructions;
 void ui_SettingScreen_screen_init(void);
 extern lv_obj_t * ui_SettingScreen;
 extern lv_obj_t * ui_Image1;
+void ui_event_ButtonSettingOk(lv_event_t * e);
+extern lv_obj_t * ui_ButtonSettingOk;
+extern lv_obj_t * ui_LabelButtonSettingOk;
+extern lv_obj_t * ui_ContainerAmountOfBall;
 void ui_event_SliderBallAmount(lv_event_t * e);
 extern lv_obj_t * ui_SliderBallAmount;
 extern lv_obj_t * ui_LabelBallAmountText;
-extern lv_obj_t * ui_LabelNumberOfBall;
 void ui_event_ButtonlessBall(lv_event_t * e);
 extern lv_obj_t * ui_ButtonlessBall;
 extern lv_obj_t * ui_LabelWeniger;
 void ui_event_ButtonMoreBall(lv_event_t * e);
 extern lv_obj_t * ui_ButtonMoreBall;
 extern lv_obj_t * ui_LabelMehr;
-void ui_event_ButtonSettingOk(lv_event_t * e);
-extern lv_obj_t * ui_ButtonSettingOk;
-extern lv_obj_t * ui_LabelButtonSettingOk;
+extern lv_obj_t * ui_LabelNumberOfBall;
 // CUSTOM VARIABLES
 
 // SCREEN: ui_PlayScreen
@@ -80,8 +81,8 @@ extern lv_obj_t * ui_Image3;
 // SCREEN: ui_TestScreen
 void ui_TestScreen_screen_init(void);
 extern lv_obj_t * ui_TestScreen;
-void ui_event_Image5(lv_event_t * e);
-extern lv_obj_t * ui_Image5;
+extern lv_obj_t * ui_TabView1;
+extern lv_obj_t * ui_FunctionPage;
 extern lv_obj_t * ui_Container1;
 extern lv_obj_t * ui_SpinBoxTestBallAmount;
 void ui_event_ButtonTestBallAmountDec(lv_event_t * e);
@@ -99,6 +100,35 @@ extern lv_obj_t * ui_LabelStartBallLift;
 void ui_event_ButtonStopBallLift(lv_event_t * e);
 extern lv_obj_t * ui_ButtonStopBallLift;
 extern lv_obj_t * ui_LabelStopBallLift;
+void ui_event_Image5(lv_event_t * e);
+extern lv_obj_t * ui_Image5;
+extern lv_obj_t * ui_AdjustmentPage;
+void ui_event_Image6(lv_event_t * e);
+extern lv_obj_t * ui_Image6;
+extern lv_obj_t * ui_ContainerBalloutputSpeed;
+void ui_event_SliderBallOutputSpeed(lv_event_t * e);
+extern lv_obj_t * ui_SliderBallOutputSpeed;
+void ui_event_LabelBalloutputSpeed(lv_event_t * e);
+extern lv_obj_t * ui_LabelBalloutputSpeed;
+extern lv_obj_t * ui_LabelBallOutputSpeedText;
+void ui_event_ButtonBallOutputSpeedLess(lv_event_t * e);
+extern lv_obj_t * ui_ButtonBallOutputSpeedLess;
+extern lv_obj_t * ui_LabelWeniger2;
+void ui_event_ButtonBallOutputSpeedMore(lv_event_t * e);
+extern lv_obj_t * ui_ButtonBallOutputSpeedMore;
+extern lv_obj_t * ui_LabelMehr2;
+extern lv_obj_t * ui_ContainerBallLiftSpeed;
+void ui_event_SliderBallLiftSpeed(lv_event_t * e);
+extern lv_obj_t * ui_SliderBallLiftSpeed;
+void ui_event_LabelBallLiftSpeed(lv_event_t * e);
+extern lv_obj_t * ui_LabelBallLiftSpeed;
+extern lv_obj_t * ui_LabelBallLiftSpeedText;
+void ui_event_ButtonBallLiftSpeedLess(lv_event_t * e);
+extern lv_obj_t * ui_ButtonBallLiftSpeedLess;
+extern lv_obj_t * ui_LabelWeniger3;
+void ui_event_ButtonBallLiftSpeedMore(lv_event_t * e);
+extern lv_obj_t * ui_ButtonBallLiftSpeedMore;
+extern lv_obj_t * ui_LabelMehr3;
 // CUSTOM VARIABLES
 
 // EVENTS

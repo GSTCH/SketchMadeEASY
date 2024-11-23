@@ -10,22 +10,19 @@ void ui_TestScreen_screen_init(void)
     ui_TestScreen = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_TestScreen, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Image5 = lv_img_create(ui_TestScreen);
-    lv_img_set_src(ui_Image5, &ui_img_arduinoeasy_logoprint_png);
-    lv_obj_set_width(ui_Image5, LV_SIZE_CONTENT);   /// 76
-    lv_obj_set_height(ui_Image5, LV_SIZE_CONTENT);    /// 18
-    lv_obj_set_x(ui_Image5, 1);
-    lv_obj_set_y(ui_Image5, 1);
-    lv_obj_set_align(ui_Image5, LV_ALIGN_BOTTOM_RIGHT);
-    lv_obj_add_flag(ui_Image5, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_Image5, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_TabView1 = lv_tabview_create(ui_TestScreen, LV_DIR_TOP, 50);
+    lv_obj_set_width(ui_TabView1, lv_pct(100));
+    lv_obj_set_height(ui_TabView1, lv_pct(100));
+    lv_obj_set_align(ui_TabView1, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_TabView1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_Container1 = lv_obj_create(ui_TestScreen);
+
+    ui_FunctionPage = lv_tabview_add_tab(ui_TabView1, "Funktion");
+
+    ui_Container1 = lv_obj_create(ui_FunctionPage);
     lv_obj_remove_style_all(ui_Container1);
     lv_obj_set_width(ui_Container1, 291);
     lv_obj_set_height(ui_Container1, 50);
-    lv_obj_set_x(ui_Container1, 4);
-    lv_obj_set_y(ui_Container1, 4);
     lv_obj_clear_flag(ui_Container1, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_GESTURE_BUBBLE |
                       LV_OBJ_FLAG_SCROLLABLE);     /// Flags
 
@@ -89,11 +86,11 @@ void ui_TestScreen_screen_init(void)
     lv_obj_set_align(ui_LabelStartBallOutput, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelStartBallOutput, "Ballabwurf start");
 
-    ui_ButtonStartBallLift = lv_btn_create(ui_TestScreen);
+    ui_ButtonStartBallLift = lv_btn_create(ui_FunctionPage);
     lv_obj_set_width(ui_ButtonStartBallLift, 131);
     lv_obj_set_height(ui_ButtonStartBallLift, 38);
-    lv_obj_set_x(ui_ButtonStartBallLift, 71);
-    lv_obj_set_y(ui_ButtonStartBallLift, -50);
+    lv_obj_set_x(ui_ButtonStartBallLift, 78);
+    lv_obj_set_y(ui_ButtonStartBallLift, -15);
     lv_obj_set_align(ui_ButtonStartBallLift, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_ButtonStartBallLift, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ButtonStartBallLift, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -104,11 +101,11 @@ void ui_TestScreen_screen_init(void)
     lv_obj_set_align(ui_LabelStartBallLift, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelStartBallLift, "Ball-Lift start");
 
-    ui_ButtonStopBallLift = lv_btn_create(ui_TestScreen);
+    ui_ButtonStopBallLift = lv_btn_create(ui_FunctionPage);
     lv_obj_set_width(ui_ButtonStopBallLift, 131);
     lv_obj_set_height(ui_ButtonStopBallLift, 38);
-    lv_obj_set_x(ui_ButtonStopBallLift, 71);
-    lv_obj_set_y(ui_ButtonStopBallLift, -50);
+    lv_obj_set_x(ui_ButtonStopBallLift, 78);
+    lv_obj_set_y(ui_ButtonStopBallLift, -15);
     lv_obj_set_align(ui_ButtonStopBallLift, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_ButtonStopBallLift, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ButtonStopBallLift, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -122,11 +119,168 @@ void ui_TestScreen_screen_init(void)
     lv_obj_set_align(ui_LabelStopBallLift, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelStopBallLift, "Ball-Lift stop");
 
-    lv_obj_add_event_cb(ui_Image5, ui_event_Image5, LV_EVENT_ALL, NULL);
+    ui_Image5 = lv_img_create(ui_FunctionPage);
+    lv_img_set_src(ui_Image5, &ui_img_arduinoeasy_logoprint_png);
+    lv_obj_set_width(ui_Image5, LV_SIZE_CONTENT);   /// 76
+    lv_obj_set_height(ui_Image5, LV_SIZE_CONTENT);    /// 18
+    lv_obj_set_x(ui_Image5, 1);
+    lv_obj_set_y(ui_Image5, 1);
+    lv_obj_set_align(ui_Image5, LV_ALIGN_BOTTOM_RIGHT);
+    lv_obj_add_flag(ui_Image5, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_Image5, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_AdjustmentPage = lv_tabview_add_tab(ui_TabView1, "Einstellungen");
+
+    ui_Image6 = lv_img_create(ui_AdjustmentPage);
+    lv_img_set_src(ui_Image6, &ui_img_arduinoeasy_logoprint_png);
+    lv_obj_set_width(ui_Image6, LV_SIZE_CONTENT);   /// 76
+    lv_obj_set_height(ui_Image6, LV_SIZE_CONTENT);    /// 18
+    lv_obj_set_x(ui_Image6, 1);
+    lv_obj_set_y(ui_Image6, 1);
+    lv_obj_set_align(ui_Image6, LV_ALIGN_BOTTOM_RIGHT);
+    lv_obj_add_flag(ui_Image6, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_Image6, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_ContainerBalloutputSpeed = lv_obj_create(ui_AdjustmentPage);
+    lv_obj_remove_style_all(ui_ContainerBalloutputSpeed);
+    lv_obj_set_width(ui_ContainerBalloutputSpeed, lv_pct(100));
+    lv_obj_set_height(ui_ContainerBalloutputSpeed, lv_pct(30));
+    lv_obj_clear_flag(ui_ContainerBalloutputSpeed, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_SliderBallOutputSpeed = lv_slider_create(ui_ContainerBalloutputSpeed);
+    lv_slider_set_value(ui_SliderBallOutputSpeed, 100, LV_ANIM_OFF);
+    if(lv_slider_get_mode(ui_SliderBallOutputSpeed) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(
+            ui_SliderBallOutputSpeed, 0, LV_ANIM_OFF);
+    lv_obj_set_width(ui_SliderBallOutputSpeed, 184);
+    lv_obj_set_height(ui_SliderBallOutputSpeed, 10);
+    lv_obj_set_x(ui_SliderBallOutputSpeed, 1);
+    lv_obj_set_y(ui_SliderBallOutputSpeed, 29);
+    lv_obj_set_align(ui_SliderBallOutputSpeed, LV_ALIGN_TOP_MID);
+    lv_obj_clear_flag(ui_SliderBallOutputSpeed, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_CLICK_FOCUSABLE);      /// Flags
+
+
+    ui_LabelBalloutputSpeed = lv_label_create(ui_ContainerBalloutputSpeed);
+    lv_obj_set_width(ui_LabelBalloutputSpeed, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelBalloutputSpeed, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelBalloutputSpeed, 70);
+    lv_obj_set_y(ui_LabelBalloutputSpeed, 0);
+    lv_obj_set_align(ui_LabelBalloutputSpeed, LV_ALIGN_TOP_MID);
+    lv_label_set_long_mode(ui_LabelBalloutputSpeed, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_LabelBalloutputSpeed, "100");
+    lv_obj_set_style_text_font(ui_LabelBalloutputSpeed, &ui_font_SansSerif25, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_LabelBallOutputSpeedText = lv_label_create(ui_ContainerBalloutputSpeed);
+    lv_obj_set_width(ui_LabelBallOutputSpeedText, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelBallOutputSpeedText, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelBallOutputSpeedText, -37);
+    lv_obj_set_y(ui_LabelBallOutputSpeedText, 4);
+    lv_obj_set_align(ui_LabelBallOutputSpeedText, LV_ALIGN_TOP_MID);
+    lv_label_set_text(ui_LabelBallOutputSpeedText, "Ballabwurf [%]");
+    lv_obj_set_style_text_font(ui_LabelBallOutputSpeedText, &ui_font_SanSerif17, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_ButtonBallOutputSpeedLess = lv_btn_create(ui_ContainerBalloutputSpeed);
+    lv_obj_set_width(ui_ButtonBallOutputSpeedLess, 40);
+    lv_obj_set_height(ui_ButtonBallOutputSpeedLess, 40);
+    lv_obj_add_flag(ui_ButtonBallOutputSpeedLess, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ButtonBallOutputSpeedLess, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_LabelWeniger2 = lv_label_create(ui_ButtonBallOutputSpeedLess);
+    lv_obj_set_width(ui_LabelWeniger2, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelWeniger2, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_LabelWeniger2, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelWeniger2, "-");
+
+    ui_ButtonBallOutputSpeedMore = lv_btn_create(ui_ContainerBalloutputSpeed);
+    lv_obj_set_width(ui_ButtonBallOutputSpeedMore, 40);
+    lv_obj_set_height(ui_ButtonBallOutputSpeedMore, 40);
+    lv_obj_set_align(ui_ButtonBallOutputSpeedMore, LV_ALIGN_TOP_RIGHT);
+    lv_obj_add_flag(ui_ButtonBallOutputSpeedMore, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ButtonBallOutputSpeedMore, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_LabelMehr2 = lv_label_create(ui_ButtonBallOutputSpeedMore);
+    lv_obj_set_width(ui_LabelMehr2, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelMehr2, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_LabelMehr2, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelMehr2, "+");
+
+    ui_ContainerBallLiftSpeed = lv_obj_create(ui_AdjustmentPage);
+    lv_obj_remove_style_all(ui_ContainerBallLiftSpeed);
+    lv_obj_set_width(ui_ContainerBallLiftSpeed, lv_pct(100));
+    lv_obj_set_height(ui_ContainerBallLiftSpeed, lv_pct(30));
+    lv_obj_set_x(ui_ContainerBallLiftSpeed, 0);
+    lv_obj_set_y(ui_ContainerBallLiftSpeed, 50);
+    lv_obj_clear_flag(ui_ContainerBallLiftSpeed, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_SliderBallLiftSpeed = lv_slider_create(ui_ContainerBallLiftSpeed);
+    lv_slider_set_value(ui_SliderBallLiftSpeed, 100, LV_ANIM_OFF);
+    if(lv_slider_get_mode(ui_SliderBallLiftSpeed) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_SliderBallLiftSpeed,
+                                                                                                        0, LV_ANIM_OFF);
+    lv_obj_set_width(ui_SliderBallLiftSpeed, 184);
+    lv_obj_set_height(ui_SliderBallLiftSpeed, 10);
+    lv_obj_set_x(ui_SliderBallLiftSpeed, 1);
+    lv_obj_set_y(ui_SliderBallLiftSpeed, 29);
+    lv_obj_set_align(ui_SliderBallLiftSpeed, LV_ALIGN_TOP_MID);
+    lv_obj_clear_flag(ui_SliderBallLiftSpeed, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_CLICK_FOCUSABLE);      /// Flags
+
+
+    ui_LabelBallLiftSpeed = lv_label_create(ui_ContainerBallLiftSpeed);
+    lv_obj_set_width(ui_LabelBallLiftSpeed, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelBallLiftSpeed, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelBallLiftSpeed, 70);
+    lv_obj_set_y(ui_LabelBallLiftSpeed, 0);
+    lv_obj_set_align(ui_LabelBallLiftSpeed, LV_ALIGN_TOP_MID);
+    lv_label_set_long_mode(ui_LabelBallLiftSpeed, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_LabelBallLiftSpeed, "100");
+    lv_obj_set_style_text_font(ui_LabelBallLiftSpeed, &ui_font_SansSerif25, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_LabelBallLiftSpeedText = lv_label_create(ui_ContainerBallLiftSpeed);
+    lv_obj_set_width(ui_LabelBallLiftSpeedText, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelBallLiftSpeedText, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelBallLiftSpeedText, -37);
+    lv_obj_set_y(ui_LabelBallLiftSpeedText, 4);
+    lv_obj_set_align(ui_LabelBallLiftSpeedText, LV_ALIGN_TOP_MID);
+    lv_label_set_text(ui_LabelBallLiftSpeedText, "Ball Lift [%]");
+    lv_obj_set_style_text_font(ui_LabelBallLiftSpeedText, &ui_font_SanSerif17, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_ButtonBallLiftSpeedLess = lv_btn_create(ui_ContainerBallLiftSpeed);
+    lv_obj_set_width(ui_ButtonBallLiftSpeedLess, 40);
+    lv_obj_set_height(ui_ButtonBallLiftSpeedLess, 40);
+    lv_obj_add_flag(ui_ButtonBallLiftSpeedLess, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ButtonBallLiftSpeedLess, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_LabelWeniger3 = lv_label_create(ui_ButtonBallLiftSpeedLess);
+    lv_obj_set_width(ui_LabelWeniger3, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelWeniger3, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_LabelWeniger3, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelWeniger3, "-");
+
+    ui_ButtonBallLiftSpeedMore = lv_btn_create(ui_ContainerBallLiftSpeed);
+    lv_obj_set_width(ui_ButtonBallLiftSpeedMore, 40);
+    lv_obj_set_height(ui_ButtonBallLiftSpeedMore, 40);
+    lv_obj_set_align(ui_ButtonBallLiftSpeedMore, LV_ALIGN_TOP_RIGHT);
+    lv_obj_add_flag(ui_ButtonBallLiftSpeedMore, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ButtonBallLiftSpeedMore, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_LabelMehr3 = lv_label_create(ui_ButtonBallLiftSpeedMore);
+    lv_obj_set_width(ui_LabelMehr3, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelMehr3, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_LabelMehr3, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelMehr3, "+");
+
     lv_obj_add_event_cb(ui_ButtonTestBallAmountDec, ui_event_ButtonTestBallAmountDec, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonTestBallAmountInc, ui_event_ButtonTestBallAmountInc, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonStartBallOutput, ui_event_ButtonStartBallOutput, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonStartBallLift, ui_event_ButtonStartBallLift, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonStopBallLift, ui_event_ButtonStopBallLift, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_Image5, ui_event_Image5, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_Image6, ui_event_Image6, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_SliderBallOutputSpeed, ui_event_SliderBallOutputSpeed, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_LabelBalloutputSpeed, ui_event_LabelBalloutputSpeed, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_ButtonBallOutputSpeedLess, ui_event_ButtonBallOutputSpeedLess, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_ButtonBallOutputSpeedMore, ui_event_ButtonBallOutputSpeedMore, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_SliderBallLiftSpeed, ui_event_SliderBallLiftSpeed, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_LabelBallLiftSpeed, ui_event_LabelBallLiftSpeed, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_ButtonBallLiftSpeedLess, ui_event_ButtonBallLiftSpeedLess, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_ButtonBallLiftSpeedMore, ui_event_ButtonBallLiftSpeedMore, LV_EVENT_ALL, NULL);
 
 }

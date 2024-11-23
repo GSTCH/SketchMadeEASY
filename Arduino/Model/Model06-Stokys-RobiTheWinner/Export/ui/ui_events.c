@@ -54,3 +54,13 @@ void BallLiftStopClicked(lv_event_t * e)
 {
 	// Your code here
 }
+
+void BallOutputSpeedChanged(lv_event_t * e)
+{
+	// Your code here
+}
+
+void BallLiftSpeedChanged(lv_event_t * e)
+{
+	// Your code here
+}

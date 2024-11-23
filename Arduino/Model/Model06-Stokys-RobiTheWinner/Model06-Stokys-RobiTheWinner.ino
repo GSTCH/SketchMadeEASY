@@ -34,6 +34,9 @@
 #define BALLOUTPUT_MOTOR_LIMIT_SWITCH_PIN 34
 #define START_IMPULS_DURATION_MILLI 500
 #define WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC 1000
+#define MAX_BALLL_SPEED 100
+#define DEFAULT_BALLLIFT_SPEED 100
+#define DEFAULT_BALLOUTPUT_SPEED 100
 
 #define BALLLIFT_MOTOR_PIN 25
 #define ENDPOSITION_LIMITSWITCH_PIN 35
@@ -44,6 +47,8 @@ int32_t RestBallInGame= DEFAULT_BALLS;
 RemoteMonoFlop start(START_IMPULS_DURATION_MILLI);
 RemoteValue ballsToPlay(0, BALLS_PER_ROUND);
 RemoteValue ballTransportStart(0,1);
+RemoteValue ballLiftSpeed(0,MAX_BALLL_SPEED);
+RemoteValue ballOutputSpeed(0,MAX_BALLL_SPEED);
 
 //*****************************************************************
 void setup()
@@ -57,23 +62,23 @@ void setup()
   Display* display = new Display(ttILI9341_24in);
 
   //* Configure Logic of ball eject
-  VariableOutput* ballOutput = new VariableOutput(BALLOUTPUT_MOTOR_PIN);
+  Actuator* ballOutput = new VariableOutput(BALLOUTPUT_MOTOR_PIN);
   Input* ballCounter = new Switch2Position(BALLOUTPUT_MOTOR_LIMIT_SWITCH_PIN, smPullDownExternal);
 
   Condition* countCondition = new CompareCondition( ballCounter, OpEQ, Switch2Position::On);
   Condition* startCondition = new CompareCondition(&start, OpEQ, Switch2Position::On);
 
-  Relation* ballOutRelation = new SignalCountingRelation(startCondition, countCondition, &ballsToPlay, ballOutput, WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC);
+  Relation* ballOutRelation = new SignalCountingRelation(startCondition, countCondition, &ballsToPlay, ballOutput, &ballOutputSpeed, FixValue::Off(), WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC);
   ballOutRelation->RegisterStateChangedEvent(ChangeBallOutRelationHighStateEventHandler);
 
   //* Configure ball Lift
-  VariableOutput* ballLift = new VariableOutput(BALLLIFT_MOTOR_PIN); 
+  Actuator* ballLift = new VariableOutput(BALLLIFT_MOTOR_PIN); 
   Input* stopPositionBallLift = new Switch2Position(ENDPOSITION_LIMITSWITCH_PIN, smPullDownExternal);
 
   Condition* ballLiftRunCondition = new CompareCondition( &ballTransportStart, OpEQ, RemoteValue::Pos1);
   Condition* endPositionReachedCondition = new CompareCondition( stopPositionBallLift, OpEQ, Switch2Position::High);
 
-  Relation* ballLiftRelation = new ConditionEndedRelation( ballLiftRunCondition, endPositionReachedCondition, ballLift, FixValue::On(), FixValue::Off());
+  Relation* ballLiftRelation = new ConditionEndedRelation( ballLiftRunCondition, endPositionReachedCondition, ballLift, &ballLiftSpeed, FixValue::Off());
 //... ***))
 
   // Initialize control
@@ -294,3 +299,16 @@ void BallLiftStopClicked(lv_event_t * e)
 {
 	ballTransportStart.SetValue(0);
 }
+
+//*****************************************************************
+void BallOutputSpeedChanged(lv_event_t * e)
+{
+	ballOutputSpeed.SetValue(lv_slider_get_value(ui_SliderBallOutputSpeed));
+}
+
+//*****************************************************************
+void BallLiftSpeedChanged(lv_event_t * e)
+{
+	ballLiftSpeed.SetValue(lv_slider_get_value(ui_SliderBallLiftSpeed));
+}
+

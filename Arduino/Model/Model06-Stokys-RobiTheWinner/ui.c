@@ -32,19 +32,20 @@ lv_obj_t * ui_LabelInstructions;
 void ui_SettingScreen_screen_init(void);
 lv_obj_t * ui_SettingScreen;
 lv_obj_t * ui_Image1;
+void ui_event_ButtonSettingOk(lv_event_t * e);
+lv_obj_t * ui_ButtonSettingOk;
+lv_obj_t * ui_LabelButtonSettingOk;
+lv_obj_t * ui_ContainerAmountOfBall;
 void ui_event_SliderBallAmount(lv_event_t * e);
 lv_obj_t * ui_SliderBallAmount;
 lv_obj_t * ui_LabelBallAmountText;
-lv_obj_t * ui_LabelNumberOfBall;
 void ui_event_ButtonlessBall(lv_event_t * e);
 lv_obj_t * ui_ButtonlessBall;
 lv_obj_t * ui_LabelWeniger;
 void ui_event_ButtonMoreBall(lv_event_t * e);
 lv_obj_t * ui_ButtonMoreBall;
 lv_obj_t * ui_LabelMehr;
-void ui_event_ButtonSettingOk(lv_event_t * e);
-lv_obj_t * ui_ButtonSettingOk;
-lv_obj_t * ui_LabelButtonSettingOk;
+lv_obj_t * ui_LabelNumberOfBall;
 // CUSTOM VARIABLES
 
 
@@ -76,8 +77,8 @@ lv_obj_t * ui_Image3;
 // SCREEN: ui_TestScreen
 void ui_TestScreen_screen_init(void);
 lv_obj_t * ui_TestScreen;
-void ui_event_Image5(lv_event_t * e);
-lv_obj_t * ui_Image5;
+lv_obj_t * ui_TabView1;
+lv_obj_t * ui_FunctionPage;
 lv_obj_t * ui_Container1;
 lv_obj_t * ui_SpinBoxTestBallAmount;
 void ui_event_ButtonTestBallAmountDec(lv_event_t * e);
@@ -95,6 +96,35 @@ lv_obj_t * ui_LabelStartBallLift;
 void ui_event_ButtonStopBallLift(lv_event_t * e);
 lv_obj_t * ui_ButtonStopBallLift;
 lv_obj_t * ui_LabelStopBallLift;
+void ui_event_Image5(lv_event_t * e);
+lv_obj_t * ui_Image5;
+lv_obj_t * ui_AdjustmentPage;
+void ui_event_Image6(lv_event_t * e);
+lv_obj_t * ui_Image6;
+lv_obj_t * ui_ContainerBalloutputSpeed;
+void ui_event_SliderBallOutputSpeed(lv_event_t * e);
+lv_obj_t * ui_SliderBallOutputSpeed;
+void ui_event_LabelBalloutputSpeed(lv_event_t * e);
+lv_obj_t * ui_LabelBalloutputSpeed;
+lv_obj_t * ui_LabelBallOutputSpeedText;
+void ui_event_ButtonBallOutputSpeedLess(lv_event_t * e);
+lv_obj_t * ui_ButtonBallOutputSpeedLess;
+lv_obj_t * ui_LabelWeniger2;
+void ui_event_ButtonBallOutputSpeedMore(lv_event_t * e);
+lv_obj_t * ui_ButtonBallOutputSpeedMore;
+lv_obj_t * ui_LabelMehr2;
+lv_obj_t * ui_ContainerBallLiftSpeed;
+void ui_event_SliderBallLiftSpeed(lv_event_t * e);
+lv_obj_t * ui_SliderBallLiftSpeed;
+void ui_event_LabelBallLiftSpeed(lv_event_t * e);
+lv_obj_t * ui_LabelBallLiftSpeed;
+lv_obj_t * ui_LabelBallLiftSpeedText;
+void ui_event_ButtonBallLiftSpeedLess(lv_event_t * e);
+lv_obj_t * ui_ButtonBallLiftSpeedLess;
+lv_obj_t * ui_LabelWeniger3;
+void ui_event_ButtonBallLiftSpeedMore(lv_event_t * e);
+lv_obj_t * ui_ButtonBallLiftSpeedMore;
+lv_obj_t * ui_LabelMehr3;
 // CUSTOM VARIABLES
 
 // EVENTS
@@ -146,6 +176,17 @@ void ui_event_ButtonPlay(lv_event_t * e)
     }
 }
 
+void ui_event_ButtonSettingOk(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
+        _ui_screen_delete(&ui_SettingScreen);
+        ButtonSettingsOkayClicked(e);
+    }
+}
+
 void ui_event_SliderBallAmount(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -178,17 +219,6 @@ void ui_event_ButtonMoreBall(lv_event_t * e)
     }
     if(event_code == LV_EVENT_LONG_PRESSED_REPEAT) {
         _ui_slider_increment(ui_SliderBallAmount, 4, LV_ANIM_ON);
-    }
-}
-
-void ui_event_ButtonSettingOk(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
-        _ui_screen_delete(&ui_SettingScreen);
-        ButtonSettingsOkayClicked(e);
     }
 }
 
@@ -240,16 +270,6 @@ void ui_event_Image3(lv_event_t * e)
     }
 }
 
-void ui_event_Image5(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
-        _ui_screen_delete(&ui_TestScreen);
-    }
-}
-
 void ui_event_ButtonTestBallAmountDec(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -296,6 +316,114 @@ void ui_event_ButtonStopBallLift(lv_event_t * e)
         _ui_flag_modify(ui_ButtonStartBallLift, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         _ui_flag_modify(ui_ButtonStopBallLift, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
         BallLiftStopClicked(e);
+    }
+}
+
+void ui_event_Image5(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
+        _ui_screen_delete(&ui_TestScreen);
+    }
+}
+
+void ui_event_Image6(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_StartGameScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_StartGameScreen_screen_init);
+        _ui_screen_delete(&ui_TestScreen);
+    }
+}
+
+void ui_event_SliderBallOutputSpeed(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+
+    if(event_code == LV_EVENT_VALUE_CHANGED) {
+        _ui_slider_set_text_value(ui_LabelBalloutputSpeed, target, "", "");
+        _ui_slider_set_text_value(ui_LabelBalloutputSpeed, target, "", "");
+    }
+}
+
+void ui_event_LabelBalloutputSpeed(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_VALUE_CHANGED) {
+        BallOutputSpeedChanged(e);
+    }
+}
+
+void ui_event_ButtonBallOutputSpeedLess(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_SHORT_CLICKED) {
+        _ui_slider_increment(ui_SliderBallOutputSpeed, -1, LV_ANIM_ON);
+    }
+    if(event_code == LV_EVENT_LONG_PRESSED_REPEAT) {
+        _ui_slider_increment(ui_SliderBallOutputSpeed, -1, LV_ANIM_ON);
+    }
+}
+
+void ui_event_ButtonBallOutputSpeedMore(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_SHORT_CLICKED) {
+        _ui_slider_increment(ui_SliderBallOutputSpeed, 1, LV_ANIM_ON);
+    }
+    if(event_code == LV_EVENT_LONG_PRESSED_REPEAT) {
+        _ui_slider_increment(ui_SliderBallOutputSpeed, 1, LV_ANIM_ON);
+    }
+}
+
+void ui_event_SliderBallLiftSpeed(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+
+    if(event_code == LV_EVENT_VALUE_CHANGED) {
+        _ui_slider_set_text_value(ui_LabelBallLiftSpeed, target, "", "");
+        _ui_slider_set_text_value(ui_LabelBallLiftSpeed, target, "", "");
+    }
+}
+
+void ui_event_LabelBallLiftSpeed(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_VALUE_CHANGED) {
+        BallLiftSpeedChanged(e);
+    }
+}
+
+void ui_event_ButtonBallLiftSpeedLess(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_SHORT_CLICKED) {
+        _ui_slider_increment(ui_SliderBallLiftSpeed, -1, LV_ANIM_ON);
+    }
+    if(event_code == LV_EVENT_LONG_PRESSED_REPEAT) {
+        _ui_slider_increment(ui_SliderBallLiftSpeed, -1, LV_ANIM_ON);
+    }
+}
+
+void ui_event_ButtonBallLiftSpeedMore(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_SHORT_CLICKED) {
+        _ui_slider_increment(ui_SliderBallLiftSpeed, 1, LV_ANIM_ON);
+    }
+    if(event_code == LV_EVENT_LONG_PRESSED_REPEAT) {
+        _ui_slider_increment(ui_SliderBallLiftSpeed, 1, LV_ANIM_ON);
     }
 }
 

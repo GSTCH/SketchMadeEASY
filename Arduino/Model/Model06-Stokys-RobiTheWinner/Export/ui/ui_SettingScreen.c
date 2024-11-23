@@ -23,68 +23,6 @@ void ui_SettingScreen_screen_init(void)
     lv_obj_add_flag(ui_Image1, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_Image1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_SliderBallAmount = lv_slider_create(ui_SettingScreen);
-    lv_slider_set_range(ui_SliderBallAmount, 5, 45);
-    lv_slider_set_value(ui_SliderBallAmount, 21, LV_ANIM_OFF);
-    if(lv_slider_get_mode(ui_SliderBallAmount) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_SliderBallAmount, 0,
-                                                                                                     LV_ANIM_OFF);
-    lv_obj_set_width(ui_SliderBallAmount, 242);
-    lv_obj_set_height(ui_SliderBallAmount, 10);
-    lv_obj_set_x(ui_SliderBallAmount, 1);
-    lv_obj_set_y(ui_SliderBallAmount, 28);
-    lv_obj_set_align(ui_SliderBallAmount, LV_ALIGN_TOP_MID);
-    lv_obj_clear_flag(ui_SliderBallAmount, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_CLICK_FOCUSABLE);      /// Flags
-
-
-    ui_LabelBallAmountText = lv_label_create(ui_SettingScreen);
-    lv_obj_set_width(ui_LabelBallAmountText, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelBallAmountText, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelBallAmountText, 0);
-    lv_obj_set_y(ui_LabelBallAmountText, 2);
-    lv_obj_set_align(ui_LabelBallAmountText, LV_ALIGN_TOP_MID);
-    lv_label_set_text(ui_LabelBallAmountText, "Mit wie vielen Bällen möchtest to spielen");
-    lv_obj_set_style_text_font(ui_LabelBallAmountText, &ui_font_SanSerif17, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_LabelNumberOfBall = lv_label_create(ui_SettingScreen);
-    lv_obj_set_width(ui_LabelNumberOfBall, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelNumberOfBall, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelNumberOfBall, -5);
-    lv_obj_set_y(ui_LabelNumberOfBall, -50);
-    lv_obj_set_align(ui_LabelNumberOfBall, LV_ALIGN_CENTER);
-    lv_label_set_long_mode(ui_LabelNumberOfBall, LV_LABEL_LONG_CLIP);
-    lv_label_set_text(ui_LabelNumberOfBall, "21");
-    lv_obj_set_style_text_font(ui_LabelNumberOfBall, &ui_font_SansSerif25, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_ButtonlessBall = lv_btn_create(ui_SettingScreen);
-    lv_obj_set_width(ui_ButtonlessBall, 100);
-    lv_obj_set_height(ui_ButtonlessBall, 50);
-    lv_obj_set_x(ui_ButtonlessBall, -85);
-    lv_obj_set_y(ui_ButtonlessBall, -50);
-    lv_obj_set_align(ui_ButtonlessBall, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_ButtonlessBall, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
-    lv_obj_clear_flag(ui_ButtonlessBall, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-
-    ui_LabelWeniger = lv_label_create(ui_ButtonlessBall);
-    lv_obj_set_width(ui_LabelWeniger, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelWeniger, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_LabelWeniger, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelWeniger, "weniger");
-
-    ui_ButtonMoreBall = lv_btn_create(ui_SettingScreen);
-    lv_obj_set_width(ui_ButtonMoreBall, 100);
-    lv_obj_set_height(ui_ButtonMoreBall, 50);
-    lv_obj_set_x(ui_ButtonMoreBall, 70);
-    lv_obj_set_y(ui_ButtonMoreBall, -48);
-    lv_obj_set_align(ui_ButtonMoreBall, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_ButtonMoreBall, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
-    lv_obj_clear_flag(ui_ButtonMoreBall, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-
-    ui_LabelMehr = lv_label_create(ui_ButtonMoreBall);
-    lv_obj_set_width(ui_LabelMehr, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_LabelMehr, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_LabelMehr, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelMehr, "mehr");
-
     ui_ButtonSettingOk = lv_btn_create(ui_SettingScreen);
     lv_obj_set_width(ui_ButtonSettingOk, 100);
     lv_obj_set_height(ui_ButtonSettingOk, 50);
@@ -104,9 +42,77 @@ void ui_SettingScreen_screen_init(void)
     lv_obj_set_align(ui_LabelButtonSettingOk, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelButtonSettingOk, "Okay");
 
+    ui_ContainerAmountOfBall = lv_obj_create(ui_SettingScreen);
+    lv_obj_remove_style_all(ui_ContainerAmountOfBall);
+    lv_obj_set_width(ui_ContainerAmountOfBall, lv_pct(100));
+    lv_obj_set_height(ui_ContainerAmountOfBall, lv_pct(43));
+    lv_obj_clear_flag(ui_ContainerAmountOfBall, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_SliderBallAmount = lv_slider_create(ui_ContainerAmountOfBall);
+    lv_slider_set_range(ui_SliderBallAmount, 5, 45);
+    lv_slider_set_value(ui_SliderBallAmount, 21, LV_ANIM_OFF);
+    if(lv_slider_get_mode(ui_SliderBallAmount) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_SliderBallAmount, 0,
+                                                                                                     LV_ANIM_OFF);
+    lv_obj_set_width(ui_SliderBallAmount, 242);
+    lv_obj_set_height(ui_SliderBallAmount, 10);
+    lv_obj_set_x(ui_SliderBallAmount, 1);
+    lv_obj_set_y(ui_SliderBallAmount, 32);
+    lv_obj_set_align(ui_SliderBallAmount, LV_ALIGN_TOP_MID);
+    lv_obj_clear_flag(ui_SliderBallAmount, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_CLICK_FOCUSABLE);      /// Flags
+
+
+    ui_LabelBallAmountText = lv_label_create(ui_ContainerAmountOfBall);
+    lv_obj_set_width(ui_LabelBallAmountText, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelBallAmountText, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelBallAmountText, 0);
+    lv_obj_set_y(ui_LabelBallAmountText, 4);
+    lv_obj_set_align(ui_LabelBallAmountText, LV_ALIGN_TOP_MID);
+    lv_label_set_text(ui_LabelBallAmountText, "Mit wie vielen Bällen möchtest to spielen");
+    lv_obj_set_style_text_font(ui_LabelBallAmountText, &ui_font_SanSerif17, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_ButtonlessBall = lv_btn_create(ui_ContainerAmountOfBall);
+    lv_obj_set_width(ui_ButtonlessBall, 100);
+    lv_obj_set_height(ui_ButtonlessBall, 50);
+    lv_obj_set_x(ui_ButtonlessBall, -87);
+    lv_obj_set_y(ui_ButtonlessBall, 24);
+    lv_obj_set_align(ui_ButtonlessBall, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_ButtonlessBall, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ButtonlessBall, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_LabelWeniger = lv_label_create(ui_ButtonlessBall);
+    lv_obj_set_width(ui_LabelWeniger, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelWeniger, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_LabelWeniger, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelWeniger, "weniger");
+
+    ui_ButtonMoreBall = lv_btn_create(ui_ContainerAmountOfBall);
+    lv_obj_set_width(ui_ButtonMoreBall, 100);
+    lv_obj_set_height(ui_ButtonMoreBall, 50);
+    lv_obj_set_x(ui_ButtonMoreBall, 87);
+    lv_obj_set_y(ui_ButtonMoreBall, 24);
+    lv_obj_set_align(ui_ButtonMoreBall, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_ButtonMoreBall, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_ButtonMoreBall, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_LabelMehr = lv_label_create(ui_ButtonMoreBall);
+    lv_obj_set_width(ui_LabelMehr, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelMehr, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_LabelMehr, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelMehr, "mehr");
+
+    ui_LabelNumberOfBall = lv_label_create(ui_ContainerAmountOfBall);
+    lv_obj_set_width(ui_LabelNumberOfBall, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelNumberOfBall, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelNumberOfBall, -1);
+    lv_obj_set_y(ui_LabelNumberOfBall, 24);
+    lv_obj_set_align(ui_LabelNumberOfBall, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_LabelNumberOfBall, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_LabelNumberOfBall, "21");
+    lv_obj_set_style_text_font(ui_LabelNumberOfBall, &ui_font_SansSerif25, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_add_event_cb(ui_ButtonSettingOk, ui_event_ButtonSettingOk, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_SliderBallAmount, ui_event_SliderBallAmount, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonlessBall, ui_event_ButtonlessBall, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonMoreBall, ui_event_ButtonMoreBall, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_ButtonSettingOk, ui_event_ButtonSettingOk, LV_EVENT_ALL, NULL);
 
 }
