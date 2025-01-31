@@ -58,6 +58,12 @@ class RemoteValue : public RemoteInput
     }
 
     //*************************************
+RemoteValue (int aValue, int aMinValue, int aMaxValue) : RemoteInput(CreateElementId(EbtInput, EkiVirtual, VIRTUAL_VALUE_INDEX), aMinValue, aMaxValue)
+    {
+        _currentValue = aValue;
+    }    
+
+    //*************************************
     void Loop()
     {
       RemoteInput::Loop();
