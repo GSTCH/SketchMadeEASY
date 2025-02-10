@@ -41,14 +41,14 @@
 
 //*************************************
 #ifdef CREATE_ID_MANUALLY  
-JoystickAxis::JoystickAxis (int aId, int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange) : Input(aId, CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), 0, MAX_AXIS_VALUE)
+JoystickAxis::JoystickAxis (int aId, int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange) : Input(aId, CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), -MAX_AXIS_VALUE, MAX_AXIS_VALUE)
 {
   Init(aAnalogPin, aSwitchDirection, aDeadZoneWidth, aConsideredMinChange);
 }
 #endif
 
 //*************************************
-JoystickAxis::JoystickAxis (int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange) : Input(CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), 0, MAX_AXIS_VALUE)
+JoystickAxis::JoystickAxis (int aAnalogPin, bool aSwitchDirection, int aDeadZoneWidth, int aConsideredMinChange) : Input(CreateElementId(EbtInput, EkiAnalog, ANALOG_JOYSTICKAXIS_INDEX), -MAX_AXIS_VALUE, MAX_AXIS_VALUE)
 {
   Init(aAnalogPin, aSwitchDirection, aDeadZoneWidth, aConsideredMinChange);
 }
