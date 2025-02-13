@@ -39,27 +39,22 @@
 // A4+A5 used by I2C
 
 // Automatic mode
-#define STEPWIDTH_HORIZONTAL_MSEC 149
-#define STEPWIDTH_VERTICAL_MSEC 227
+#define STEPWIDTH_HORIZONTAL_MSEC 227
+
+// Iterator do not drive full range
+#define SERVO_HORIZONTAL_ANGLE_DRIVE_MIN 45
+#define SERVO_HORIZONTAL_ANGLE_DRIVE_MAX 135
+#define HORIZONTAL_ANGLE_STEPWIDTH_DEGREE 1
 
 // Parameter Servo1
 #define SERVO_HORIZONTAL_NR 6
 #define SERVO_HORIZONTAL_ANGLE_MIN 0
 #define SERVO_HORIZONTAL_ANGLE_MAX 180
-// Iterator do not drive full range
-#define SERVO_HORIZONTAL_ANGLE_DRIVE_MIN 30
-#define SERVO_HORIZONTAL_ANGLE_DRIVE_MAX 150
-#define HORIZONTAL_ANGLE_STEPWIDTH_DEGREE 6 
 
 // Parameter Servo2
 #define SERVO_VERTICAL_NR 7
 #define SERVO_VERTICAL_ANGLE_MIN 0
 #define SERVO_VERTICAL_ANGLE_MAX 180
-// Iterator do not drive full range
-#define SERVO_VERTICAL_ANGLE_DRIVE_MIN 50
-#define SERVO_VERTICAL_ANGLE_DRIVE_MAX 130
-#define VERTICAL_ANGLE_STEPWIDTH_DEGREE 5
-
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
@@ -77,14 +72,11 @@ void setup() {
   // - Pos2: Manual mode, move eyes by joystick.
   Input* modeSwitch = new Switch3Position(POSITION_1_PIN, POSITION_2_PIN, SWITCHMODE);
 
-  // TODO: BereichDrehbereich  verringern
-
   // Define movement of Servo in XY-Direction of automatic mode (Pos1)
   Condition* autoMode = new CompareCondition(modeSwitch, OpEQ, Switch3Position::Pos1 );
-  Input* iteratorValueHorizontal = new IteratorValue(SERVO_HORIZONTAL_ANGLE_DRIVE_MIN, SERVO_HORIZONTAL_ANGLE_DRIVE_MAX, HORIZONTAL_ANGLE_STEPWIDTH_DEGREE, STEPWIDTH_HORIZONTAL_MSEC, cmMin2Max2Min);
-  Relation* relationServoAutomaticHorizonal = new Relation1to1(autoMode, servoHorizontal, iteratorValueHorizontal);
-  Input* iteratorValueVertical = new IteratorValue(servoVertical->getMinAngle(), servoVertical->getMaxAngle(), VERTICAL_ANGLE_STEPWIDTH_DEGREE, STEPWIDTH_VERTICAL_MSEC, cmMin2Max2Min);
-  Relation* relationServoAutomaticVertical = new Relation1to1(autoMode, servoVertical, iteratorValueVertical);
+  Input* horizontalValue = new IteratorValue(SERVO_HORIZONTAL_ANGLE_DRIVE_MIN, SERVO_HORIZONTAL_ANGLE_DRIVE_MAX, HORIZONTAL_ANGLE_STEPWIDTH_DEGREE, STEPWIDTH_HORIZONTAL_MSEC, cmMin2Max2Min);
+  horizontalValue->SetMinMaxValue(SERVO_HORIZONTAL_ANGLE_MIN, SERVO_HORIZONTAL_ANGLE_MAX);
+  Relation* eyeSimulator = new EyeControl(autoMode, horizontalValue,servoHorizontal, servoVertical);
 
   // Define movement of Servo in XY-Direction of manual mode (Pos2)
   Condition* manualMode = new CompareCondition(modeSwitch, OpEQ, Switch3Position::Pos2 );

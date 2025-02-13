@@ -122,6 +122,7 @@
 #include "Relation\CrawlerSteering.h"
 #include "Relation\SignalCountingRelation.h"
 #include "Relation\ConditionEndedRelation.h"
+#include "Relation\EyeControl.h"
 
 // Conditions
 #include "Condition\CompareCondition.h"

@@ -38,6 +38,8 @@ private:
   ECycleMode _cycleMode; // ReadOnly
   int _stepTimeWidthMSec; 
   unsigned long _lastStepChange = 0;
+  int _minRange;
+  int _maxRange;
 
   //*************************************
   void init(int aFromValue, int aToValue, int aStepWidth, int aStepTimeWidthMSec, ECycleMode aCycleMode) {
@@ -48,7 +50,9 @@ private:
     _lastValue = aFromValue;
     _currentValue = aFromValue;
     _minValue = aFromValue;
+	_minRange = aFromValue;
     _maxValue = aToValue;
+	_maxRange = aToValue;
     _stepWidth = aStepWidth;
     _stepTimeWidthMSec = aStepTimeWidthMSec;
   }
@@ -81,19 +85,19 @@ public:
       case cmMin2Max_Min2Max:
         _lastValue = _currentValue;
         _currentValue += _stepWidth;
-        if (_currentValue > _maxValue) {
-          _currentValue = _minValue;
+        if (_currentValue > _maxRange) {
+          _currentValue = _minRange;
         }
         break;
       case cmMin2Max2Min:
         _lastValue = _currentValue;
         _currentValue += _stepWidth;
         
-        if (_currentValue > _maxValue) {
-          _currentValue = _maxValue;
+        if (_currentValue > _maxRange) {
+          _currentValue = _maxRange;
           _stepWidth *= -1;
-        } else if (_currentValue < _minValue) {
-          _currentValue = _minValue;
+        } else if (_currentValue < _minRange) {
+          _currentValue = _minRange;
           _stepWidth *= -1;
         }
         break;
