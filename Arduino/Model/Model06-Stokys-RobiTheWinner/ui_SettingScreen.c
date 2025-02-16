@@ -49,7 +49,7 @@ void ui_SettingScreen_screen_init(void)
     lv_obj_clear_flag(ui_ContainerAmountOfBall, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
     ui_SliderBallAmount = lv_slider_create(ui_ContainerAmountOfBall);
-    lv_slider_set_range(ui_SliderBallAmount, 5, 45);
+    lv_slider_set_range(ui_SliderBallAmount, 5, 37);
     lv_slider_set_value(ui_SliderBallAmount, 21, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_SliderBallAmount) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_SliderBallAmount, 0,
                                                                                                      LV_ANIM_OFF);

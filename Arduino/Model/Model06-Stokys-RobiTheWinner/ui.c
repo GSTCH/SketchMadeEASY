@@ -64,6 +64,7 @@ lv_obj_t * ui_ButtonThreeBall;
 lv_obj_t * ui_LabelButtonThreeBall;
 lv_obj_t * ui_LabelRobiSpielt;
 lv_obj_t * ui_LabelRobiBallAmount;
+lv_obj_t * ui_LabelRobiUeberlegt;
 lv_obj_t * ui_LabelBallRemainingInGameText;
 lv_obj_t * ui_LabelRemainingInGame;
 void ui_event_ButtonGameEnd(lv_event_t * e);

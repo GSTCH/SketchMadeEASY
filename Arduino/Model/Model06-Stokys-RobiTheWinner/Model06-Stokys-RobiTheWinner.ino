@@ -135,6 +135,8 @@ void RecalcStateMachine() {
       // Do nothing, wait until event handler detect ball move end and forward state.
       break;
     case gsRobiThinking:    
+      lv_obj_clear_flag(ui_LabelRobiUeberlegt, LV_OBJ_FLAG_HIDDEN);
+
       if (millis() > RobiThinkEnd)
       {
         PlayerMode = gsRobiSelect;
@@ -146,6 +148,8 @@ void RecalcStateMachine() {
     case gsRobiSelect:
       if (RobiAmountOfBall > 0) {       
         // Players ball are down, not it's Robis choice
+       lv_obj_add_flag(ui_LabelRobiUeberlegt, LV_OBJ_FLAG_HIDDEN);
+
         lv_label_set_text_fmt(ui_LabelRobiBallAmount, "%d", RobiAmountOfBall);
         lv_obj_clear_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
@@ -334,6 +338,8 @@ void ButtonStartGameClicked(lv_event_t* e) {
 
   // At begin Robis choice is hidden.
   lv_obj_add_flag(ui_ButtonGameEnd, LV_OBJ_FLAG_HIDDEN);
+
+  lv_obj_add_flag(ui_LabelRobiUeberlegt, LV_OBJ_FLAG_HIDDEN);
 
   lv_obj_add_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
