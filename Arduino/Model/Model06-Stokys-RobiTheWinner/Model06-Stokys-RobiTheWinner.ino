@@ -21,6 +21,7 @@
 #include <lvgl.h>  // https://docs.lvgl.io/8.0
 #define LOG
 #include <Easy.h>
+#define LOG_LOOP
 
 //*****************************************************************
 #define MIN_BALLS 5
@@ -35,14 +36,29 @@
 #define START_IMPULS_DURATION_MILLI 500
 #define WAIT_UNTIL_ACCEPT_NEXT_INPUT_MSEC 1000
 #define MAX_BALLL_SPEED 100
-#define DEFAULT_BALLLIFT_SPEED 100
+#define DEFAULT_BALLLIFT_SPEED 95
 #define DEFAULT_BALLOUTPUT_SPEED 100
 
 #define BALLLIFT_MOTOR_PIN 25
 #define ENDPOSITION_LIMITSWITCH_PIN 35
 
+#define ROBIS_TIME_OF_THINK 1500 // [ms]
+enum EGameState {
+  gsPlayerSelect = 0,
+  gsPlayerBall = 1,
+  gsRobiThinking = 2,
+  gsRobiSelect = 3,
+  gsRobiBall = 4,
+  gsRoundEnd = 5,
+  gsGameEnd = 6,
+  gsFinished = 7
+};
+
 int32_t TotalAmountOfBalls = DEFAULT_BALLS;
 int32_t RestBallInGame = DEFAULT_BALLS;
+EGameState PlayerMode = gsPlayerSelect;
+int RobiAmountOfBall = 0;
+unsigned long RobiThinkEnd = 0;
 
 RemoteMonoFlop ballOutputSwitch(START_IMPULS_DURATION_MILLI);
 RemoteValue ballsToPlay(0, BALLS_PER_ROUND);
@@ -54,7 +70,7 @@ FixValue stopMotorSpeed(0, 0, MAX_BALLL_SPEED);
 void setup() {
   //((*** Initialize: Configure your sketch here....
 #ifdef LOG
-  GetLog()->printf("Display Test");
+  GetLog()->printf("Robi the Winner");
 #endif
 
   //* Prepare (touch) display
@@ -100,8 +116,129 @@ void loop() {
 #endif
 
   ControlManagerFactory::GetControlManager()->Loop();
+  RecalcStateMachine();
 
   delay(5);
+}
+
+//*****************************************************************
+void RecalcStateMachine() {
+#ifdef LOG_LOOP_DEBUG
+  GetLog()->printf("SM Mode=%d", PlayerMode);
+#endif
+
+  switch (PlayerMode) {
+    case gsPlayerSelect:
+      // Event driven when player select button 1, 2 or 3.
+      break;
+    case gsPlayerBall:
+      // Do nothing, wait until event handler detect ball move end and forward state.
+      break;
+    case gsRobiThinking:    
+      if (millis() > RobiThinkEnd)
+      {
+        PlayerMode = gsRobiSelect;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsRobiSelect");
+#endif
+      }
+      break;
+    case gsRobiSelect:
+      if (RobiAmountOfBall > 0) {       
+        // Players ball are down, not it's Robis choice
+        lv_label_set_text_fmt(ui_LabelRobiBallAmount, "%d", RobiAmountOfBall);
+        lv_obj_clear_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
+
+        RestBallInGame -= RobiAmountOfBall;
+        lv_label_set_text_fmt(ui_LabelRemainingInGame, "%d", RestBallInGame);  // Show rest amount of ball
+
+        ballsToPlay.SetValue(RobiAmountOfBall);
+        ballOutputSwitch.SetValue(RemoteValue::Pos1);
+
+        PlayerMode = gsRobiBall;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsRobiBall");
+#endif
+      } else {
+        // Nothing to do for Robi
+        PlayerMode = gsRoundEnd;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsRoundEnd");
+#endif
+      }
+      break;
+    case gsRobiBall:
+      // Do nothing, wait until event handler detect ball move end and forward state.
+      break;
+    case gsRoundEnd:
+      GetLog()->printf("SM Mode=gsRoundEnd Ball=%d", RestBallInGame);
+      lv_obj_add_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
+
+      if (RestBallInGame > 3) {
+        // Standard round
+        lv_obj_clear_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_state(ui_ButtonOneBall, LV_STATE_DISABLED);
+
+        lv_obj_clear_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_state(ui_ButtonTwoBall, LV_STATE_DISABLED);
+
+        lv_obj_clear_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_state(ui_ButtonThreeBall, LV_STATE_DISABLED);
+
+        PlayerMode = gsPlayerSelect;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsPlayerSelect");
+#endif
+      } else if (RestBallInGame > 0) {
+        // Final round
+        lv_obj_clear_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_clear_state(ui_ButtonOneBall, LV_STATE_DISABLED);
+
+        if (RestBallInGame < 3) {
+          // Disable button Select 2
+          lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
+          lv_obj_add_flag(ui_ButtonThreeBall, LV_STATE_DISABLED);
+        }
+
+        PlayerMode = gsPlayerSelect;
+        if (RestBallInGame < 2) {
+          // Disable button Select 2
+          lv_obj_add_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
+          lv_obj_add_flag(ui_ButtonTwoBall, LV_STATE_DISABLED);
+        }
+
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsPlayerSelect");
+#endif
+      } else {
+        // Finished
+        PlayerMode = gsGameEnd;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsGameEnd");
+#endif
+      }
+      break;
+    case gsGameEnd:
+      lv_obj_clear_flag(ui_ButtonGameEnd, LV_OBJ_FLAG_HIDDEN);
+
+      lv_obj_add_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_state(ui_ButtonOneBall, LV_STATE_DISABLED);
+
+      lv_obj_add_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_state(ui_ButtonTwoBall, LV_STATE_DISABLED);
+
+      lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_state(ui_ButtonThreeBall, LV_STATE_DISABLED);
+      PlayerMode = gsFinished;
+#ifdef LOG_LOOP
+      GetLog()->println("SM Mode=gsFinished");
+#endif
+    case gsFinished:
+      // Ended nothing to do, press "Game lose" button to change dialog.
+      break;
+  }
 }
 
 //*****************************************************************
@@ -116,78 +253,61 @@ void ChangeBallOutRelationHighStateEventHandler(bool aState) {
     lv_obj_add_state(ui_ButtonTwoBall, LV_STATE_DISABLED);
     lv_obj_add_state(ui_ButtonThreeBall, LV_STATE_DISABLED);
   } else {
-    // All balls transported, enable button and hide robi text+amount
-    lv_obj_clear_state(ui_ButtonOneBall, LV_STATE_DISABLED);
-    lv_obj_clear_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
-
-    if (RestBallInGame > 1) {
-      lv_obj_clear_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
-      lv_obj_clear_state(ui_ButtonTwoBall, LV_STATE_DISABLED);
-    } else {
-      lv_obj_add_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
-      lv_obj_add_state(ui_ButtonTwoBall, LV_STATE_DISABLED);
+    // After ball move, change to next state
+#ifdef LOG_LOOP
+    GetLog()->printf("EvRel: Mode=%d", PlayerMode);
+#endif
+    switch (PlayerMode) {
+      case gsPlayerBall:
+        PlayerMode = gsRobiThinking;
+        if (RestBallInGame>0)
+        {
+        RobiThinkEnd = millis() + ROBIS_TIME_OF_THINK;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsRobiThinking");
+#endif
+        }
+        else
+        {
+         PlayerMode = gsRoundEnd; 
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsFinished");
+#endif
+        }
+        break;
+      case gsRobiBall:
+        PlayerMode = gsRoundEnd;
+#ifdef LOG_LOOP
+        GetLog()->println("SM Mode=gsRoundEnd");
+#endif
+        break;
+      default:
+#ifdef LOG_LOOP
+        GetLog()->printf("Player: Ignore Mode");
+#endif
+        break;
     }
-
-    if (RestBallInGame > 2) {
-      lv_obj_clear_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
-      lv_obj_clear_state(ui_ButtonThreeBall, LV_STATE_DISABLED);
-    } else {
-      lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
-      lv_obj_add_state(ui_ButtonThreeBall, LV_STATE_DISABLED);
-    }
-
-    lv_obj_add_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_add_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
 //*****************************************************************
 // ui_events.c
 //*****************************************************************
-void PlayMove(int aPlayerAmountOfBall) {
-  if (RestBallInGame > 4) {
+void PlayerSelect(int aPlayerAmountOfBall) {
+  RestBallInGame -= aPlayerAmountOfBall;
+  RobiAmountOfBall = 4 - aPlayerAmountOfBall;
+  lv_label_set_text_fmt(ui_LabelRemainingInGame, "%d", RestBallInGame);
+  PlayerMode = gsPlayerBall;
 #ifdef LOG_LOOP
-    GetLog()->printf("Play: Ply=%d, Rest=%d", aPlayerAmountOfBall, RestBallInGame);
+  GetLog()->println("SM Mode=gsPlayerBall");
 #endif
 
-    // Play next move
-    // Calculate the remaining ball amount and write it to display
-    RestBallInGame -= 4;
-    lv_label_set_text_fmt(ui_LabelRemainingInGame, "%d", RestBallInGame);  // 4 Balls per Round - Players choice
-
-    // Calculate Robis move
-    lv_label_set_text_fmt(ui_LabelRobiBallAmount, "%d", 4 - aPlayerAmountOfBall);  // 4 Balls per Round - Players choice
-    lv_obj_clear_flag(ui_LabelRobiSpielt, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_clear_flag(ui_LabelRobiBallAmount, LV_OBJ_FLAG_HIDDEN);
-
-    // Prepare game end.
-    // No missing break: Smart! Case 1: button 2+3 disabled, case 2 only button 3
-    switch (RestBallInGame) {
-      case 1:
-        lv_obj_add_state(ui_ButtonTwoBall, LV_STATE_DISABLED);
-        ballsToPlay.SetValue(RestBallInGame);
-      case 2:
-        lv_obj_add_state(ui_ButtonThreeBall, LV_STATE_DISABLED);
-    }
-  } else {
 #ifdef LOG_LOOP
-    GetLog()->printf("End: Ply=%d, Rest=%d", aPlayerAmountOfBall, RestBallInGame);
+  GetLog()->printf("Player: Mode=%d, Slct=%d, Robi=%d, Rest=%d", PlayerMode, aPlayerAmountOfBall, RobiAmountOfBall, RestBallInGame);
 #endif
 
-    // Last move
-    RestBallInGame -= aPlayerAmountOfBall;
-
-    lv_label_set_text_fmt(ui_LabelRobiBallAmount, "%d", RestBallInGame - aPlayerAmountOfBall);  // REST - Players choice
-    lv_obj_clear_flag(ui_ButtonGameEnd, LV_OBJ_FLAG_HIDDEN);
-
-    lv_label_set_text_fmt(ui_LabelRemainingInGame, "%d", RestBallInGame);
-  }
-
-#ifdef LOG_LOOP
-  GetLog()->println("Play: balls");
-#endif
-
-  ballOutputSwitch.SetValue(1);
+  ballsToPlay.SetValue(aPlayerAmountOfBall);
+  ballOutputSwitch.SetValue(RemoteValue::Pos1);
 }
 
 //*****************************************************************
@@ -203,7 +323,11 @@ void ButtonStartGameClicked(lv_event_t* e) {
 #endif
 
   RestBallInGame = TotalAmountOfBalls;
-  ballsToPlay.SetValue(BALLS_PER_ROUND);
+  PlayerMode = gsPlayerSelect;
+#ifdef LOG_LOOP
+  GetLog()->println("SM Mode=gsPlayerBall");
+#endif
+
   lv_label_set_text_fmt(ui_LabelRemainingInGame, "%d", RestBallInGame);
 
   // screen has still last settings, enable/disable and show/hide buttons and labels.
@@ -230,7 +354,7 @@ void ButtonTakeOneClicked(lv_event_t* e) {
   lv_obj_add_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
 
-  PlayMove(1);
+  PlayerSelect(1);
 }
 
 //*****************************************************************
@@ -238,7 +362,7 @@ void ButtonTakeTwoClicked(lv_event_t* e) {
   // Hide not seleted button
   lv_obj_add_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
-  PlayMove(2);
+  PlayerSelect(2);
 }
 
 //*****************************************************************
@@ -247,7 +371,7 @@ void ButtonTakeThreeClicked(lv_event_t* e) {
   lv_obj_add_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
 
-  PlayMove(3);
+  PlayerSelect(3);
 }
 
 //*****************************************************************
