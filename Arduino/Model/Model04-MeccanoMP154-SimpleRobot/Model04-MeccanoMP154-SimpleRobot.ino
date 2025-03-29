@@ -98,18 +98,18 @@ void setup() {
   Input* speedMotorE = new VariableInputSwitch(SPEED_MOTORe_PIN, SWITCH_MOTORe_DIRECTION1, SWITCH_MOTORe_DIRECTION2);
 
   // Define remote controls
-  RemoteControl* flySky = NULL;
+  RemoteControl* remoteControl = NULL;
   int appPin = digitalRead(SWITCH_MODESELECTION_HANDY_PIN);
   if (appPin != HIGH) {
 #ifdef LOG
     GetLog()->println("FlySky");
 #endif
-    flySky = new FlySky(scHard2);  // FlySky is not able to communicate dynamically
+    remoteControl = new FlySky(scHard2);
   } else {
 #ifdef LOG
     GetLog()->println("App");
 #endif
-    flySky = new AppInventor(scHard3);
+    remoteControl = new AppInventor(scHard3);
   }
 
 //** Define logic with relations and conditions
@@ -126,7 +126,7 @@ void setup() {
     // Mode selection switch Pos0/PosMid: Manual Mode with switch: True when greather than Pos1, is when Pos2
     speedMotorA,
     // Mode selection switch Pos1: FlySky FS-I6X remote control
-    flySky->getControl(rcJoystick1X));
+    remoteControl->getControl(rcJoystick1X));
   // Define logic and link motor conditionless to the DepentInput
   Relation* relationMotorA = new Relation1to1(NULL, motorA, inputMotorA);
 
@@ -138,7 +138,7 @@ void setup() {
   Input* inputMotorB = new DependentInput(
     modeSelectionSwitch,
     speedMotorB,
-    flySky->getControl(rcJoystick1Y));
+    remoteControl->getControl(rcJoystick1Y));
 
   Relation* relationMotorB = new Relation1to1(NULL, motorB, inputMotorB);
 
@@ -150,7 +150,7 @@ void setup() {
   Input* inputMotorC = new DependentInput(
     modeSelectionSwitch,
     speedMotorC,
-    flySky->getControl(rcJoystick2Y));
+    remoteControl->getControl(rcJoystick2Y));
 
   Relation* relationMotorC = new Relation1to1(NULL, motorC, inputMotorC);
 
@@ -162,7 +162,7 @@ void setup() {
   Input* inputMotorD = new DependentInput(
     modeSelectionSwitch,
     speedMotorD,
-    flySky->getControl(rcJoystick2X));
+    remoteControl->getControl(rcJoystick2X));
 
   Relation* relationMotorD = new Relation1to1(NULL, motorD, inputMotorD);
 
@@ -170,11 +170,11 @@ void setup() {
 #ifdef LOG
   GetLog()->println("MotorE");
 #endif
-  Input* flySkyMotorSpeedE = new RemoteVariableInputSwitch(flySky, rcVrB);
+  Input* remoteControlMotorSpeedE = new RemoteVariableInputSwitch(remoteControl, rcVrB);
   Input* inputMotorE = new DependentInput(
     modeSelectionSwitch,
     speedMotorE,
-    flySkyMotorSpeedE);
+    remoteControlMotorSpeedE);
   Relation* relationMotorE = new Relation1to1(NULL, motorE, inputMotorE);
   
   delay(50);
