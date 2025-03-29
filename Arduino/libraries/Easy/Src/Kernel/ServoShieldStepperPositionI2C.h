@@ -76,7 +76,7 @@ public:
 
     if (_shield == NULL) {
 #ifdef LOG_SETUP
-      GetLog()->printf("SPI:C No shdObj");
+      GetLog()->println("SPI:C No shdObj");
 #endif
       return;
     }
@@ -84,7 +84,7 @@ public:
     _stepper = _shield->getStepper(_resolution, aStepperNr);
     if (_stepper == NULL) {
 #ifdef LOG_SETUP
-      GetLog()->printf("SPI:C No stp obj");
+      GetLog()->println("SPI:C No stp obj");
 #endif
     }
   }
@@ -97,7 +97,7 @@ public:
     if (!_shield->begin()) {
       // create with the default frequency 1.6KHz
 #ifdef LOG_SETUP
-      GetLog()->printf("SPI:S Motor shield wiring!?");
+      GetLog()->println("SPI:S Motor shield wiring!?");
 #endif
     }
 

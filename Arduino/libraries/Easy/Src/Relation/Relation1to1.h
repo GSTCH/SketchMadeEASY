@@ -73,7 +73,7 @@ public:
     GetLog()->printf("R1(%d):L", _id);
 #endif
 
-#ifdef LOG_LOOP
+#ifdef LOG_LOOP_DEBUG
     if (_condition != NULL)
     {
       if (_condition->CheckChanged())
@@ -110,14 +110,20 @@ public:
       }
 #endif
 
-      for (int idx = 0; idx < _itemCount; idx++)
-      {
-        if (_actionItems!=NULL)
-        { 
-          _actionItems[idx]->Act();
+      if (_actionItems!=NULL)
+	  {
+        for (int idx = 0; idx < _itemCount; idx++)
+        {
+          if (_actionItems[idx]!=NULL)
+          { 
+            _actionItems[idx]->Act();
+          }
         }
-      }
+	  }
 
+#ifdef LOG_LOOP
+      GetLog()->printf("R1(%d):L RS=1", _id);
+#endif      
       SetRelationState(true);
     }
     else

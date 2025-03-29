@@ -92,7 +92,7 @@ public:
     unsigned long currentTime = millis();
 
 #ifdef LOG_LOOP_DEBUG
-    GetLog()->printf("TI(%d):L CT=%u LT=%u", currentTime, _lastStateChangeMilli);
+    GetLog()->printf("TI(%d):L CT=%u LT=%u", _id, currentTime, _lastStateChangeMilli);
 #endif
 
     if (currentTime > (_lastStateChangeMilli + _intervalMSec)) {

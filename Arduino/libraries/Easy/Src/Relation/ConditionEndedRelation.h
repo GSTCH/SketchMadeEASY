@@ -34,7 +34,7 @@ private:
   inline void Init(Condition* aEndCondition, Actuator* aActuator, Input* aActuatorParameterTrue, Input* aActuatorParameterFalse)
   {
 #ifdef LOG_SETUP
-    GetLog()->printf("CER(%d):C Ac=%d, EC=%d", _id, aActuator->Id, aEndCondition != NULL);
+    GetLog()->printf("CER(%d):C EC=%d", _id, aEndCondition != NULL);
 #endif
     _endCondition = aEndCondition;
     _actuator = aActuator;

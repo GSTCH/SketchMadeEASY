@@ -34,7 +34,7 @@
  */  
 
 #ifndef LOG
-#define LOG 
+//#define LOG 
 #endif
 
 #ifndef LOG_LOOP

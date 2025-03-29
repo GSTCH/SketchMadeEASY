@@ -32,7 +32,7 @@ protected:
 public:
   MotorShieldBase() {
 #ifdef LOG_SETUP_DEBUG
-    GetLog()->printf("MS:C");
+    GetLog()->println("MS:C");
 #endif
   }
   virtual void Setup() {}

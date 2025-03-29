@@ -59,7 +59,7 @@ void I2cBus::setTimeout(unsigned int aTimeout) {
   GetLog()->printf("IC:T %d", aTimeout);
 #endif
 #ifndef ARDUINO_ARCH_RENESAS
-  if (_i2cBus == NULL) {
+  if (_i2cBus != NULL) {
     _i2cBus->setTimeout(aTimeout);
   }
 #endif

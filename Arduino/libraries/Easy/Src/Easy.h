@@ -74,6 +74,7 @@
 #include "Input\VariableInput.h"
 #include "Input\JoystickAxis.h"
 #include "Input\UltrasonicRangefinder.h"
+#include "Input\VariableInputSwitch.h"
 // Logic inputs
 #include "Input\FixValue.h"
 #include "Input\Inverter.h"
@@ -138,6 +139,7 @@
 #include "RemoteControl\RemoteValue.h"
 #include "RemoteControl\RemoteJoystickAxis.h"
 #include "RemoteControl\RemoteMonoFlop.h"
+#include "RemoteControl\RemoteVariableInputSwitch.h"
 #ifdef ARDUINO_ARCH_ESP32
 #include "RemoteControl\Display.h"
 #endif

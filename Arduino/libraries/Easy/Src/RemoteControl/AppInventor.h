@@ -44,7 +44,7 @@
 #endif
   
 #ifndef ARDUINO_MAX_PWM_IN
-  #define ARDUINO_MAX_PWM_IN 255
+  #define ARDUINO_MAX_PWM_IN 1023
 #endif
 
 class AppInventor : public RemoteControl {
@@ -77,7 +77,7 @@ private:
   inline void ParseAndUpdateTelegram() {
     if (_commandBuffer[0] == '\0') {
 #ifdef LOG_LOOP_DEBUG
-      GetLog()->printf("AI:PT Buffer is empty");
+      GetLog()->println("AI:PT Buffer is empty");
 #endif
       return;
     }
@@ -92,7 +92,7 @@ private:
     if (command == NULL) 
 	{
 #ifdef LOG_LOOP_DEBUG
-      GetLog()->printf("AI:PT No command received");
+      GetLog()->println("AI:PT No command received");
 #endif
       return;
     }
@@ -272,7 +272,7 @@ private:
         for (int idx = strlen(command); idx < APPINVENTOR_COMMANDBUFFER_SIZE; ++idx) {
           if (_commandBuffer[idx] == '\0') {
 #ifdef LOG_LOOP_DEBUG
-            GetLog()->printf("AI:PT Empting buffer", (uint8_t)command[0]);
+            GetLog()->printf("AI:PT Empting buffer %02x", (uint8_t)command[0]);
 #endif
             // Nothing found, clear buffer
             _commandBuffer[0] = '\0';
@@ -294,8 +294,7 @@ private:
     strncpy(_commandBuffer, &_commandBuffer[cutLen], APPINVENTOR_COMMANDBUFFER_SIZE-cutLen);
 
 #ifdef LOG_LOOP_DEBUG
-    GetLog()->printf("AI:PT cut %d, Cmd=%d %d %d", cutLen, _commandBuffer[0], _commandBuffer[1], _commandBuffer[2]);
-    
+    GetLog()->printf("AI:PT cut %d, Cmd=%d %d %d", cutLen, _commandBuffer[0], _commandBuffer[1], _commandBuffer[2]);    
     GetLog()->printf("AI:PT CV[0..4] %d, %d, %d, %d, %d", _channelValue[0], _channelValue[1], _channelValue[2], _channelValue[3], _channelValue[4]);
     GetLog()->printf("AI:PT CV[5..9] %d, %d, %d, %d, %d", _channelValue[5], _channelValue[6], _channelValue[7], _channelValue[8], _channelValue[9]);
 #endif
@@ -510,7 +509,7 @@ public:
 
       if (_bluetooth->DataReceived()) {
 #ifdef LOG_LOOP_DEBUG
-        GetLog()->printf("AI:L Recvd");
+        GetLog()->println("AI:L Recvd");
 #endif
         strcpy(_commandBuffer, _bluetooth->Data());
         while(_commandBuffer[0] != '\0')

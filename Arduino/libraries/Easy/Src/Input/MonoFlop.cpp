@@ -37,7 +37,7 @@ MonoFlop::MonoFlop(int aPin, int aHighDelay, int aLowDelay, bool aStart, ESwitch
 void MonoFlop::Init(int aPin, int aHighDelay, int aLowDelay, bool aStart, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTimeMSec)
 {
 #ifdef LOG_SETUP
-  GetLog()->printf("MF(%d):C Id=%d P=%d, HD=%d, LD=%d, T=%d, RM=%d", _id, aPin, aHighDelay, aLowDelay, aDebounceTimeMSec, aSwitchResistoreMode);
+  GetLog()->printf("MF(%d):C P=%d, HD=%d, LD=%d, T=%d, RM=%d", _id, aPin, aHighDelay, aLowDelay, aDebounceTimeMSec, aSwitchResistoreMode);
 #endif
 	
   _pin = aPin;

@@ -115,7 +115,7 @@ bool Display::DoSendMessage(const char* aMessage)
 void Display::Setup()
 {
 #ifdef LOG_SETUP
-  GetLog()->printf("DI:S start");
+  GetLog()->println("DI:S start");
 #endif
 
   //Display Prepare
@@ -154,7 +154,7 @@ void Display::Setup()
   Tft->fillScreen(TFT_BLACK);
 
 #ifdef LOG_SETUP_DEBUG
-  GetLog()->printf("DI:S end");
+  GetLog()->println("DI:S end");
 #endif
 }
 

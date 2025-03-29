@@ -59,11 +59,11 @@ void Log::enable(int baurate) {
   if (!_enabled) {
     _enabled = true;
     Serial.begin(baurate);	
-	_baudrate = baurate;
+	  _baudrate = baurate;
   } else if (_baudrate != baurate) {
-	Serial.end();
-	Serial.begin(baurate);	
-	_baudrate = baurate;
+	  Serial.end();
+	  Serial.begin(baurate);	
+	  _baudrate = baurate;
   }
 }
 

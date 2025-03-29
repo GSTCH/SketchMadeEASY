@@ -38,7 +38,7 @@ ToggleSwitch::ToggleSwitch (int aPinDirection1, int aPinDirection2, ESwitchResis
 void ToggleSwitch::Init(int aPinDirection1, int aPinDirection2, ESwitchResistoreMode aSwitchResistoreMode, int aDebounceTimeMSec)
 {
 #ifdef LOG_SETUP
-  GetLog()->printf("TS(%d):C AcId=%d P1=%d, P2=%d, T=%d", _id, aPinDirection1, aPinDirection2, aDebounceTimeMSec);
+  GetLog()->printf("TS(%d):C P1=%d, P2=%d, T=%d", _id, aPinDirection1, aPinDirection2, aDebounceTimeMSec);
 #endif
   _pinDirection1 = aPinDirection1;
   _pinDirection2 = aPinDirection2;
