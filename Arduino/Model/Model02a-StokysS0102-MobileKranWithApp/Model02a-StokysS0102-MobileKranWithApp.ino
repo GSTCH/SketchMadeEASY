@@ -34,7 +34,6 @@
 //* the Free Software Foundation; either version 2 of the License, or
 //* (at your option) any later version.
 //*****************************************************************
-
 #include <Easy.h>
 
 //*****************************************************************
@@ -59,21 +58,20 @@
 
 void setup()
 {
+  RemoteControl* remoteControl = new AppInventor(scHard);
+  //RemteControl* remoteControl = new AppInventor(SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
 
-  //AppInventor* remoteControl = new AppInventor(scHard);
-  AppInventor* remoteControl = new AppInventor(SOFTSERIAL_RXPIN, SOFTSERIAL_TXPIN);
+  Actuator* motorLeft = new MotorL298(MOTOR_LEFT_MOTOR_DIRECTIONPIN, MOTOR_LEFT_SPEEDPIN);
+  Actuator* motorRight = new MotorL298(MOTOR_RIGHT_MOTOR_DIRECTIONPIN, MOTOR_RIGHT_SPEEDPIN);
 
-  MotorL298* motorLeft = new MotorL298(MOTOR_LEFT_MOTOR_DIRECTIONPIN, MOTOR_LEFT_SPEEDPIN);
-  MotorL298* motorRight = new MotorL298(MOTOR_RIGHT_MOTOR_DIRECTIONPIN, MOTOR_RIGHT_SPEEDPIN);
+  Relation* steering = new CrawlerSteering(NULL, motorRight, motorLeft, remoteControl->getControl(rcJoystick1X), remoteControl->getControl(rcJoystick1Y), PIVOTWIDTH);
 
-  CrawlerSteering* steering = new CrawlerSteering(NULL, motorLeft, motorRight, remoteControl->getControl(rcJoystick1X), remoteControl->getControl(rcJoystick1Y), PIVOTWIDTH);
-
-  MotorServo360T2* servo360 = new MotorServo360T2(SERVO360_PIN);
-  Relation1to1* relationServo = new Relation1to1(NULL, servo360, remoteControl->getControl(rcJoystick2Y));
+  Actuator* servo360 = new MotorServo360Pwm(SERVO360_PIN);
+  Relation* relationServo = new Relation1to1(NULL, servo360, remoteControl->getControl(rcJoystick2Y));
 
   Buzzer* buzzer = new Buzzer(BUZZER_PIN, BUZZER_FREQUENCY, BUZZER_ONTIME, BUZZER_OFFTIME);
-  CompareCondition* conditionBuzzerOn = new CompareCondition(remoteControl->getControl(rcJoystick1Y), OpLT, 0);
-  Relation1to1* relationBuzzerOn = new Relation1to1(conditionBuzzerOn, buzzer, remoteControl->getControl(rcJoystick1Y));
+  Condition* conditionBuzzerOn = new CompareCondition(remoteControl->getControl(rcJoystick1Y), OpLT, 0);
+  Relation.* relationBuzzerOn = new Relation1to1(conditionBuzzerOn, buzzer, remoteControl->getControl(rcJoystick1Y));
   // ***))
 
   // Initialize control
