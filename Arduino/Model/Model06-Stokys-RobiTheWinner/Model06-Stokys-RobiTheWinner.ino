@@ -42,7 +42,8 @@
 #define BALLLIFT_MOTOR_PIN 25
 #define ENDPOSITION_LIMITSWITCH_PIN 35
 
-#define ROBIS_TIME_OF_THINK 1500 // [ms]
+#define ROBIS_TIME_OF_THINK 3000 // [ms] - Prefent 4 balls together = to easy to find out the strategie
+
 enum EGameState {
   gsPlayerSelect = 0,
   gsPlayerBall = 1,
@@ -270,6 +271,11 @@ void ChangeBallOutRelationHighStateEventHandler(bool aState) {
 #ifdef LOG_LOOP
         GetLog()->println("SM Mode=gsRobiThinking");
 #endif
+        // Prevent total  amount onof 4  the display.
+        lv_obj_add_flag(ui_ButtonOneBall, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(ui_ButtonTwoBall, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_add_flag(ui_ButtonThreeBall, LV_OBJ_FLAG_HIDDEN);
+
         }
         else
         {
