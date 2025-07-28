@@ -71,7 +71,7 @@ void setup()
 
   Buzzer* buzzer = new Buzzer(BUZZER_PIN, BUZZER_FREQUENCY, BUZZER_ONTIME, BUZZER_OFFTIME);
   Condition* conditionBuzzerOn = new CompareCondition(remoteControl->getControl(rcJoystick1Y), OpLT, 0);
-  Relation.* relationBuzzerOn = new Relation1to1(conditionBuzzerOn, buzzer, remoteControl->getControl(rcJoystick1Y));
+  Relation* relationBuzzerOn = new Relation1to1(conditionBuzzerOn, buzzer, remoteControl->getControl(rcJoystick1Y));
   // ***))
 
   // Initialize control
