@@ -54,3 +54,7 @@ def BallLiftStopClicked(event_struct):
 def BallLiftSpeedChanged(event_struct):
     return
 
+
+def BallOutputSpeedChanged(event_struct):
+    return
+
