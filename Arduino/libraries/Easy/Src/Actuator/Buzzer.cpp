@@ -25,7 +25,7 @@
 
 void Buzzer::Init(int aPin, int aFrequency, int aOnDuration, int aOffDuration, int aNumberOfCycles, int aBreakDuration)
 {
-#ifdef LOG_SETUP
+#ifdef LOG_SETUP_DEBUG
   GetLog()->printf("BZ(%d):C Pin=%d, Fq=%d, On=%d, Off=%d, n=%d, B=%d", _id, aPin, aFrequency, aOnDuration, aOffDuration, aNumberOfCycles, aBreakDuration);
 #endif
   _pin = aPin;

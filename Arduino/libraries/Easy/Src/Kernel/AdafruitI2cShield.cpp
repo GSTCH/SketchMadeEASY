@@ -32,7 +32,7 @@ Adafruit_MotorShield* AdafruitI2cShield::getMotorShield(unsigned int aBusAddress
   if (_shields == NULL) {
     // Create at first use
 #ifdef LOG_SETUP_DEBUG
-  GetLog()->printf("A2:CM L");
+  GetLog()->println("A2:CM L");
 #endif    
     _shields = new LinkedList<AdafruitShield*>();
   }

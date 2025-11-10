@@ -45,9 +45,9 @@ void ui_StartGameScreen_screen_init(void)
 
     ui_ButtonChangeBallAmount = lv_btn_create(ui_StartGameScreen);
     lv_obj_set_width(ui_ButtonChangeBallAmount, 73);
-    lv_obj_set_height(ui_ButtonChangeBallAmount, 50);
-    lv_obj_set_x(ui_ButtonChangeBallAmount, 109);
-    lv_obj_set_y(ui_ButtonChangeBallAmount, -89);
+    lv_obj_set_height(ui_ButtonChangeBallAmount, 28);
+    lv_obj_set_x(ui_ButtonChangeBallAmount, 108);
+    lv_obj_set_y(ui_ButtonChangeBallAmount, -85);
     lv_obj_set_align(ui_ButtonChangeBallAmount, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_ButtonChangeBallAmount, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_ButtonChangeBallAmount, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -78,20 +78,21 @@ void ui_StartGameScreen_screen_init(void)
     ui_LabelWinsAlways = lv_label_create(ui_StartGameScreen);
     lv_obj_set_width(ui_LabelWinsAlways, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_LabelWinsAlways, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelWinsAlways, 0);
-    lv_obj_set_y(ui_LabelWinsAlways, 33);
+    lv_obj_set_x(ui_LabelWinsAlways, -3);
+    lv_obj_set_y(ui_LabelWinsAlways, -23);
     lv_obj_set_align(ui_LabelWinsAlways, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelWinsAlways, "ROBI GEWINNT IMMER");
+    lv_label_set_text(ui_LabelWinsAlways, "KANNST DU ROBI SCHLAGEN?");
     lv_obj_set_style_text_color(ui_LabelWinsAlways, lv_color_hex(0xFF0000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_LabelWinsAlways, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_LabelInstructions = lv_label_create(ui_StartGameScreen);
     lv_obj_set_width(ui_LabelInstructions, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_LabelInstructions, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_LabelInstructions, 0);
-    lv_obj_set_y(ui_LabelInstructions, 1);
+    lv_obj_set_x(ui_LabelInstructions, 1);
+    lv_obj_set_y(ui_LabelInstructions, 18);
     lv_obj_set_align(ui_LabelInstructions, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LabelInstructions, "Gewünschte Anzahl Bälle ins Magazine \nlegen und Spiel starten. Achtung:");
+    lv_label_set_text(ui_LabelInstructions,
+                      "Regeln: Wähle zwische 1 und 3 Bällen, \nwer den letzen Ball nimmt, verliert. \nVersuche dein Glück!");
 
     lv_obj_add_event_cb(ui_Image2, ui_event_Image2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ButtonChangeBallAmount, ui_event_ButtonChangeBallAmount, LV_EVENT_ALL, NULL);

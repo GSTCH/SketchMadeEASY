@@ -32,6 +32,7 @@ private:
   //*************************************
   RelationStateChangedEvent _relationStateChangedEvent = NULL;
   bool _relationState = false;
+  bool _relationEventsDescribed = false;
 
   void init(Condition* aCondition) {
     _condition = aCondition;
@@ -51,13 +52,18 @@ protected:
 
   void SetRelationState(bool aRelationState)
   {
+    if (!_relationEventsDescribed)
+	{
+	  return;
+	}
+
     // Call this method with current condition state, each loop in the derived class
     if (_relationState != aRelationState)
     {
       CallStateEvent(aRelationState);
 
 #ifdef LOG_LOOP
-      GetLog()->printf("RE(%d):L %d->%d", _id, _relationState, aRelationState);
+      GetLog()->printf("RE(%d):L ->%d", _id, aRelationState);
 #endif
 
      _relationState = aRelationState;
@@ -83,6 +89,7 @@ public:
   inline void RegisterStateChangedEvent(RelationStateChangedEvent aEvent)
   {
     _relationStateChangedEvent = aEvent;
+	_relationEventsDescribed = aEvent!= NULL;
   }
 };
 #endif

@@ -96,5 +96,11 @@ public:
   inline int GetMaxValue() {
     return _maxValue;
   }
+  
+  //*************************************
+  inline void SetMinMaxValue(int aMinValue, int aMaxValue) {
+    _minValue = aMinValue;
+    _maxValue = aMaxValue;
+  }
 };
 #endif

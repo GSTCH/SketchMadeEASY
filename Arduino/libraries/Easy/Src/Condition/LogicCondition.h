@@ -42,7 +42,7 @@ class LogicCondition : public Condition
       _condition2 = new CompareCondition(aInput2, aCompareOperator2, aCompareParameter2);
       _logicOperator = aLogicOperator;
 
-#ifdef LOG_SETUP
+#ifdef LOG_SETUP_DEBUG
       GetLog()->printf("LC(%d):C [Op=%d, Val=%d, Inp=%d], [Op=%d, Val=%d, Inp=%d], %d", _id, aCompareOperator1, aCompareParameter1, aInput1->GetId(), aCompareOperator2, aCompareParameter2, aInput2->GetId(), aLogicOperator );
 #endif
     }
@@ -98,7 +98,7 @@ class LogicCondition : public Condition
       _condition2 = aCondition2;
       _logicOperator = aLogicOperator;
 
-#ifdef LOG_SETUP
+#ifdef LOG_SETUP_DEBUG
       GetLog()->printf("LC(%d):C(%d) CD1(=%d), CD2=(%d), Op=%d", _id, _condition1->GetId(), _condition2->GetId(), aLogicOperator );
 #endif
     }

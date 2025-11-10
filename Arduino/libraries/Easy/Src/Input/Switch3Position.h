@@ -43,7 +43,7 @@ class Switch3Position : public Input
     int _position2Pin; // ReadyOnly
     byte switchValue[3][2] {{LOW, LOW}, {LOW, LOW}, {LOW, LOW}}; // ReadyOnly
     ESwitchResistoreMode _switchResistoreMode; // ReadyOnly
-	int _debounceTime; // ReadyOnly
+	  int _debounceTime; // ReadyOnly
     unsigned long _ignoreChangeMillis;
 	
   public:

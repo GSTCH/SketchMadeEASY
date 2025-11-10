@@ -1,17 +1,21 @@
 //*****************************************************************
-//* Model 04 - Meccano model MP154 simpe robot (plan from MWMailOrder)
+//* Model 05a - Stokys roboter arm + Meccano simple robot
+//* (Same control as model 04, but motor poti 5 has been used for a servo.)
 //*
-//* Robotic arm with 5 motors. Switch to change mode. 3 modes are supported:
-//* - Manual: (L)-0-(R) switch per motor,  potentionmeter defines speed per motor
+//* Robotic arm with 4 motors and a servo. 
+//* Switch to change mode. 3 modes are supported:
+//* - Manual: - (L)-0-(R) switch per motor,  potentionmeter defines speed per motor
+//*           - Potentionmeter to define the servo position
 //* - Bluetooth/App built with AppInventor
 //* - RemoteControl FlySky FS-I6X
 //*
 //* Hardware:
 //* - Arduino Mega 2560 R3 is recommended,
 //* - Adafruit MotorShield v2
+//* - Adafruit 16-Channel 12-bit PWM/Servo Shield-I2C
 //* - Prototyp/Screw shield (Optional)
 //* - 1 switch with 3 position 1-0-1
-//* - 5 switch with 3 position (1)-0-(1)
+//* - 4 switch with 3 position (1)-0-(1)
 //* - 5 Potentiometer 10kOhm
 //* - HC06 Bluetooth shield
 //* - FlySky FS-I6X sender
@@ -70,6 +74,12 @@
 #define SWITCH_MOTORd_DIRECTION2 42
 #define SWITCH_MOTORe_DIRECTION1 48
 #define SWITCH_MOTORe_DIRECTION2 49
+//Servo Parameters
+#define SERVO_POSITION_PIN A11
+#define SERVO_NR 15
+#define SERVO_MIN_ANGLE 0
+#define SERVO_MAX_ANGLE 90
+
 
 void setup() {
   //((*** Initialize: Configure your sketch here....
@@ -83,6 +93,7 @@ void setup() {
   Actuator* motorC = new MotorI2C(MOTORc_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
   Actuator* motorD = new MotorI2C(MOTORd_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD1);
   Actuator* motorE = new MotorI2C(MOTORe_I2C_NUMBER, I2CBUS_ADRESS_MOTORSHIELD2);
+  Actuator* servo = new ServoI2C(SERVO_MIN_ANGLE, SERVO_MAX_ANGLE, SERVO_NR);
 
   // Define mode switch
   Input* modeSelectionSwitch = new Switch3Position(SWITCH_MODESELECTION_HANDY_PIN, SWITCH_MODESELECTION_FLYSKY_PIN);
@@ -96,6 +107,7 @@ void setup() {
   Input* speedMotorC = new VariableInputSwitch(SPEED_MOTORc_PIN, SWITCH_MOTORc_DIRECTION1, SWITCH_MOTORc_DIRECTION2);
   Input* speedMotorD = new VariableInputSwitch(SPEED_MOTORd_PIN, SWITCH_MOTORd_DIRECTION1, SWITCH_MOTORd_DIRECTION2);
   Input* speedMotorE = new VariableInputSwitch(SPEED_MOTORe_PIN, SWITCH_MOTORe_DIRECTION1, SWITCH_MOTORe_DIRECTION2);
+  Input* servoPosition = new VariableInput(SERVO_POSITION_PIN);
 
   // Define remote controls
   RemoteControl* remoteControl = NULL;
@@ -177,6 +189,14 @@ void setup() {
     remoteControlMotorSpeedE);
   Relation* relationMotorE = new Relation1to1(NULL, motorE, inputMotorE);
   
+   //* Servo:    
+   GetLog()->println("Servo"); 
+   // The remote control has only 8 joystick axis. Servo position use a rotation knob 
+   Input* servoInput = new DependentInput(modeSelectionSwitch,
+                                          servoPosition, 
+                                          remoteControl->getControl(rcVrA));
+   Relation* relationServo = new Relation1to1( NULL, servo, servoInput );
+
   delay(50);
   // ***))
 

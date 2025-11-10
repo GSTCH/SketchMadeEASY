@@ -128,7 +128,7 @@ static Log* GetLog(int baurate = EASY_LOG_BAUDRATE) {
 
   if (log == NULL) {
     log = new Log();
-	log->enable(baurate);
+	  log->enable(baurate);
   }
   return log;
 }

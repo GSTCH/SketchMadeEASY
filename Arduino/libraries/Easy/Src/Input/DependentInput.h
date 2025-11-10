@@ -89,7 +89,7 @@ public:
     _currentSelection = _lastSelection = -1;
     _valueChanged = true;
   }   
-
+  
   //*************************************
   void Loop() {
     _lastValue = _currentValue;
@@ -97,42 +97,48 @@ public:
     _valueChanged = false;
 
     _currentSelection = _selectionInput->Value();
+	
+	if (_currentSelection < 0 ||_currentSelection >= _inputValueCount) 
+	{
+#ifdef LOG_LOOP
+      GetLog()->printf("DI(%d):L V=%d > %d", _id, _currentSelection, _inputValueCount);
+#endif
+      return;
+    }
+
     bool modeChanged = false;
     if (_currentSelection != _lastSelection) {
       modeChanged = true;
       _valueChanged = true;
     } 
-    else if (_inputValues[_currentSelection]->ValueChanged() && _inputValues[_currentSelection]->GetKind()== EkiLogic )
+    else if (_inputValues[_currentSelection]!=NULL)
     {
-      // When input is a logic input e.g. a dependentInput as well, selection can change and in this case Min/Max as well.
+      if (_inputValues[_currentSelection]->ValueChanged() && _inputValues[_currentSelection]->GetKind()== EkiLogic ) {
+        // When input is a logic input e.g. a dependentInput as well, selection can change and in this case Min/Max as well.
+        _minValue = _inputValues[_currentSelection]->GetMinValue();
+        _maxValue = _inputValues[_currentSelection]->GetMaxValue();
+      }
+	}
+
+  if (_inputValues[_currentSelection]!=NULL) {    
+    int value = _inputValues[_currentSelection]->Value();      
+    if (value != _currentValue) {
+      _valueChanged = true;
+      _currentValue = value;
+    } 
+
+    if (modeChanged) {
       _minValue = _inputValues[_currentSelection]->GetMinValue();
       _maxValue = _inputValues[_currentSelection]->GetMaxValue();
     }
+  }
 
-    if (_currentSelection >= 0 && _currentSelection < _inputValueCount) {      
-      if (_inputValues[_currentSelection]!=NULL) {    
-        int value = _inputValues[_currentSelection]->Value();      
-        if (value != _currentValue) {
-          _valueChanged = true;
-          _currentValue = value;
-        } 
-
-        if (modeChanged) {
-          _minValue = _inputValues[_currentSelection]->GetMinValue();
-          _maxValue = _inputValues[_currentSelection]->GetMaxValue();
-        }
-      }
 
 #ifdef LOG_LOOP
-      if (ValueChanged()) {
-        GetLog()->printf("IS(%d):L M=%d, Min=%d, Max=%d, CVl=%d, LVl=%d", _id, _currentSelection, _minValue, _maxValue,  _currentValue, _lastValue);
-      }
-#endif
-    } else {
-#ifdef LOG_LOOP
-      GetLog()->printf("IS(%d):L V=%d > %d", _id, _currentSelection, _inputValueCount);
-#endif
+    if (ValueChanged()) {
+      GetLog()->printf("DI(%d):L M=%d, Min=%d, Max=%d, CVl=%d, LVl=%d, VC=%d", _id, _currentSelection, _minValue, _maxValue,  _currentValue, _lastValue, _valueChanged);
     }
+#endif
   }
 };
 #endif

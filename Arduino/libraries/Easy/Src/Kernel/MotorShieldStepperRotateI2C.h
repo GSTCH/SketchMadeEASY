@@ -83,7 +83,7 @@ public:
 
     if (_shield == NULL) {
 #ifdef LOG_SETUP
-      GetLog()->printf("SRI:C No shdObj");
+      GetLog()->println("SRI:C No shdObj");
 #endif
       return;
     }
@@ -99,7 +99,7 @@ public:
   //*************************************
   void Setup() {
 #ifdef LOG_SETUP_DEBUG
-    GetLog()->printf("SRI:S");
+    GetLog()->println("SRI:S");
 #endif
     if (!_shield->begin()) {
       // create with the default frequency 1.6KHz
@@ -163,7 +163,7 @@ public:
   //*************************************
   void stop() {
 #ifdef LOG_LOOP_DEBUG
-    GetLog()->printf("SRI:Sp");
+    GetLog()->println("SRI:Sp");
 #endif
     _direction = 0;
     _cycleSpeed = 0;

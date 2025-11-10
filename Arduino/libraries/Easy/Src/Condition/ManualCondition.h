@@ -34,7 +34,7 @@ public:
   ManualCondition(int aId)
     : Condition(aId, CreateElementId(EbtCondition, EkcCompare, CONDITION_MANUAL_INDEX)) {
 #ifdef LOG_CREATE
-    GetLog()->printf("MC(%d):C");
+    GetLog()->printf("MC(%d):C", _id);
 #endif
   }
 #endif
@@ -43,7 +43,7 @@ public:
   ManualCondition() 
     : Condition(CreateElementId(EbtCondition, EkcCompare, CONDITION_MANUAL_INDEX)) {
 #ifdef LOG_CREATE
-    GetLog()->printf("MC(%d):C");
+    GetLog()->printf("MC(%d):C", _id);
 #endif
   }
 

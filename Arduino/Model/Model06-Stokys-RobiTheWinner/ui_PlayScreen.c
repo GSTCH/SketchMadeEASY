@@ -70,6 +70,9 @@ void ui_PlayScreen_screen_init(void)
     lv_obj_set_y(ui_LabelRobiSpielt, -1);
     lv_obj_set_align(ui_LabelRobiSpielt, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelRobiSpielt, "Robi nimmt     Bälle");
+    lv_obj_clear_flag(ui_LabelRobiSpielt,
+                      LV_OBJ_FLAG_CLICK_FOCUSABLE | LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM |
+                      LV_OBJ_FLAG_SCROLL_CHAIN);     /// Flags
 
     ui_LabelRobiBallAmount = lv_label_create(ui_PlayScreen);
     lv_obj_set_width(ui_LabelRobiBallAmount, LV_SIZE_CONTENT);   /// 1
@@ -79,6 +82,14 @@ void ui_PlayScreen_screen_init(void)
     lv_obj_set_align(ui_LabelRobiBallAmount, LV_ALIGN_CENTER);
     lv_label_set_text(ui_LabelRobiBallAmount, "2");
     lv_obj_set_style_text_font(ui_LabelRobiBallAmount, &ui_font_SansSerif25, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_LabelRobiUeberlegt = lv_label_create(ui_PlayScreen);
+    lv_obj_set_width(ui_LabelRobiUeberlegt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_LabelRobiUeberlegt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_LabelRobiUeberlegt, 2);
+    lv_obj_set_y(ui_LabelRobiUeberlegt, -1);
+    lv_obj_set_align(ui_LabelRobiUeberlegt, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_LabelRobiUeberlegt, "Robi überlegt....");
 
     ui_LabelBallRemainingInGameText = lv_label_create(ui_PlayScreen);
     lv_obj_set_width(ui_LabelBallRemainingInGameText, LV_SIZE_CONTENT);   /// 1
@@ -92,7 +103,7 @@ void ui_PlayScreen_screen_init(void)
     lv_obj_set_width(ui_LabelRemainingInGame, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_LabelRemainingInGame, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_LabelRemainingInGame, -1);
-    lv_obj_set_y(ui_LabelRemainingInGame, -21);
+    lv_obj_set_y(ui_LabelRemainingInGame, -23);
     lv_obj_set_align(ui_LabelRemainingInGame, LV_ALIGN_BOTTOM_MID);
     lv_label_set_text(ui_LabelRemainingInGame, "45");
     lv_obj_set_style_text_font(ui_LabelRemainingInGame, &ui_font_SansSerif25, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -114,7 +125,7 @@ void ui_PlayScreen_screen_init(void)
     lv_obj_set_width(ui_Label26, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label26, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label26, -1);
-    lv_obj_set_y(ui_Label26, 1);
+    lv_obj_set_y(ui_Label26, 0);
     lv_obj_set_align(ui_Label26, LV_ALIGN_CENTER);
     lv_label_set_text(ui_Label26, "Du hast verloren!");
     lv_obj_set_style_text_color(ui_Label26, lv_color_hex(0xFFFF00), LV_PART_MAIN | LV_STATE_DEFAULT);

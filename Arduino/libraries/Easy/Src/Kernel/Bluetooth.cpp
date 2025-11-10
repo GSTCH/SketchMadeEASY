@@ -122,7 +122,7 @@ void Bluetooth::LoopHardSerial() {
     else {
       _inData[0] = '\0';
 #ifdef LOG_LOOP_DEBUG
-      GetLog()->printf("BT:LHs Rcv 0");
+      GetLog()->println("BT:LHs Rcv 0");
 #endif
     }
 
@@ -173,7 +173,7 @@ void Bluetooth::LoopSoftSerial() {
     else {
       _inData[0] = 0;
 #ifdef LOG_LOOP_DEBUG
-      GetLog()->printf("BT:LSs Rcv 0");
+      GetLog()->println("BT:LSs Rcv 0");
 #endif
     }
 
@@ -291,7 +291,7 @@ inline HardwareSerial* Bluetooth::GetHardwareSerial() {
 #endif      
     default:
 #ifdef LOG_LOOP
-      GetLog()->printf("BT:G Not supported mode");
+      GetLog()->println("BT:G Not supported mode");
 #endif  // LOG
       return NULL;
   }

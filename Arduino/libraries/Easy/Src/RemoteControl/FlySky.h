@@ -51,8 +51,7 @@ private:
   IBusBM* _ibusRC;
   EHardwareSerialMode _serialMode;
 
-  Condition* _enableCondition = NULL;
-  ERcCommunicationState _communicationEnabled = csOff;
+  ERcCommunicationState _communicationState = csOff;
 
   inline void ConfigIBus(EHardwareSerialMode aHardwareSerialMode) {
     _serialMode = aHardwareSerialMode;
@@ -62,11 +61,13 @@ private:
 protected:
 
 public:
+  // FlySky class is not able to communicate dynamically
+
   //*************************************
   FlySky(RemoteInput** aRemoteInputs, EHardwareSerialMode aHardwareSerialMode)
     : RemoteControl(rtFlySky, aRemoteInputs) {
 #ifdef LOG_SETUP
-    GetLog()->printf("FS:C1");
+    GetLog()->println("FS:C1");
 
 #endif
     ConfigIBus(aHardwareSerialMode);
@@ -77,23 +78,13 @@ public:
     : RemoteControl(rtFlySky)
   {
 #ifdef LOG_SETUP_DEBUG
-    GetLog()->printf("FS:C2 in");
+    GetLog()->println("FS:C2 in");
 #endif
 
     ConfigIBus(aHardwareSerialMode);
   }
 
   //*************************************		  
-  FlySky(EHardwareSerialMode aHardwareSerialMode, Condition* aConditionWhenEnabled)
-    : RemoteControl(rtFlySky)
-  {
-    _communicationEnabled = csOff;
-    _enableCondition = aConditionWhenEnabled;
-
-    ConfigIBus(aHardwareSerialMode);
-  }
-
-  //*************************************
   RemoteInput* getControl(ERcControl aControl) {
 #ifdef LOG_SETUP_DEBUG    
     GetLog()->printf("FS:G Tp=%d", aControl);
@@ -187,8 +178,6 @@ public:
 
   //*************************************
   void Setup() {
-    bool enabledCommunication = _enableCondition == NULL;
-
 #ifdef LOG_SETUP_DEBUG
     GetLog()->println("FS:S");
 #endif
@@ -200,15 +189,9 @@ public:
           GetLog()->disable();
         }
 
-        if (!enabledCommunication) {
-          Serial.end();
-          _communicationEnabled = csDisabled;
-        }
-        else {
-          _communicationEnabled = csOn;
-          Serial.begin(115200, SERIAL_8N1);
-          _ibusRC->begin(Serial);
-        }
+        //Serial.begin(115200, SERIAL_8N1);
+        _ibusRC->begin(Serial);
+        _communicationState = csDisabled;
         break;
 #if defined( __AVR_ATmega2560__) ||  defined(ARDUINO_ARCH_ESP32)
       case scHard1:
@@ -216,30 +199,16 @@ public:
         GetLog()->println("FS:S HW1");
 #endif		
         pinMode(19, INPUT_PULLUP);  // fix Serial1
-        if (!enabledCommunication) {
-          Serial1.end();
-          _communicationEnabled = csDisabled;
-        }
-        else {
-          _communicationEnabled = csOn;
-          Serial1.begin(115200, SERIAL_8N1);
-          _ibusRC->begin(Serial1);
-        }
+        _ibusRC->begin(Serial1);
+        _communicationState = csDisabled;
         break;
       case scHard2:
 #ifdef LOG_SETUP	  
         GetLog()->println("FS:S HW2");
 #endif		
         pinMode(17, INPUT_PULLUP);  // fix Serial2
-        if (!enabledCommunication) {
-          Serial2.end();
-          _communicationEnabled = csDisabled;
-        }
-        else {
-          _communicationEnabled = csOn;
-          Serial2.begin(115200, SERIAL_8N1);
-          _ibusRC->begin(Serial2);
-        }
+        _ibusRC->begin(Serial2);
+        _communicationState = csDisabled;
         break;
 #endif  // __AVR_ATmega2560__ or ESP32
 #if defined( __AVR_ATmega2560__)                    
@@ -247,16 +216,9 @@ public:
 #ifdef LOG_SETUP	  
         GetLog()->println("FS:S HW3");
 #endif				
+        _communicationState = csDisabled;
+        _ibusRC->begin(Serial3);
         pinMode(15, INPUT_PULLUP);  // fix Serial3
-        if (!enabledCommunication) {
-          Serial3.end();
-          _communicationEnabled = csDisabled;
-        }
-        else {
-          _communicationEnabled = csOn;
-          Serial3.begin(115200, SERIAL_8N1);
-          _ibusRC->begin(Serial3);
-        }
         break;
 #endif  // __AVR_ATmega2560__
     }
@@ -264,107 +226,31 @@ public:
     // Wait for the receiver to receive data from the transmitter (transmitter needs to be turned on)
     // as the channel values all read 0 as long as the transmitter is turned off at boot time.
     // We do not want the car to drive full speed backwards out of control.0
+    if (_communicationState == csDisabled)
+    {
 #ifdef LOG_SETUP
-    GetLog()->println("FS:S Wait RC");
+      GetLog()->println("FS:S Wait RC");
 #endif
 
-    if (enabledCommunication) {
       while (_ibusRC->cnt_rec == 0) delay(100);
       _connected = true;
-    }
+      _communicationState = csOn;
+
 
 #ifdef LOG_SETUP
-    GetLog()->println("FS:S RC ok");
+      GetLog()->println("FS:S RC ok");
 #endif
+    }
   }
 
   //*************************************
   void Loop()
   {
 #ifdef LOG_LOOP_DEBUG
-    GetLog()->printf("FS:L");
+    GetLog()->println("FS:L");
 #endif
 
-    if (_enableCondition != NULL)
-    {
-      if (_enableCondition->Check() && _communicationEnabled == csDisabled)
-      {
-#ifdef LOG_LOOP
-        GetLog()->printf("FS:L enable");
-#endif		  
-        switch (_serialMode) {
-          case scHard:
-            Serial.begin(115200, SERIAL_8N1);
-            break;
-#if defined( __AVR_ATmega2560__) ||  defined(ARDUINO_ARCH_ESP32)
-          case scHard1:
-            Serial2.begin(115200, SERIAL_8N1);
-            break;
-          case scHard2:
-            Serial2.begin(115200, SERIAL_8N1);
-            break;
-#endif  // __AVR_ATmega2560__ or ESP32
-#if defined( __AVR_ATmega2560__)            
-          case scHard3:
-            Serial3.begin(115200, SERIAL_8N1);
-            break;
-#endif  // __AVR_ATmega2560__                           
-        }
-        _communicationEnabled = csOn;
-      }
-      else if (!_enableCondition->Check() && _communicationEnabled == csOn)
-      {
-#ifdef LOG_LOOP
-        GetLog()->printf("FS:L disable");
-#endif		  		  
-        switch (_serialMode) {
-          case scHard:
-            Serial.end();
-            break;
-#if defined( __AVR_ATmega2560__) ||  defined(ARDUINO_ARCH_ESP32)
-          case scHard1:
-            Serial1.end();
-            break;
-          case scHard2:
-            Serial2.end();
-            break;
-#endif  // __AVR_ATmega2560__ or ESP32
-#if defined( __AVR_ATmega2560__)            
-          case scHard3:
-            Serial3.end();
-            break;
-#endif  // __AVR_ATmega2560__               
-        }
-        _communicationEnabled = csDisabled;
-      }
-      else if (_enableCondition->Check() && _communicationEnabled == csOff)
-      {
-#ifdef LOG_LOOP
-        GetLog()->printf("FS:L on");
-#endif		  
-        switch (_serialMode) {
-          case scHard:
-            _ibusRC->begin(Serial);
-            break;
-#if defined( __AVR_ATmega2560__) ||  defined(ARDUINO_ARCH_ESP32)
-          case scHard1:
-            _ibusRC->begin(Serial1);
-            break;
-          case scHard2:
-            _ibusRC->begin(Serial2);
-            break;
-#endif  // __AVR_ATmega2560__ or ESP32
-#if defined( __AVR_ATmega2560__)            
-          case scHard3:
-            _ibusRC->begin(Serial3);
-            break;
-#endif  // __AVR_ATmega2560__          
-        }
-        _communicationEnabled = csOn;
-      }
-    }
-
-    if (_ibusRC != NULL && _communicationEnabled == csOn) {
+    if (_ibusRC != NULL && _communicationState == csOn) {
       bool anyChanges = false;
 
       for (int idx = 0; idx < EASY_MAX_CHANNEL; idx++) {
@@ -388,6 +274,7 @@ public:
         GetLog()->printf("FS:L S [%d] [%d] [%d] [%d] [%d] [%d]", _channelValue[4], _channelValue[5], _channelValue[6], _channelValue[7], _channelValue[8], _channelValue[9]);
       }
 #endif
+
     }
   }
 };

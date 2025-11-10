@@ -98,7 +98,9 @@ void ControlManager::Setup() {
 #endif
   for (int i = 0; i < _remoteControls->size(); i++) {
     RemoteControl* remoteControl = _remoteControls->get(i);
+#ifdef LOG_SETUP    
     GetLog()->printf("CM:S RC%d", i);
+#endif    
     remoteControl->Setup();
   }
 #else
@@ -229,13 +231,13 @@ void ControlManager::Add(Condition* aCondition) {
 void ControlManager::Set(RemoteControl* aRemoteControl) {
 #ifdef MULTI_REMOTECONTROL
 #ifdef LOG_SETUP_DEBUG
-  GetLog()->printf("CM:++ RC");
+  GetLog()->println("CM:++ RC");
 #endif
   _remoteControls->add(aRemoteControl);
   
 #else
 #ifdef LOG_SETUP_DEBUG
-  GetLog()->printf("CM:+ RC");
+  GetLog()->println("CM:+ RC");
 #endif
   _remoteControl = aRemoteControl;
 #endif
